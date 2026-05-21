@@ -1509,25 +1509,19 @@ footer {
 .footer-bottom-end {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-}
-
-.footer-bottom-links {
-  display: flex;
-  align-items: center;
   gap: 0.55rem;
   flex-wrap: wrap;
 }
 
-.footer-bottom-links a {
+a.footer-bottom-links {
   color: rgba(240,246,255,0.4);
   text-decoration: none;
   transition: color 0.18s;
   white-space: nowrap;
+  font-size: 0.78rem;
 }
-.footer-bottom-links a:hover { color: var(--gold-mid); }
-.footer-bottom-links span { color: rgba(240,246,255,0.18); }
+a.footer-bottom-links:hover { color: var(--gold-mid); }
+.footer-sep { color: rgba(240,246,255,0.18); font-size: 0.78rem; }
 
 .footer-admin-link {
   color: rgba(240,246,255,0.15);
@@ -2309,15 +2303,14 @@ footer {
       <!-- RTL start (right): copyright -->
       <p class="footer-copyright">© 2026 ברזילי, עזורי ושות&#x27; – עורכי דין. כל הזכויות שמורות.</p>
 
-      <!-- RTL end (left): legal links + admin -->
+      <!-- RTL end (left): legal links + admin — all inline -->
       <div class="footer-bottom-end">
-        <nav class="footer-bottom-links" aria-label="קישורים משפטיים">
-          <a href="./accessibility.html">הצהרת נגישות</a>
-          <span aria-hidden="true">|</span>
-          <a href="./privacy.html">מדיניות פרטיות</a>
-          <span aria-hidden="true">|</span>
-          <a href="./terms.html">תקנון ותנאי שימוש</a>
-        </nav>
+        <a href="./accessibility.html" class="footer-bottom-links">הצהרת נגישות</a>
+        <span aria-hidden="true" class="footer-sep">|</span>
+        <a href="./privacy.html" class="footer-bottom-links">מדיניות פרטיות</a>
+        <span aria-hidden="true" class="footer-sep">|</span>
+        <a href="./terms.html" class="footer-bottom-links">תקנון ותנאי שימוש</a>
+        <span aria-hidden="true" class="footer-sep">|</span>
         <a href="#" class="footer-admin-link">ניהול</a>
       </div>
     </div><!-- /footer-bottom -->

@@ -1471,15 +1471,20 @@ footer {
 .footer-contact-item a:hover { color: var(--gold-mid); }
 
 .footer-nav-link {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.65rem;          /* matches .footer-contact-item gap */
   margin-top: 0.55rem;
-  color: var(--gold-mid) !important;
-  font-size: 0.87rem;
+  margin-bottom: 0.85rem;/* matches .footer-contact-item spacing */
+  font-size: 0.86rem;    /* matches .footer-contact-item font-size */
   font-weight: 600;
+  color: var(--gold-mid) !important;
   text-decoration: none;
   transition: opacity 0.18s;
+}
+.footer-nav-link svg {
+  flex-shrink: 0;
+  /* no margin-top: icon is single-line → center alignment is exact */
 }
 .footer-nav-link:hover { opacity: 0.75; }
 

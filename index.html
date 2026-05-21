@@ -2208,6 +2208,7 @@ footer {
         <li><a href="#expertise">עסקאות נדל"ן</a></li>
         <li><a href="#expertise">התחדשות עירונית</a></li>
         <li><a href="#expertise">רישום זכויות</a></li>
+        <li><a href="#expertise">רישום בתים משותפים</a></li>
         <li><a href="#expertise">צוואות וירושות</a></li>
         <li><a href="#expertise">ייפוי כוח מתמשך</a></li>
       </ul>
@@ -2224,7 +2225,10 @@ footer {
 
       <div class="footer-contact-item">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--gold-mid)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-        <span>054-2030535 (אגם)<br>054-2531925 (לירון)</span>
+        <span>
+          <a href="https://wa.me/972542030535" target="_blank" rel="noopener" class="footer-wa-link">054-2030535 (אגם)</a><br>
+          <a href="https://wa.me/972542531925" target="_blank" rel="noopener" class="footer-wa-link">054-2531925 (לירון)</a>
+        </span>
       </div>
 
       <div class="footer-contact-item">
@@ -2361,164 +2365,604 @@ footer {
 
 
 <!-- ═══ ACCESSIBILITY WIDGET ═══ -->
-<div id="a11y-btn" role="button" aria-label="אפשרויות נגישות" tabindex="0" title="נגישות">
-  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="white">
-    <circle cx="12" cy="4" r="2"/>
-    <path d="M19 7H5l1.5 5H10v8h4v-8h3.5L19 7z"/>
+<button id="a11y-btn" aria-label="הגדרות נגישות" aria-expanded="false" aria-controls="a11y-panel" title="הגדרות נגישות">
+  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+    <circle cx="12" cy="4" r="2.2"/>
+    <path d="M19 8H5l1.6 5.5H10V22h4V13.5h3.4L19 8z"/>
   </svg>
-</div>
+</button>
 
-<div id="a11y-panel" role="dialog" aria-label="תפריט נגישות" dir="rtl">
-  <div id="a11y-panel-header">
-    <span>נגישות</span>
-    <button id="a11y-close" aria-label="סגור">✕</button>
+<aside id="a11y-panel" role="dialog" aria-label="הגדרות נגישות" aria-modal="true" aria-hidden="true" dir="rtl">
+
+  <!-- Header -->
+  <div class="a11y-hdr">
+    <div class="a11y-hdr-title">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
+      הגדרות נגישות
+    </div>
+    <button class="a11y-close-btn" id="a11y-close" aria-label="סגור">✕</button>
   </div>
-  <div class="a11y-options">
-    <button class="a11y-opt" onclick="a11y.fontSize(1)">
-      <span class="a11y-icon">A+</span>
-      <span>הגדלת טקסט</span>
-    </button>
-    <button class="a11y-opt" onclick="a11y.fontSize(-1)">
-      <span class="a11y-icon">A-</span>
-      <span>הקטנת טקסט</span>
-    </button>
-    <button class="a11y-opt" id="btn-contrast" onclick="a11y.toggle('contrast')">
-      <span class="a11y-icon">◑</span>
-      <span>ניגודיות גבוהה</span>
-    </button>
-    <button class="a11y-opt" id="btn-grayscale" onclick="a11y.toggle('grayscale')">
-      <span class="a11y-icon">◻</span>
-      <span>גווני אפור</span>
-    </button>
-    <button class="a11y-opt" id="btn-links" onclick="a11y.toggle('links')">
-      <span class="a11y-icon">🔗</span>
-      <span>הדגשת קישורים</span>
-    </button>
-    <button class="a11y-opt" onclick="a11y.reset()">
-      <span class="a11y-icon">↺</span>
-      <span>איפוס</span>
+
+  <!-- Text Size -->
+  <div class="a11y-sec">
+    <div class="a11y-sec-label">גודל טקסט</div>
+    <div class="a11y-size-row">
+      <button class="a11y-size-btn" id="a11y-plus" aria-label="הגדל טקסט">+</button>
+      <span class="a11y-size-val" id="a11y-size-val">100%</span>
+      <button class="a11y-size-btn" id="a11y-minus" aria-label="הקטן טקסט">−</button>
+    </div>
+  </div>
+
+  <!-- Readable Font -->
+  <div class="a11y-sec">
+    <div class="a11y-sec-label">גופן קריאה (Sans-Serif)</div>
+    <div class="a11y-row-item">
+      <button class="a11y-toggle-btn" id="a11y-toggle-font" data-feature="font" aria-pressed="false">
+        <span class="a11y-toggle-track"><span class="a11y-toggle-knob"></span></span>
+        <span class="a11y-toggle-lbl">כבוי</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Contrast Modes -->
+  <div class="a11y-sec">
+    <div class="a11y-sec-label">מצב ניגודיות</div>
+    <div class="a11y-contrast-grid">
+      <button class="a11y-mode-btn active" id="a11y-c-normal" data-mode="normal">רגיל</button>
+      <button class="a11y-mode-btn" id="a11y-c-high"   data-mode="high">ניגודיות גבוהה</button>
+      <button class="a11y-mode-btn" id="a11y-c-invert" data-mode="invert">הפוך</button>
+      <button class="a11y-mode-btn" id="a11y-c-mono"   data-mode="mono">מונוכרום</button>
+    </div>
+  </div>
+
+  <!-- Highlight Elements -->
+  <div class="a11y-sec">
+    <div class="a11y-sec-label">הדגשת אלמנטים</div>
+    <div class="a11y-row-item">
+      <span>הדגש קישורים</span>
+      <button class="a11y-toggle-btn" id="a11y-toggle-links" data-feature="links" aria-pressed="false">
+        <span class="a11y-toggle-track"><span class="a11y-toggle-knob"></span></span>
+        <span class="a11y-toggle-lbl">כבוי</span>
+      </button>
+    </div>
+    <div class="a11y-row-item">
+      <span>הדגש כותרות</span>
+      <button class="a11y-toggle-btn" id="a11y-toggle-headings" data-feature="headings" aria-pressed="false">
+        <span class="a11y-toggle-track"><span class="a11y-toggle-knob"></span></span>
+        <span class="a11y-toggle-lbl">כבוי</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Stop Animations -->
+  <div class="a11y-sec">
+    <div class="a11y-sec-label">עצירת תנועה</div>
+    <div class="a11y-row-item">
+      <span>עצור אנימציות</span>
+      <button class="a11y-toggle-btn" id="a11y-toggle-anim" data-feature="anim" aria-pressed="false">
+        <span class="a11y-toggle-track"><span class="a11y-toggle-knob"></span></span>
+        <span class="a11y-toggle-lbl">כבוי</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Screen Reader Mode -->
+  <div class="a11y-sec">
+    <div class="a11y-sec-label">קורא מסך</div>
+    <div class="a11y-row-item">
+      <span>מצב קורא מסך</span>
+      <button class="a11y-toggle-btn" id="a11y-toggle-sr" data-feature="sr" aria-pressed="false">
+        <span class="a11y-toggle-track"><span class="a11y-toggle-knob"></span></span>
+        <span class="a11y-toggle-lbl">כבוי</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Reset -->
+  <div class="a11y-sec a11y-reset-sec">
+    <button class="a11y-reset-btn" id="a11y-reset">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+      אפוס הגדרות
     </button>
   </div>
-</div>
+
+  <div class="a11y-footer-note">הגדרות נשמרות אוטומטית לביקור הבא</div>
+</aside>
 
 <style>
+/* ── Accessibility Widget Styles ── */
 #a11y-btn {
   position: fixed;
-  bottom: 24px;
-  left: 24px;
-  z-index: 9999;
+  bottom: 5.5rem;
+  left: 1.5rem;
+  z-index: 9000;
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: #1a5276;
+  background: #E8920A;
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.35);
-  transition: background .2s, transform .2s;
+  box-shadow: 0 4px 18px rgba(232,146,10,0.45);
+  transition: background .2s, transform .2s, box-shadow .2s;
 }
-#a11y-btn:hover { background: #154360; transform: scale(1.08); }
+#a11y-btn:hover, #a11y-btn:focus-visible {
+  background: #cf7d08;
+  transform: scale(1.08);
+  box-shadow: 0 6px 22px rgba(232,146,10,0.6);
+  outline: none;
+}
 
 #a11y-panel {
   position: fixed;
-  bottom: 86px;
-  left: 24px;
-  z-index: 9999;
-  width: 220px;
+  bottom: 8rem;
+  left: 1.5rem;
+  z-index: 9001;
+  width: 310px;
+  max-height: calc(100vh - 9rem);
+  overflow-y: auto;
   background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.22);
-  overflow: hidden;
+  border-radius: 14px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.22);
   display: none;
-  font-family: Arial, sans-serif;
+  font-family: 'Heebo', Arial, sans-serif;
   direction: rtl;
+  border: 1px solid rgba(0,0,0,0.08);
 }
-#a11y-panel.open { display: block; animation: a11yIn .2s ease; }
-@keyframes a11yIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+#a11y-panel.a11y-open {
+  display: block;
+  animation: a11ySlideIn .22s cubic-bezier(.34,1.26,.64,1) both;
+}
+@keyframes a11ySlideIn {
+  from { opacity: 0; transform: translateY(16px) scale(.97); }
+  to   { opacity: 1; transform: translateY(0)   scale(1); }
+}
+/* scrollbar */
+#a11y-panel::-webkit-scrollbar { width: 4px; }
+#a11y-panel::-webkit-scrollbar-track { background: transparent; }
+#a11y-panel::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 4px; }
 
-#a11y-panel-header {
-  background: #1a5276;
+/* Header */
+.a11y-hdr {
+  background: #10293f;
   color: #fff;
-  padding: 12px 16px;
+  padding: 13px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-radius: 14px 14px 0 0;
+  gap: 8px;
+}
+.a11y-hdr-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: 15px;
   font-weight: 700;
+  letter-spacing: .01em;
+  color: #E8920A;
 }
-#a11y-close {
+.a11y-close-btn {
   background: none;
   border: none;
-  color: #fff;
+  color: rgba(255,255,255,.7);
   cursor: pointer;
-  font-size: 16px;
-  padding: 0 4px;
+  font-size: 17px;
   line-height: 1;
+  padding: 2px 6px;
+  border-radius: 6px;
+  transition: color .15s, background .15s;
 }
-.a11y-options { padding: 8px; }
-.a11y-opt {
-  width: 100%;
+.a11y-close-btn:hover { color: #fff; background: rgba(255,255,255,.12); }
+
+/* Sections */
+.a11y-sec {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f0f4f8;
+}
+.a11y-sec:last-of-type { border-bottom: none; }
+.a11y-sec-label {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #7f8fa4;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-bottom: 9px;
+}
+
+/* Text size control */
+.a11y-size-row {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+.a11y-size-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1.5px solid #e0e7ef;
+  background: #f8fafc;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a3a5c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .15s, border-color .15s;
+}
+.a11y-size-btn:hover { background: #e9f0f8; border-color: #E8920A; color: #E8920A; }
+.a11y-size-val {
+  flex: 1;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a3a5c;
+  background: #f0f4f8;
+  border-radius: 8px;
+  padding: 6px;
+}
+
+/* Row items (toggle rows) */
+.a11y-row-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 13.5px;
+  color: #1a3a5c;
+}
+.a11y-row-item:last-child { margin-bottom: 0; }
+
+/* Toggle Button */
+.a11y-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
   background: none;
   border: none;
-  padding: 10px 12px;
-  border-radius: 8px;
   cursor: pointer;
-  font-size: 14px;
-  font-family: Arial, sans-serif;
-  color: #1a3a4a;
-  text-align: right;
-  transition: background .15s;
+  padding: 0;
+  flex-direction: row-reverse;
 }
-.a11y-opt:hover { background: #eaf1f8; }
-.a11y-opt.active { background: #d6eaf8; font-weight: 700; }
-.a11y-icon { font-size: 16px; font-weight: 900; width: 24px; text-align: center; flex-shrink: 0; }
+.a11y-toggle-track {
+  width: 42px;
+  height: 24px;
+  border-radius: 12px;
+  background: #c5cdd8;
+  position: relative;
+  transition: background .22s;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.a11y-toggle-knob {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.22);
+  transition: right .22s, left .22s;
+}
+.a11y-toggle-btn[aria-pressed="true"] .a11y-toggle-track {
+  background: #E8920A;
+}
+.a11y-toggle-btn[aria-pressed="true"] .a11y-toggle-knob {
+  right: calc(100% - 21px);
+}
+.a11y-toggle-lbl {
+  font-size: 12px;
+  color: #7f8fa4;
+  min-width: 28px;
+  text-align: center;
+}
+.a11y-toggle-btn[aria-pressed="true"] .a11y-toggle-lbl {
+  color: #E8920A;
+}
 
-/* Accessibility states */
-body.a11y-contrast { filter: contrast(1.6) brightness(1.1); }
-body.a11y-grayscale { filter: grayscale(1); }
-body.a11y-contrast.a11y-grayscale { filter: contrast(1.6) brightness(1.1) grayscale(1); }
-body.a11y-links a { outline: 2px solid #e67e22 !important; text-decoration: underline !important; }
+/* Contrast Grid */
+.a11y-contrast-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+}
+.a11y-mode-btn {
+  padding: 8px 6px;
+  border-radius: 8px;
+  border: 1.5px solid #e0e7ef;
+  background: #f8fafc;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #1a3a5c;
+  cursor: pointer;
+  transition: all .15s;
+  font-family: 'Heebo', Arial, sans-serif;
+}
+.a11y-mode-btn:hover { border-color: #E8920A; color: #E8920A; }
+.a11y-mode-btn.active {
+  background: #E8920A;
+  border-color: #E8920A;
+  color: #fff;
+}
+
+/* Reset button */
+.a11y-reset-sec { border-bottom: none !important; }
+.a11y-reset-btn {
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 9px;
+  background: #E8920A;
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Heebo', Arial, sans-serif;
+  transition: background .18s;
+}
+.a11y-reset-btn:hover { background: #cf7d08; }
+
+/* Footer note */
+.a11y-footer-note {
+  text-align: center;
+  font-size: 11px;
+  color: #a0aab5;
+  padding: 8px 16px 14px;
+}
+
+/* ── Global accessibility state classes on <html> ── */
+
+/* High contrast */
+html.a11y-high-contrast {
+  filter: contrast(1.7) brightness(1.05);
+}
+/* Inverted */
+html.a11y-invert {
+  filter: invert(1) hue-rotate(180deg);
+}
+html.a11y-invert img,
+html.a11y-invert video,
+html.a11y-invert [style*="background-image"] {
+  filter: invert(1) hue-rotate(180deg);
+}
+/* Monochrome */
+html.a11y-mono {
+  filter: grayscale(1);
+}
+/* Readable font */
+html.a11y-font *:not(#a11y-panel):not(#a11y-panel *) {
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-style: normal !important;
+}
+/* Highlight links */
+html.a11y-links a {
+  outline: 2px solid #E8920A !important;
+  outline-offset: 2px !important;
+  text-decoration: underline !important;
+  background: rgba(232,146,10,0.07) !important;
+  border-radius: 2px;
+}
+/* Highlight headings */
+html.a11y-headings h1,
+html.a11y-headings h2,
+html.a11y-headings h3,
+html.a11y-headings h4,
+html.a11y-headings h5,
+html.a11y-headings h6 {
+  outline: 2px solid #1a5276 !important;
+  outline-offset: 3px !important;
+  background: rgba(26,82,118,0.07) !important;
+  border-radius: 3px;
+}
+/* Stop animations */
+html.a11y-no-anim *,
+html.a11y-no-anim *::before,
+html.a11y-no-anim *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+/* Screen reader mode — enhanced focus indicators */
+html.a11y-sr *:focus {
+  outline: 3px solid #E8920A !important;
+  outline-offset: 3px !important;
+}
+html.a11y-sr a,
+html.a11y-sr button,
+html.a11y-sr input,
+html.a11y-sr select,
+html.a11y-sr textarea,
+html.a11y-sr [tabindex] {
+  outline: 2px dashed rgba(232,146,10,0.5) !important;
+  outline-offset: 2px !important;
+}
+
+/* Footer WhatsApp phone links */
+.footer-wa-link {
+  color: rgba(240,246,255,0.8) !important;
+  text-decoration: none;
+  transition: color .2s;
+}
+.footer-wa-link:hover {
+  color: var(--gold-mid) !important;
+  text-decoration: underline;
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  #a11y-panel {
+    width: calc(100vw - 3rem);
+    left: 1.5rem;
+    bottom: 7rem;
+    max-height: calc(100vh - 8rem);
+  }
+  #a11y-btn { bottom: 4.5rem; left: 1rem; }
+}
 </style>
 
 <script>
-var a11y = (function () {
-  var fontSize = 0;
+(function () {
+  'use strict';
 
-  document.getElementById('a11y-btn').addEventListener('click', function () {
-    document.getElementById('a11y-panel').classList.toggle('open');
-  });
-  document.getElementById('a11y-btn').addEventListener('keydown', function (e) {
-    if (e.key === 'Enter' || e.key === ' ') document.getElementById('a11y-panel').classList.toggle('open');
-  });
-  document.getElementById('a11y-close').addEventListener('click', function () {
-    document.getElementById('a11y-panel').classList.remove('open');
-  });
-
-  return {
-    fontSize: function (dir) {
-      fontSize += dir;
-      fontSize = Math.max(-3, Math.min(5, fontSize));
-      document.documentElement.style.fontSize = (100 + fontSize * 8) + '%';
-    },
-    toggle: function (cls) {
-      document.body.classList.toggle('a11y-' + cls);
-      var btn = document.getElementById('btn-' + cls);
-      if (btn) btn.classList.toggle('active');
-    },
-    reset: function () {
-      fontSize = 0;
-      document.documentElement.style.fontSize = '';
-      ['contrast','grayscale','links'].forEach(function(c) {
-        document.body.classList.remove('a11y-' + c);
-        var b = document.getElementById('btn-' + c);
-        if (b) b.classList.remove('active');
-      });
-    }
+  /* ── State ── */
+  var state = {
+    fontSize: 100,
+    font: false,
+    contrast: 'normal',
+    links: false,
+    headings: false,
+    anim: false,
+    sr: false
   };
+
+  var STORAGE_KEY = 'baz-a11y-v1';
+
+  /* ── DOM refs ── */
+  var btn        = document.getElementById('a11y-btn');
+  var panel      = document.getElementById('a11y-panel');
+  var closeBtn   = document.getElementById('a11y-close');
+  var sizeVal    = document.getElementById('a11y-size-val');
+  var plusBtn    = document.getElementById('a11y-plus');
+  var minusBtn   = document.getElementById('a11y-minus');
+  var resetBtn   = document.getElementById('a11y-reset');
+  var toggleFont = document.getElementById('a11y-toggle-font');
+  var toggleLinks    = document.getElementById('a11y-toggle-links');
+  var toggleHeadings = document.getElementById('a11y-toggle-headings');
+  var toggleAnim     = document.getElementById('a11y-toggle-anim');
+  var toggleSR       = document.getElementById('a11y-toggle-sr');
+  var contrastBtns = {
+    normal: document.getElementById('a11y-c-normal'),
+    high:   document.getElementById('a11y-c-high'),
+    invert: document.getElementById('a11y-c-invert'),
+    mono:   document.getElementById('a11y-c-mono')
+  };
+
+  var html = document.documentElement;
+
+  /* ── Open / Close ── */
+  function openPanel() {
+    panel.classList.add('a11y-open');
+    panel.setAttribute('aria-hidden', 'false');
+    btn.setAttribute('aria-expanded', 'true');
+    closeBtn.focus();
+  }
+  function closePanel() {
+    panel.classList.remove('a11y-open');
+    panel.setAttribute('aria-hidden', 'true');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.focus();
+  }
+  function togglePanel() {
+    if (panel.classList.contains('a11y-open')) closePanel(); else openPanel();
+  }
+
+  btn.addEventListener('click', togglePanel);
+  closeBtn.addEventListener('click', closePanel);
+
+  /* Close on outside click */
+  document.addEventListener('mousedown', function (e) {
+    if (panel.classList.contains('a11y-open') && !panel.contains(e.target) && !btn.contains(e.target)) {
+      closePanel();
+    }
+  });
+  /* Close on Escape */
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && panel.classList.contains('a11y-open')) closePanel();
+  });
+
+  /* ── Apply state to DOM ── */
+  function applyAll() {
+    /* font size */
+    html.style.fontSize = state.fontSize + '%';
+    sizeVal.textContent = state.fontSize + '%';
+
+    /* readable font */
+    html.classList.toggle('a11y-font', state.font);
+    setToggle(toggleFont, state.font);
+
+    /* contrast modes */
+    html.classList.remove('a11y-high-contrast', 'a11y-invert', 'a11y-mono');
+    if (state.contrast === 'high')   html.classList.add('a11y-high-contrast');
+    if (state.contrast === 'invert') html.classList.add('a11y-invert');
+    if (state.contrast === 'mono')   html.classList.add('a11y-mono');
+    Object.keys(contrastBtns).forEach(function (k) {
+      contrastBtns[k].classList.toggle('active', k === state.contrast);
+    });
+
+    /* toggles */
+    html.classList.toggle('a11y-links',    state.links);
+    html.classList.toggle('a11y-headings', state.headings);
+    html.classList.toggle('a11y-no-anim',  state.anim);
+    html.classList.toggle('a11y-sr',       state.sr);
+    setToggle(toggleLinks,    state.links);
+    setToggle(toggleHeadings, state.headings);
+    setToggle(toggleAnim,     state.anim);
+    setToggle(toggleSR,       state.sr);
+  }
+
+  function setToggle(el, active) {
+    el.setAttribute('aria-pressed', String(active));
+    el.querySelector('.a11y-toggle-lbl').textContent = active ? 'פעיל' : 'כבוי';
+  }
+
+  /* ── Event handlers ── */
+  plusBtn.addEventListener('click', function () {
+    state.fontSize = Math.min(200, state.fontSize + 10);
+    applyAll(); save();
+  });
+  minusBtn.addEventListener('click', function () {
+    state.fontSize = Math.max(70, state.fontSize - 10);
+    applyAll(); save();
+  });
+
+  function makeToggleHandler(key, el) {
+    el.addEventListener('click', function () {
+      state[key] = !state[key];
+      applyAll(); save();
+    });
+  }
+  makeToggleHandler('font',     toggleFont);
+  makeToggleHandler('links',    toggleLinks);
+  makeToggleHandler('headings', toggleHeadings);
+  makeToggleHandler('anim',     toggleAnim);
+  makeToggleHandler('sr',       toggleSR);
+
+  Object.keys(contrastBtns).forEach(function (k) {
+    contrastBtns[k].addEventListener('click', function () {
+      state.contrast = k;
+      applyAll(); save();
+    });
+  });
+
+  resetBtn.addEventListener('click', function () {
+    state = { fontSize: 100, font: false, contrast: 'normal', links: false, headings: false, anim: false, sr: false };
+    applyAll(); save();
+  });
+
+  /* ── Persist ── */
+  function save() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
+  }
+  function load() {
+    try {
+      var saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+      if (saved) state = Object.assign(state, saved);
+    } catch(e) {}
+  }
+
+  /* ── Init ── */
+  load();
+  applyAll();
+
 })();
 </script>
 </body>

@@ -36,12 +36,18 @@
 }
 body {
   font-family: 'Heebo', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   background: var(--navy);
   color: var(--text-dark);
   direction: rtl;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+/* Explicit font inheritance for all headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Heebo', Arial, sans-serif;
 }
 /* Sticky nav */
 .page-nav {
@@ -97,8 +103,11 @@ main {
 .page-header h1 {
   font-family: 'Playfair Display', serif;
   font-size: 2.2rem;
+  font-weight: 700;
   color: var(--text-dark);
   margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
 }
 .page-header .updated {
   font-size: 0.85rem;
@@ -119,18 +128,22 @@ main {
   margin-bottom: 2.5rem;
 }
 .section h2 {
-  font-size: 1.15rem;
+  font-family: 'Heebo', Arial, sans-serif;
+  font-size: 1.05rem;
   font-weight: 700;
   color: var(--gold);
   margin-bottom: 1rem;
-  padding-bottom: 0.4rem;
-  border-bottom: 1px solid rgba(184,134,11,0.15);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(184,134,11,0.18);
+  letter-spacing: 0.01em;
 }
 .section h3 {
-  font-size: 1rem;
-  font-weight: 600;
+  font-family: 'Heebo', Arial, sans-serif;
+  font-size: 0.98rem;
+  font-weight: 700;
   color: var(--text-dark);
-  margin: 1.2rem 0 0.6rem;
+  margin: 1.2rem 0 0.5rem;
+  letter-spacing: 0.005em;
 }
 .section p {
   font-size: 0.96rem;

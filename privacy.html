@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>הצהרת פרטיות | ברזילי, עזורי ושות' – עורכי דין</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #f0f6ff;
+  --navy-dark: #10293f;
+  --navy-deep: #1a3a5c;
+  --gold: #b8860b;
+  --gold-mid: #c9a84c;
+  --text-dark: #1a3a5c;
+  --text-muted: #4a6fa5;
+  --white: #ffffff;
+}
+body {
+  font-family: 'Heebo', Arial, sans-serif;
+  background: var(--navy);
+  color: var(--text-dark);
+  direction: rtl;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+/* Sticky nav */
+.page-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--navy-dark);
+  border-bottom: 2px solid rgba(201,168,76,0.3);
+  padding: 0.9rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.page-nav .firm-name {
+  font-family: 'Playfair Display', serif;
+  color: var(--gold-mid);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+}
+.page-nav .back-link {
+  color: rgba(240,246,255,0.75);
+  text-decoration: none;
+  font-size: 0.88rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: color 0.2s;
+  direction: ltr;
+}
+.page-nav .back-link:hover { color: var(--gold-mid); }
+/* Main content */
+main {
+  flex: 1;
+  padding: 3rem 1.5rem 4rem;
+}
+.content-card {
+  background: var(--white);
+  max-width: 860px;
+  margin: 0 auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 32px rgba(26,58,92,0.10);
+  padding: 3rem 3.5rem;
+  border-top: 4px solid var(--gold);
+}
+.page-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(184,134,11,0.2);
+}
+.page-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+.page-header .updated {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.intro-box {
+  background: #f8f4ec;
+  border-right: 4px solid var(--gold);
+  border-radius: 6px;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 2.5rem;
+  font-size: 0.97rem;
+  line-height: 1.8;
+  color: var(--text-dark);
+  text-align: justify;
+}
+.section {
+  margin-bottom: 2.5rem;
+}
+.section h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid rgba(184,134,11,0.15);
+}
+.section h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin: 1.2rem 0 0.6rem;
+}
+.section p {
+  font-size: 0.96rem;
+  line-height: 1.85;
+  color: #2c3e50;
+  margin-bottom: 0.8rem;
+  text-align: justify;
+}
+.section ul {
+  margin: 0.6rem 0 1rem 0;
+  padding-right: 1.5rem;
+}
+.section ul li {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: #2c3e50;
+  margin-bottom: 0.3rem;
+}
+.contact-box {
+  background: var(--navy);
+  border-radius: 8px;
+  padding: 1.2rem 1.5rem;
+  margin-top: 1rem;
+}
+.contact-box p {
+  margin-bottom: 0.4rem !important;
+}
+.contact-box a { color: var(--gold); text-decoration: none; }
+.contact-box a:hover { text-decoration: underline; }
+/* Footer */
+.page-footer {
+  background: var(--navy-dark);
+  color: rgba(240,246,255,0.6);
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.82rem;
+  border-top: 1px solid rgba(201,168,76,0.2);
+}
+.page-footer a {
+  color: var(--gold-mid);
+  text-decoration: none;
+  margin: 0 0.5rem;
+}
+.page-footer a:hover { text-decoration: underline; }
+@media (max-width: 640px) {
+  .content-card { padding: 1.8rem 1.3rem; }
+  .page-header h1 { font-size: 1.7rem; }
+  .page-nav { padding: 0.75rem 1rem; }
+  .page-nav .firm-name { font-size: 0.9rem; }
+}
+</style>
+</head>
+<body>
+
+<nav class="page-nav" role="navigation" aria-label="ניווט ראשי">
+  <span class="firm-name">ברזילי, עזורי ושות' | עורכי דין</span>
+  <a href="./index.html" class="back-link">← חזרה לדף הבית</a>
+</nav>
+
+<main id="main-content">
+  <div class="content-card">
+
+    <header class="page-header">
+      <h1>הצהרת פרטיות</h1>
+      <p class="updated">עודכן לאחרונה: 28 בינואר 2026</p>
+    </header>
+
+    <div class="intro-box">
+      <p>הצהרת פרטיות זו מסבירה כיצד נאסף ונעשה שימוש במידע אישי במסגרת השימוש באתר האינטרנט של משרד ברזילי, עזורי ושות' ("האתר" ו-"המשרד" בהתאמה). אנו מכבדים את פרטיות המשתמשים ופועלים בהתאם להוראות הדין החל, לרבות חוק הגנת הפרטיות, התשמ"א-1981, ותקנות הגנת הפרטיות (אבטחת מידע), התשע"ז-2017.</p>
+      <p style="margin-top: 0.6rem; margin-bottom: 0;">השימוש באתר אינו מחייב מסירת מידע אישי, למעט במקרים שבהם המשתמש בוחר לפנות למשרד באמצעות טפסי קשר או טופס יצירת קשר.</p>
+    </div>
+
+    <div class="section">
+      <h2>1. איזה מידע אנו אוספים</h2>
+
+      <h3>1.1 מידע שמוסר המשתמש באופן יזום (יצירת קשר)</h3>
+      <p>אם תבחר לפנות אלינו באמצעות טופס "צור קשר", בדוא"ל, בטלפון, בוואטסאפ (ככל שמפורסם באתר) או בכל אמצעי פנייה אחר המופיע באתר, ייתכן שנאסוף את המידע הבא (כולו או חלקו, בהתאם למה שמסרת):</p>
+      <ul>
+        <li>שם פרטי ושם משפחה</li>
+        <li>מספר טלפון</li>
+        <li>כתובת דוא"ל</li>
+        <li>תוכן ההודעה ששלחת וכל פרט נוסף שתבחר לכלול בפנייה</li>
+      </ul>
+      <p>אין חובה חוקית למסור פרטים אלה, ומסירתם תלויה ברצונך ובהסכמתך. עם זאת, ללא מסירת פרטים בסיסיים לעיתים לא נוכל לחזור אליך או לטפל בפנייתך.</p>
+
+      <h3>1.2 מידע שנאסף באופן אוטומטי בעת גלישה באתר</h3>
+      <p>בעת שימוש באתר עשוי להיאסף מידע טכני/סטטיסטי, כגון:</p>
+      <ul>
+        <li>כתובת IP (לעיתים באופן מלא ולעיתים בצורה מקוצרת/ממוסכת בהתאם להגדרות הכלים בהם נעשה שימוש)</li>
+        <li>סוג דפדפן, מערכת הפעלה וסוג מכשיר</li>
+        <li>תאריך ושעת גלישה, דפים שנצפו, משך ביקור, פעולות באתר</li>
+        <li>מקור ההפניה לאתר (למשל מנוע חיפוש או קישור)</li>
+      </ul>
+      <p>מידע זה נאסף באמצעות קובצי Cookies ו/או טכנולוגיות דומות ואנליטיקה, בהתאם לסעיף 6 להלן.</p>
+    </div>
+
+    <div class="section">
+      <h2>2. מטרות השימוש במידע</h2>
+      <p>אנו משתמשים במידע שנאסף למטרות הבאות:</p>
+      <ul>
+        <li>מענה לפניות משתמשים, יצירת קשר וחזרה לפונה</li>
+        <li>תיאום שיחה/פגישה ומתן מענה ראשוני לבקשה</li>
+        <li>תפעול שוטף של האתר, תחזוקה, אבטחה, גיבויים ושיפור ביצועים</li>
+        <li>ניתוח סטטיסטי ושיפור חווית המשתמש והתוכן באתר</li>
+        <li>מניעת הונאות, טיפול בתקלות, אבטחת מידע ועמידה בהוראות הדין</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>3. דיוור, הודעות שיווקיות ו-"חוק הספאם"</h2>
+      <p>ככלל, הפרטים שתמסור לנו במסגרת יצירת קשר ישמשו למענה לפנייתך. אם המשרד יבקש לשלוח לך ניוזלטר/עדכונים/דיוור אלקטרוני, הדבר ייעשה רק בהתאם להוראות הדין, ובכפוף לקבלת הסכמה ככל שנדרשת, ותוך מתן אפשרות להסרה בכל עת.</p>
+    </div>
+
+    <div class="section">
+      <h2>4. מסירת מידע לצדדים שלישיים</h2>
+      <p>המשרד אינו מוכר ואינו משכיר מידע אישי של משתמשים. עם זאת, ייתכן שמידע יועבר לצדדים שלישיים במקרים הבאים:</p>
+      <ul>
+        <li>ספקי שירות טכניים ותפעוליים המסייעים לנו בהפעלת האתר (כגון ספק דוא"ל/מערכת ניהול פניות, ספק אחסון, ספק אבטחת מידע). ספקים אלה יקבלו גישה לאתר למידע הנדרש לצורך מתן השירות, ובהתאם להתחייבויות סודיות ואבטחת מידע.</li>
+        <li>Google (Google Analytics, Google Ads): מידע המועבר ל-Google כולל נתוני גלישה, התנהגות באתר, מידע מכשיר, ועשוי לשמש לטרגוט פנימיות ופרסומיות. ראה את מדיניות הפרטיות של Google.</li>
+        <li>על פי חובה חוקית ו/או דרישה של רשות מוסמכת ו/או זו שיפוטי.</li>
+        <li>לצורך הגנה על זכויות המשרד, המשתמשים או צדדים שלישיים (לרבות במסגרת טיפול בתביעות, מחלוקות, במידה הנדרשת וסבירה).</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>5. מאגרי מידע ושמירת מידע</h2>
+      <p>האתר כשלעצמו אינו מיועד לניהול חשבונות משתמשים ואינו מאחסן מידע. פניות ונתוני קשר שנמסרים למשרד עשויים להישמר במערכות של המשרד (כגון תיבת דוא"ל, מערכת CRM/ניהול פניות, יומן פגישות) למשך הזמן הנדרש לצורך טיפול בפנייה, ניהול הקשר, תיעוד פנימי, תיעוד לצורך טיפול בהוראות הדין, והגנה משפטית - בהתאם לשיקול דעת המשרד והדין החל.</p>
+    </div>
+
+    <div class="section">
+      <h2>6. Cookies וכלי ניטור/אנליטיקה</h2>
+      <p>האתר עשוי להשתמש ב-Cookies (עוגיות) ובטכנולוגיות דומות לצורך:</p>
+      <ul>
+        <li>תפעול תקין של האתר</li>
+        <li>אבטחה וזיהוי תקלות</li>
+        <li>מדידה סטטיסטית ושיפור חווית משתמש</li>
+      </ul>
+      <p>Cookies הם קבצים קטנים הנשמרים במכשיר המשתמש ומאפשרים בין היתר, זיהוי דפוסי שימוש וניתוח תעבורה.</p>
+
+      <h3>6.1 Google Analytics</h3>
+      <p>האתר משתמש ב-Google Analytics של חברת Google Inc. לצורך ניתוח תנועה וניהול קמפיינים פרסומיים (Google Ads). שירות זה אוסף מידע באמצעות Cookies וכולל: כתובת IP (לעיתים מקוצרת/ממוסכת), סוג דפדפן, מכשיר ומערכת הפעלה, דפים שנצפו, זמן שהייה, מסלול גלישה והתנהגות באתר, מקור ההפניה לאתר (מנוע חיפוש, קישור חיצוני, פרסומות).</p>
+      <p><strong>שיתוף מידע עם Google:</strong> המידע הנאסף באמצעות Google Analytics מועבר לשרתי Google ומעובד על ידי Google בהתאם למדיניות הפרטיות שלה. Google עשויה להשתמש במידע זה גם לצורך שיפור שירותיה ולמטרות פרסום ממוקד באתרים אחרים.</p>
+      <p><strong>השבתת מעקב:</strong> ניתן להשבית את Google Analytics על ידי התקנת תוסף דפדפן ייעודי מאתר Google: Google Analytics Opt-out Browser Add-on.</p>
+      <p><strong>ניהול Cookies:</strong> ניתן לחסום או למחוק Cookies באמצעות הגדרות הדפדפן. חסימה/מחיקה עשויות להשפיע על זמינות/תפקוד חלק מהשירותים באתר.</p>
+    </div>
+
+    <div class="section">
+      <h2>7. אבטחת מידע</h2>
+      <p>המשרד נוקט אמצעים סבירים ומקובלים לאבטחת האתר והמידע שנמסר באמצעותו, בהתאם להוראות הדין ולתקנות אבטחת מידע, כדי לצמצם סיכונים של גישה לא מורשית, אובדן, שינוי או חשיפה בלתי מורשית. עם זאת, אין מערכת חסינה לחלוטין, והמשרד אינו יכול להבטיח אבטחה מוחלטת. משתמש המוסר מידע באמצעות האתר עושה זאת בשיקול דעתו ובאחריותו.</p>
+    </div>
+
+    <div class="section">
+      <h2>8. זכויות המשתמש - עיון, תיקון ומחיקה</h2>
+      <p>בהתאם להוראות הדין, המשתמש רשאי לפנות למשרד בבקשה:</p>
+      <ul>
+        <li>לעיין במידע אישי שנשמר אודותיו (ככל שנשמר)</li>
+        <li>לתקן מידע שאינו נכון, אינו שלם, אינו ברור או אינו מעודכן</li>
+        <li>למחוק מידע - ככל שהדין מאפשר, ובכפוף לצרכים לגיטימיים של המשרד לשמירת תיעוד (לרבות שמירת תיעוד משפטית ועמידה בחובות חוקיות)</li>
+      </ul>
+      <p>ניתן לממש זכויות אלו באמצעות פנייה בפרטי ההתקשרות בסעיף 12 להלן.</p>
+    </div>
+
+    <div class="section">
+      <h2>9. העברת מידע מחוץ לישראל</h2>
+      <p>שירותים טכניים מסוימים (כגון תשתיות אחסון, שירותי דוא"ל, אנליטיקה וכלי אבטחה) עשויים לעבד או לאחסן מידע גם מחוץ לישראל, בהתאם למדיניות ספקי השירותים. שימוש זה כפוף בכל מקרה לדין הישראלי, בכפוף לדין החל ולהגנות חוזיות/ארגוניות מקובלות.</p>
+    </div>
+
+    <div class="section">
+      <h2>10. פרטיות קטינים</h2>
+      <p>האתר אינו מיועד לאיסוף מידע של קטינים. אם הורה/אפוטרופוס סבור כי נמסר מידע של קטין ללא הסכמה מתאימה, ניתן ליצור קשר עם המשרד כדי לבחון מחיקה/טיפול בהתאם לדין.</p>
+    </div>
+
+    <div class="section">
+      <h2>11. קישורים לאתרים חיצוניים</h2>
+      <p>האתר עשוי לכלול קישורים לאתרים של צדדים שלישיים. הצהרת פרטיות זו חלה על האתר בלבד. אין למשרד שליטה על אתרים חיצוניים, והם כפופים למדיניות הפרטיות שלהם.</p>
+    </div>
+
+    <div class="section">
+      <h2>12. יצירת קשר בנושא פרטיות</h2>
+      <p>לשאלות, בקשות לעיון/תיקון/מחיקה, או פנייה בנושא פרטיות ואבטחת מידע, ניתן ליצור קשר עם המשרד באמצעות פרטי ההתקשרות המופיעים באתר, ולציין בכותרת: <strong>"פנייה בנושא פרטיות"</strong>.</p>
+    </div>
+
+    <div class="section">
+      <h2>13. שינויים בהצהרת הפרטיות</h2>
+      <p>המשרד רשאי לעדכן הצהרת פרטיות זו מעת לעת. הנוסח המחייב הוא הנוסח המעודכן כפי שמפורסם באתר, והמשך שימוש באתר לאחר עדכון מהווה הסכמה לנוסח המעודכן.</p>
+    </div>
+
+  </div>
+</main>
+
+<footer class="page-footer">
+  <p>© 2026 ברזילי, עזורי ושות' – עורכי דין. כל הזכויות שמורות.</p>
+</footer>
+
+</body>
+</html>

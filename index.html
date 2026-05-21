@@ -193,11 +193,15 @@ nav.scrolled {
   object-fit: contain;
 }
 
-/* Nav links — centered in nav bar */
+/* Nav links — absolutely centred in the nav bar */
 .nav-links {
+  display: flex;
   direction: rtl;
-  flex: 1;
-  justify-content: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  gap: 2.5rem;
+  list-style: none;
 }
 
 .nav-links a {
@@ -229,11 +233,7 @@ nav.scrolled {
   color: #fff !important;
 }
 
-.nav-links {
-  display: flex;
-  list-style: none;
-  gap: 2.5rem;
-}
+
 
 .nav-links a {
   text-decoration: none;
@@ -1918,6 +1918,7 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
   <ul class="nav-links">
     <li><a href="#attorneys">אודות</a></li>
     <li><a href="#expertise">תחומי התמחות</a></li>
+    <li><a href="#testimonials">לקוחות ממליצים</a></li>
     <li><a href="#lead-form">צור קשר</a></li>
   </ul>
 
@@ -1932,6 +1933,7 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
 <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="תפריט נייד">
   <a href="#attorneys"    onclick="closeMobileMenu()">אודות</a>
   <a href="#expertise"    onclick="closeMobileMenu()">תחומי התמחות</a>
+  <a href="#testimonials" onclick="closeMobileMenu()">לקוחות ממליצים</a>
   <a href="#lead-form"    onclick="closeMobileMenu()">צור קשר</a>
   <a href="#lead-form" class="mobile-cta" onclick="closeMobileMenu()">לתיאום פגישת ייעוץ</a>
 </div>

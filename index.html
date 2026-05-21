@@ -3040,7 +3040,7 @@ html.a11y-sr [tabindex] {
 })();
 </script>
 
-<!-- Centre the target section when navigating from an external page with a hash -->
+<!-- Scroll so the target heading sits ~25% from the top of the viewport -->
 <script>
 (function () {
   function centreHash() {
@@ -3049,21 +3049,18 @@ html.a11y-sr [tabindex] {
     var target = document.querySelector(hash);
     if (!target) return;
 
-    var NAV_H = 100; // fixed navbar height (px)
-    var rect  = target.getBoundingClientRect();
-    var sectionH = rect.height;
-    var viewH    = window.innerHeight;
+    // Find the first heading inside the section (or use the section itself)
+    var heading = target.querySelector('h2') || target;
+    var viewH   = window.innerHeight;
 
-    // How much empty space is above+below if we just clear the nav
-    var available = viewH - NAV_H;
-    // Offset to vertically centre the section (or just clear nav if section is taller)
-    var topOffset = Math.max(NAV_H, NAV_H + Math.floor((available - sectionH) / 2));
+    // Place the heading at ~25 % from the top of the viewport
+    var desiredTop = Math.round(viewH * 0.25);
 
-    var absoluteTop = window.pageYOffset + rect.top;
-    window.scrollTo({ top: absoluteTop - topOffset, behavior: 'auto' });
+    var rect       = heading.getBoundingClientRect();
+    var currentTop = window.pageYOffset + rect.top;
+    window.scrollTo({ top: currentTop - desiredTop, behavior: 'auto' });
   }
 
-  // Run once the page is fully painted so all positions are settled
   if (document.readyState === 'complete') {
     centreHash();
   } else {

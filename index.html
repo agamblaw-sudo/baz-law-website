@@ -177,7 +177,7 @@ nav.scrolled {
   margin: 0;
   margin-right: -3rem;
   height: 100%;
-  background: transparent;
+  background: #10293f;  /* exact nav background — hides JPEG edges */
 }
 
 .nav-logo-img {
@@ -191,6 +191,7 @@ nav.scrolled {
   margin: 0;
   background: transparent;
   object-fit: contain;
+  mix-blend-mode: normal;
 }
 
 /* Nav links — absolutely centred in the nav bar */
@@ -1398,8 +1399,8 @@ footer {
   object-fit: contain;
   display: block;
   margin-bottom: 1.1rem;
-  mix-blend-mode: screen;
-  filter: brightness(1.05) contrast(1.05);
+  mix-blend-mode: normal;
+  background: #0b1f30;  /* exact footer background — hides JPEG edges */
   padding: 4px 0;
 }
 

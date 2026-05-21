@@ -1470,10 +1470,40 @@ footer {
 .footer-bottom {
   border-top: 1px solid rgba(201,168,76,0.15);
   padding-top: 1.5rem;
-  text-align: center;
   font-size: 0.78rem;
   color: rgba(240,246,255,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
+
+.footer-bottom-links {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.footer-bottom-links a {
+  color: rgba(240,246,255,0.4);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-bottom-links a:hover { color: var(--gold-mid); }
+.footer-bottom-links span { color: rgba(240,246,255,0.2); }
+
+.footer-bottom-copy {
+  color: rgba(240,246,255,0.3);
+}
+
+.footer-bottom-admin a {
+  color: rgba(240,246,255,0.25);
+  text-decoration: none;
+  font-size: 0.72rem;
+  transition: color 0.2s;
+}
+.footer-bottom-admin a:hover { color: var(--gold-mid); }
 
 .footer-links { display: none; }
 .footer-logo  { display: none; }
@@ -1749,7 +1779,8 @@ footer {
   }
   .footer-col ul { align-items: center; }
   .footer-contact-item { justify-content: center; }
-  .footer-bottom { font-size: 0.72rem; }
+  .footer-bottom { font-size: 0.72rem; flex-direction: column; text-align: center; gap: 0.5rem; }
+  .footer-bottom-links { justify-content: center; flex-wrap: wrap; }
 
   /* Ornament */
   .ornament-divider { padding: 0 1.25rem; }
@@ -2159,7 +2190,19 @@ footer {
   </div>
 
   <div class="footer-bottom">
-    © 2025 ברזילי, עזורי ושות' — עורכי דין | כל הזכויות שמורות
+    <div class="footer-bottom-links">
+      <a href="#">תקנון ותנאי שימוש</a>
+      <span>|</span>
+      <a href="#">מדיניות פרטיות</a>
+      <span>|</span>
+      <a href="#">הצהרת נגישות</a>
+    </div>
+    <div class="footer-bottom-copy">
+      © 2026 ברזילי, עזורי ושות' – עורכי דין. כל הזכויות שמורות.
+    </div>
+    <div class="footer-bottom-admin">
+      <a href="#">ניהול</a>
+    </div>
   </div>
 </footer>
 

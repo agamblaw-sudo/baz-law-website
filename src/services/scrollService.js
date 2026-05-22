@@ -75,14 +75,35 @@ export function scrollToHash(hash, behavior = 'smooth') {
       // Initial scroll attempt
       scrollToElement(element, behavior);
       
-      // Schedule follow-up scrolls to guarantee positioning after transitions/layout settle
-      setTimeout(() => {
-        scrollToElement(element, behavior);
-      }, 100);
+      // Watch for layout shifts (e.g., Elfsight widget loading) and lock the scroll position.
+      // External widgets can take 1-2 seconds to load, pushing the layout down.
+      let lastHeight = document.documentElement.scrollHeight;
       
+      const observer = new ResizeObserver(() => {
+        const newHeight = document.documentElement.scrollHeight;
+        if (Math.abs(newHeight - lastHeight) > 15) {
+          lastHeight = newHeight;
+          // Re-adjust scroll position instantly without smooth animation
+          scrollToElement(element, 'auto');
+        }
+      });
+      observer.observe(document.body);
+      
+      // Fallback interval: forcefully ensure the position is correct during the critical load window
+      const intervalId = setInterval(() => {
+        const newHeight = document.documentElement.scrollHeight;
+        if (Math.abs(newHeight - lastHeight) > 15) {
+          lastHeight = newHeight;
+          scrollToElement(element, 'auto');
+        }
+      }, 150);
+      
+      // Stop observing and clear interval after 2.5 seconds to allow normal user scrolling
       setTimeout(() => {
-        scrollToElement(element, behavior);
-      }, 350);
+        observer.disconnect();
+        clearInterval(intervalId);
+      }, 2500);
+
     } else if (attempts < 30) {
       attempts++;
       setTimeout(findAndScroll, 50);

@@ -2614,6 +2614,16 @@ html.a11y-sr [tabindex] {
   background: #10293f;
 }
 
+@media (max-width: 768px) {
+  .legal-page-wrapper .page-nav {
+    height: 64px;
+    padding: 0 1.25rem;
+  }
+  .legal-page-wrapper .legal-nav-logo {
+    height: 52px;
+  }
+}
+
 @media (max-width: 640px) {
   .legal-page-wrapper .content-card {
     padding: 1.8rem 1.3rem;
@@ -2622,7 +2632,8 @@ html.a11y-sr [tabindex] {
     font-size: 1.7rem;
   }
   .legal-page-wrapper .page-nav {
-    padding: 0.75rem 1rem;
+    height: 64px;
+    padding: 0 1rem;
   }
   .legal-page-wrapper .page-nav .firm-name {
     font-size: 0.9rem;

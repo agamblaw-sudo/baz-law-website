@@ -8,7 +8,7 @@ export default function ContactForm() {
     fmessage: '',
     fexpertise: '',
     subject: 'פנייה חדשה מאתר המשרד',
-    from_name: 'אתר משרד ברזילי-עזורי'
+    from_name: 'אתר משרד ברזילי עזורי'
   });
   
   const [loading, setLoading] = useState(false);
@@ -266,7 +266,7 @@ export default function ContactForm() {
                 </div>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{ fontWeight: 700, fontSize: '1.05rem', marginBottom: '0.2rem' }}>אגם ברזילי</div>
-                  <div style={{ fontSize: '0.88rem', color: '#128C7E', fontWeight: 600 }}>054-2030535</div>
+                  <div style={{ fontSize: '0.88rem', color: '#128C7E', fontWeight: 600 }}>054 2030535</div>
                 </div>
                 <div style={{ background: 'linear-gradient(135deg,#25D366,#128C7E)', color: 'white', borderRadius: '30px', padding: '0.45rem 1.2rem', fontSize: '0.88rem', fontWeight: 600 }}>
                   שלחו הודעה
@@ -295,7 +295,7 @@ export default function ContactForm() {
                 </div>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{ fontWeight: 700, fontSize: '1.05rem', marginBottom: '0.2rem' }}>לירון עזורי</div>
-                  <div style={{ fontSize: '0.88rem', color: '#128C7E', fontWeight: 600 }}>054-2531925</div>
+                  <div style={{ fontSize: '0.88rem', color: '#128C7E', fontWeight: 600 }}>054 2531925</div>
                 </div>
                 <div style={{ background: 'linear-gradient(135deg,#25D366,#128C7E)', color: 'white', borderRadius: '30px', padding: '0.45rem 1.2rem', fontSize: '0.88rem', fontWeight: 600 }}>
                   שלחו הודעה

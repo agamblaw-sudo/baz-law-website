@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import AccessibilityWidget from './components/AccessibilityWidget';
 import ScrollToTop from './components/ScrollToTop';
+import WhatsAppWidget from './components/WhatsAppWidget';
 import Home from './pages/Home';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
@@ -29,6 +30,7 @@ function AppContent() {
       <ScrollToHash />
       {!isLegalPage && <Navbar />}
       <AccessibilityWidget />
+      <WhatsAppWidget isLegalPage={isLegalPage} />
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />

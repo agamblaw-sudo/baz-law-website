@@ -9,8 +9,8 @@ export default function Privacy() {
   return (
     <div className="legal-page-wrapper">
       <nav className="page-nav" role="navigation" aria-label="ניווט ראשי">
-        <Link to="/" className="nav-logo-link" aria-label="ברזילי, עזורי ושות׳ – עורכי דין">
-          <img src="/logo.png" className="legal-nav-logo" alt="לוגו ברזילי, עזורי ושות׳ - עורכי דין" />
+        <Link to="/" className="nav-logo-link" aria-label="ברזילי, עזורי ושות׳ עורכי דין">
+          <img src="/logo.png" className="legal-nav-logo" alt="לוגו ברזילי, עזורי ושות׳ עורכי דין" />
         </Link>
         <Link to="/" className="back-link">
           חזרה לדף הבית
@@ -30,7 +30,7 @@ export default function Privacy() {
     </header>
 
     <div className="intro-box">
-      <p>הצהרת פרטיות זו מסבירה כיצד נאסף ונעשה שימוש במידע אישי במסגרת השימוש באתר האינטרנט של משרד ברזילי, עזורי ושות' ("האתר" ו-"המשרד" בהתאמה). אנו מכבדים את פרטיות המשתמשים ופועלים בהתאם להוראות הדין החל, לרבות חוק הגנת הפרטיות, התשמ"א-1981, ותקנות הגנת הפרטיות (אבטחת מידע), התשע"ז-2017.</p>
+      <p>הצהרת פרטיות זו מסבירה כיצד נאסף ונעשה שימוש במידע אישי במסגרת השימוש באתר האינטרנט של משרד ברזילי, עזורי ושות' ("האתר" ו-"המשרד" בהתאמה). אנו מכבדים את פרטיות המשתמשים ופועלים בהתאם להוראות הדין החל, לרבות חוק הגנת הפרטיות, התשמ"א 1981, ותקנות הגנת הפרטיות (אבטחת מידע), התשע"ז 2017.</p>
       <p style={{ marginTop: '0.6rem', marginBottom: 0 }}>השימוש באתר אינו מחייב מסירת מידע אישי, למעט במקרים שבהם המשתמש בוחר לפנות למשרד באמצעות טפסי קשר או טופס יצירת קשר.</p>
     </div>
 
@@ -114,7 +114,7 @@ export default function Privacy() {
     </div>
 
     <div className="section">
-      <h2>8. זכויות המשתמש – עיון, תיקון ומחיקה</h2>
+      <h2>8. זכויות המשתמש | עיון, תיקון ומחיקה</h2>
       <p>בהתאם להוראות הדין, המשתמש רשאי לפנות למשרד בבקשה:</p>
       <ul>
         <li>לעיין במידע אישי שנשמר אודותיו (ככל שנשמר)</li>
@@ -228,7 +228,7 @@ export default function Privacy() {
     </main>
 
       <footer className="page-footer" role="contentinfo">
-        &copy; {new Date().getFullYear()} ברזילי, עזורי ושות' – עורכי דין. כל הזכויות שמורות.
+        &copy; {new Date().getFullYear()} ברזילי, עזורי ושות' עורכי דין. כל הזכויות שמורות.
         <br />
         <Link to="/accessibility">הצהרת נגישות</Link> |{' '}
         <Link to="/privacy">מדיניות פרטיות</Link> |{' '}

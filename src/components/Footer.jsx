@@ -12,10 +12,10 @@ export default function Footer() {
 
       {/* Col 1: מיתוג */}
       <div className="footer-brand">
-                <Link to="/" className="footer-logo-link" aria-label="ברזילי, עזורי ושות' – עורכי דין">
-          <img src="/logo-footer.png" className="footer-logo-img" alt="ברזילי, עזורי ושות׳ - עורכי דין" />
+                <Link to="/" className="footer-logo-link" aria-label="ברזילי, עזורי ושות' עורכי דין">
+          <img src="/logo-footer.png" className="footer-logo-img" alt="ברזילי, עזורי ושות׳ עורכי דין" />
         </Link>
-        <p className="footer-brand-about">משרד עורכי דין המתמחה בנדל&quot;ן, התחדשות עירונית ותכנון עיזבון. ליווי משפטי מקצועי, אישי ואמין — לאורך כל הדרך.</p>
+        <p className="footer-brand-about">משרד עורכי דין המתמחה בעסקאות נדל&quot;ן, התחדשות עירונית, צוואות וירושות, רישום זכויות בטאבו, רישום בתים משותפים וייפוי כוח מתמשך. ליווי משפטי מקצועי, אישי ואמין לאורך כל הדרך.</p>
       </div>
 
       {/* Col 2: ניווט מהיר */}
@@ -55,8 +55,8 @@ export default function Footer() {
         <div className="footer-contact-item">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--gold-mid)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
           <span>
-            <a href="https://wa.me/972542030535" target="_blank" rel="noopener" className="footer-wa-link">054-2030535 (אגם)</a><br />
-            <a href="https://wa.me/972542531925" target="_blank" rel="noopener" className="footer-wa-link">054-2531925 (לירון)</a>
+            <a href="https://wa.me/972542030535" target="_blank" rel="noopener" className="footer-wa-link">054 2030535 (אגם)</a><br />
+            <a href="https://wa.me/972542531925" target="_blank" rel="noopener" className="footer-wa-link">054 2531925 (לירון)</a>
           </span>
         </div>
 
@@ -67,7 +67,7 @@ export default function Footer() {
 
         <div className="footer-contact-item">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--gold-mid)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <span>ראשון–חמישי: 09:00–18:00</span>
+          <span>ראשון עד חמישי: 09:00 עד 18:00</span>
         </div>
 
         <a href="https://www.google.com/maps?gs_lcrp=EgZjaHJvbWUqCAgAEEUYJxg7MggIABBFGCcYOzIICAEQRRgnGDsyDggCEEUYORhDGIAEGIoFMgYIAxBFGDsyDAgEEAAYQxiABBiKBTIGCAUQRRg8MgYIBhBFGD0yBggHEEUYPdIBBzg5MWowajeoAgCwAgA&um=1&ie=UTF-8&fb=1&gl=il&sa=X&geocode=KZVxm3NtSx0VMdPRYn1cLs70&daddr=%D7%9E%D7%92%D7%93%D7%9C%D7%99+%D7%91%D7%A1%D7%A8+%D7%A1%D7%99%D7%98%D7%99%2C+%D7%96%D7%90%D7%91+%D7%96%27%D7%91%D7%95%D7%98%D7%A0%D7%A1%D7%A7%D7%99+61%2C+%D7%A4%D7%AA%D7%97+%D7%AA%D7%A7%D7%95%D7%95%D7%94" target="_blank" rel="noopener noreferrer" className="footer-nav-link">
@@ -81,7 +81,7 @@ export default function Footer() {
     {/* ── Bottom bar: copyright ← rule → legal links ── */}
     <div className="footer-bottom">
       {/* RTL start (right): copyright */}
-      <p className="footer-copyright">© 2026 ברזילי, עזורי ושות&#x27; – עורכי דין. כל הזכויות שמורות.</p>
+      <p className="footer-copyright">© 2026 ברזילי, עזורי ושות&#x27; עורכי דין. כל הזכויות שמורות.</p>
 
       {/* RTL end (left): legal links + admin — all inline */}
       <div className="footer-bottom-end">

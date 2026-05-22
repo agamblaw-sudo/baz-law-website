@@ -9,8 +9,8 @@ export default function Accessibility() {
   return (
     <div className="legal-page-wrapper">
       <nav className="page-nav" role="navigation" aria-label="ניווט ראשי">
-        <Link to="/" className="nav-logo-link" aria-label="ברזילי, עזורי ושות׳ – עורכי דין">
-          <img src="/logo.png" className="legal-nav-logo" alt="לוגו ברזילי, עזורי ושות׳ - עורכי דין" />
+        <Link to="/" className="nav-logo-link" aria-label="ברזילי, עזורי ושות׳ עורכי דין">
+          <img src="/logo.png" className="legal-nav-logo" alt="לוגו ברזילי, עזורי ושות׳ עורכי דין" />
         </Link>
         <Link to="/" className="back-link">
           חזרה לדף הבית
@@ -34,7 +34,7 @@ export default function Accessibility() {
 
           <div className="section">
             <h2>1. מחויבותנו לנגישות</h2>
-            <p>משרד ברזילי, עזורי ושות' מאמין בערכי שוויון והזדמניות שוות לכולם. אנו פועלים באופן שוטף להנגשת האתר ולהבטיח נגישות מירבית לשירותי האינטרנט שלנו, בהתאם לדרישות תקנות שוויון זכויות לאנשים עם מוגבלות (התאמות נגישות לשירות), התשע"ג-2013, ובהתאם לתקן הישראלי (ת"י 5568) בפורמט AA של WCAG 2.0.</p>
+            <p>משרד ברזילי, עזורי ושות' מאמין בערכי שוויון והזדמניות שוות לכולם. אנו פועלים באופן שוטף להנגשת האתר ולהבטיח נגישות מירבית לשירותי האינטרנט שלנו, בהתאם לדרישות תקנות שוויון זכויות לאנשים עם מוגבלות (התאמות נגישות לשירות), התשע"ג 2013, ובהתאם לתקן הישראלי (ת"י 5568) בפורמט AA של WCAG 2.0.</p>
           </div>
 
           <div className="section">
@@ -74,7 +74,7 @@ export default function Accessibility() {
             <h2>5. אופן יצירת קשר לנושאי נגישות</h2>
             <p>אם נתקלתם בבעיית נגישות באתר, או אם יש לכם שאלות או הצעות לשיפור הנגישות, אנו מזמינים אתכם ליצור עמנו קשר:</p>
             <div className="contact-box">
-              <p><strong>רכז/ת נגישות:</strong> משרד ברזילי, עזורי ושות' – עורכי דין</p>
+              <p><strong>רכז/ת נגישות:</strong> משרד ברזילי, עזורי ושות' עורכי דין</p>
               <p><strong>כתובת המשרד:</strong> מגדלי ב.ס.ר, רחוב ז'בוטינסקי 61, פתח תקווה</p>
               <p><strong>דוא"ל:</strong> <a href="mailto:office@baz-law.co.il">office@baz-law.co.il</a></p>
             </div>
@@ -108,7 +108,7 @@ export default function Accessibility() {
             <p>אם פנייתכם בנושא נגישות האתר לא טופלה באופן מלאה או שלא קיבלתם מענה מספק, ניתן לפנות גם לממונה על הנגישות במשרד המשפטים:</p>
             <div className="contact-box">
               <p><strong>הממונה על הנגישות במשרד המשפטים</strong></p>
-              <p><strong>טלפון:</strong> 02-6466347</p>
+              <p><strong>טלפון:</strong> 02 6466347</p>
               <p><strong>דוא"ל:</strong> <a href="mailto:accessibility@justice.gov.il">accessibility@justice.gov.il</a></p>
               <p><strong>כתובת:</strong> רחוב שער משה 5, ירושלים</p>
             </div>
@@ -193,7 +193,7 @@ export default function Accessibility() {
       </main>
 
       <footer className="page-footer" role="contentinfo">
-        &copy; {new Date().getFullYear()} ברזילי, עזורי ושות' – עורכי דין. כל הזכויות שמורות.
+        &copy; {new Date().getFullYear()} ברזילי, עזורי ושות' עורכי דין. כל הזכויות שמורות.
         <br />
         <Link to="/accessibility">הצהרת נגישות</Link> |{' '}
         <Link to="/privacy">מדיניות פרטיות</Link> |{' '}

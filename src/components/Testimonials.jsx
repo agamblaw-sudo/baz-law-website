@@ -16,7 +16,7 @@ export default function Testimonials() {
         script.async = true;
         document.body.appendChild(script);
       },
-      { rootMargin: '300px' }
+      { rootMargin: '0px' }
     );
     observer.observe(el);
     return () => observer.disconnect();

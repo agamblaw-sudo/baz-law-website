@@ -71,6 +71,7 @@ html {
 
 @media (max-width: 768px) {
   html { scroll-padding-top: 70px; } /* mobile nav (64px) + buffer */
+  .hero { background-image: url('/hero-mobile.webp'); }
 }
 
 body {

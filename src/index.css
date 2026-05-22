@@ -1630,7 +1630,7 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
 .nav-btn-google { background: #1a73e8; }
 .nav-btn-google:hover { background: #1557b0; }
 
-.nav-btn-waze { background: #33ccff; color: var(--navy-dark) !important; }
+.nav-btn-waze { background: #33ccff; color: white !important; }
 .nav-btn-waze:hover { background: #00b3e6; }
 
 .nav-btn-moovit { background: #b83a0f; color: white !important; }

@@ -25,7 +25,7 @@ export default function Accessibility() {
         <div className="content-card">
           <header className="page-header">
             <h1>הצהרת נגישות</h1>
-            <p className="updated">עודכן לאחרונה: 22 בינואר 2026</p>
+            <p className="updated">עודכן לאחרונה: 21 במאי 2026</p>
           </header>
 
           <div className="intro-box">
@@ -88,7 +88,7 @@ export default function Accessibility() {
 
           <div className="section">
             <h2>7. תאריך ביקורת נגישות אחרון</h2>
-            <p>האתר נבדק לאחרונה לרמת נגישות בתאריך: <strong>22 בינואר 2026</strong></p>
+            <p>האתר נבדק לאחרונה לרמת נגישות בתאריך: <strong>21 במאי 2026</strong></p>
           </div>
 
           <div className="section">
@@ -124,7 +124,7 @@ export default function Accessibility() {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.5rem',
-                background: '#b8860b',
+                background: '#E8920A',
                 color: '#fff',
                 textDecoration: 'none',
                 padding: '0.75rem 2rem',
@@ -166,7 +166,7 @@ export default function Accessibility() {
                 fontSize: '0.95rem',
                 fontWeight: 600,
                 fontFamily: "'Heebo', Arial, sans-serif",
-                border: '2px solid #b8860b',
+                border: '2px solid #E8920A',
                 width: '220px',
                 justifyContent: 'center',
                 transition: 'background 0.2s, color 0.2s',
@@ -177,7 +177,7 @@ export default function Accessibility() {
                 height="16"
                 viewBox="0 0 24 24"
                 fill="none"
-                stroke="#b8860b"
+                stroke="#E8920A"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"

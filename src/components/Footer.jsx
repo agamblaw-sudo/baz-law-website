@@ -20,7 +20,7 @@ export default function Footer() {
 
       {/* Col 2: ניווט מהיר */}
       <div className="footer-col">
-        <h4>ניווט מהיר</h4>
+        <h3>ניווט מהיר</h3>
         <ul>
           <li><a href="/#attorneys">אודות המשרד</a></li>
           <li><a href="/#expertise">תחומי התמחות</a></li>

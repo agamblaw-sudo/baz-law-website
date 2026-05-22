@@ -26,7 +26,7 @@
   --gold-pale:  #fdf3dc;
   --white:      #ffffff;
   --text-dark:  #1a3a5c;
-  --text-muted: #4a6fa5;
+  --text-muted: #3b5c8f;
   --border: oklch(0.922 0 0);
   --shadow-sm:  0 2px 12px rgba(26,58,92,0.07);
   --shadow-md:  0 4px 24px rgba(26,58,92,0.11);
@@ -1068,9 +1068,9 @@ nav.scrolled {
 .form-group label {
   font-size: 0.75rem;
   letter-spacing: 0.12em;
-  color: var(--gold);
+  color: var(--navy-dark);
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .form-group input,
@@ -1426,6 +1426,7 @@ footer {
 }
 
 /* ── Column headings (shared by nav cols + contact) ── */
+.footer-col h3,
 .footer-col h4,
 .footer-contact h4 {
   font-family: 'Heebo', Arial, sans-serif;
@@ -1449,7 +1450,7 @@ footer {
 
 .footer-col ul li a {
   text-decoration: none;
-  color: rgba(240,246,255,0.58);
+  color: rgba(240,246,255,0.8);
   font-size: 0.87rem;
   line-height: 1.4;
   transition: color 0.18s;
@@ -1479,7 +1480,7 @@ footer {
 .footer-contact-item span { line-height: 1.6; }
 
 .footer-contact-item a {
-  color: rgba(240,246,255,0.58);
+  color: rgba(240,246,255,0.8);
   text-decoration: none;
   transition: color 0.18s;
 }
@@ -1534,7 +1535,7 @@ footer {
 }
 
 a.footer-bottom-links {
-  color: rgba(240,246,255,0.4);
+  color: rgba(240,246,255,0.72);
   text-decoration: none;
   transition: color 0.18s;
   white-space: nowrap;
@@ -1544,7 +1545,7 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
 .footer-sep { color: rgba(240,246,255,0.18); font-size: 0.78rem; }
 
 .footer-admin-link {
-  color: rgba(240,246,255,0.15);
+  color: rgba(240,246,255,0.6);
   text-decoration: none;
   font-size: 0.68rem;
   transition: color 0.18s;
@@ -1554,9 +1555,14 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
 
 /* WhatsApp phone links */
 .footer-wa-link {
-  color: rgba(240,246,255,0.58) !important;
+  color: rgba(240,246,255,0.8) !important;
   text-decoration: none;
   transition: color 0.18s;
+  display: inline-block;
+  padding: 10px 12px;
+  margin: 2px 0;
+  min-height: 48px;
+  box-sizing: border-box;
 }
 .footer-wa-link:hover { color: var(--gold-mid) !important; }
 
@@ -1624,11 +1630,11 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
 .nav-btn-google { background: #1a73e8; }
 .nav-btn-google:hover { background: #1557b0; }
 
-.nav-btn-waze { background: #33ccff; }
+.nav-btn-waze { background: #33ccff; color: var(--navy-dark) !important; }
 .nav-btn-waze:hover { background: #00b3e6; }
 
-.nav-btn-moovit { background: #f15a22; }
-.nav-btn-moovit:hover { background: #d44b1a; }
+.nav-btn-moovit { background: #d04515; color: white !important; }
+.nav-btn-moovit:hover { background: #b3350c; }
 
 .footer-links { display: none; }
 .footer-logo  { display: none; }
@@ -1761,7 +1767,7 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
 .mobile-menu .mobile-cta {
   margin-top: 1rem;
   background: #E8920A;
-  color: #fff !important;
+  color: var(--white) !important;
   text-align: center;
   padding: 0.85rem 1.5rem;
   font-weight: 700;
@@ -2277,6 +2283,11 @@ html.a11y-sr [tabindex] {
   color: rgba(240,246,255,0.8) !important;
   text-decoration: none;
   transition: color .2s;
+  display: inline-block;
+  padding: 10px 12px;
+  margin: 2px 0;
+  min-height: 48px;
+  box-sizing: border-box;
 }
 .footer-wa-link:hover {
   color: var(--gold-mid) !important;
@@ -2523,7 +2534,7 @@ html.a11y-sr [tabindex] {
   font-family: 'Heebo', Arial, sans-serif;
   font-size: 1.05rem;
   font-weight: 700;
-  color: var(--gold);
+  color: #946908;
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid rgba(184, 134, 11, 0.18);

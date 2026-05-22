@@ -26,7 +26,7 @@ export default function Privacy() {
 
     <header className="page-header">
       <h1>הצהרת פרטיות</h1>
-      <p className="updated">עודכן לאחרונה: 28 בינואר 2026</p>
+      <p className="updated">עודכן לאחרונה: 21 במאי 2026</p>
     </header>
 
     <div className="intro-box">
@@ -159,7 +159,7 @@ export default function Privacy() {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '0.5rem',
-            background: '#b8860b',
+            background: '#E8920A',
             color: '#fff',
             textDecoration: 'none',
             padding: '0.75rem 2rem',
@@ -201,7 +201,7 @@ export default function Privacy() {
             fontSize: '0.95rem',
             fontWeight: 600,
             fontFamily: "'Heebo', Arial, sans-serif",
-            border: '2px solid #b8860b',
+            border: '2px solid #E8920A',
             width: '220px',
             justifyContent: 'center',
             transition: 'background 0.2s, color 0.2s',
@@ -212,7 +212,7 @@ export default function Privacy() {
             height="16"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="#b8860b"
+            stroke="#E8920A"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"

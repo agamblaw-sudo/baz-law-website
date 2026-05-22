@@ -295,6 +295,7 @@ nav.scrolled {
   display: flex;
   align-items: center;
   overflow: hidden;
+  contain: layout;
 }
 
 .hero::before {
@@ -1922,12 +1923,8 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-.hero-content { animation: fadeUp 0.9s ease both; }
-.hero-content > * { animation: fadeUp 0.8s ease both; }
-.hero-content > *:nth-child(1) { animation-delay: 0.1s; }
-.hero-content > *:nth-child(2) { animation-delay: 0.2s; }
-.hero-content > *:nth-child(3) { animation-delay: 0.3s; }
-.hero-content > *:nth-child(4) { animation-delay: 0.4s; }
+.hero-content { animation: none; }
+.hero-content > * { animation: none; }
 
 /* ── Footer text logo ── */
 .footer-text-logo {

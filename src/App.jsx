@@ -34,7 +34,7 @@ function AppContent() {
       <AccessibilityWidget />
       <WhatsAppWidget isLegalPage={isLegalPage} />
       <ScrollToTop />
-      <Suspense fallback={null}>
+      <Suspense fallback={<div style={{ minHeight: '100vh', background: '#10293f' }} />}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/terms" element={<Terms />} />

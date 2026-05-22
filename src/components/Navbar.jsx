@@ -48,7 +48,7 @@ export default function Navbar() {
         <a href="/" className="nav-logo-wrap" aria-label="ברזילי, עזורי ושות׳">
           <picture>
               <source srcSet="/logo.webp" type="image/webp" />
-              <img src="/logo.png" className="nav-logo-img" alt="ברזילי, עזורי ושות׳ עורכי דין" />
+              <img src="/logo.png" className="nav-logo-img" alt="ברזילי, עזורי ושות׳ עורכי דין" width="320" height="95" />
             </picture>
         </a>
 

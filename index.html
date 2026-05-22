@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Block browser scroll-restoration IMMEDIATELY — before any CSS/JS/paint.
+         Without this inline script the browser restores a previous scroll position
+         after our JS bundle loads, causing the visible "jump from bottom to top". -->
+    <script>if ('scrollRestoration' in history) history.scrollRestoration = 'manual';</script>
     <title>ברזילי, עזורי ושות' | משרד עורכי דין</title>
     
     <!-- Open Graph / WhatsApp / Facebook / LinkedIn -->

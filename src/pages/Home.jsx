@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import Hero from '../components/Hero';
 import Attorneys from '../components/Attorneys';
 import Expertise from '../components/Expertise';
-import Testimonials from '../components/Testimonials';
-import ContactForm from '../components/ContactForm';
 import { scrollToHash } from '../services/scrollService';
+
+const Testimonials = lazy(() => import('../components/Testimonials'));
+const ContactForm  = lazy(() => import('../components/ContactForm'));
 
 export default function Home() {
   useEffect(() => {
@@ -21,8 +22,10 @@ export default function Home() {
       <Hero />
       <Attorneys />
       <Expertise />
-      <Testimonials />
-      <ContactForm />
+      <Suspense fallback={null}>
+        <Testimonials />
+        <ContactForm />
+      </Suspense>
     </main>
   );
 }

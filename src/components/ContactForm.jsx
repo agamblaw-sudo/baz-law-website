@@ -402,10 +402,6 @@ export default function ContactForm() {
                 rel="noopener noreferrer"
                 className="nav-btn nav-btn-google"
               >
-                <svg viewBox="0 0 24 24" fill="white" width="16" height="16">
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
-                  <circle cx="12" cy="10" r="3" fill="white" />
-                </svg>
                 Google Maps
               </a>
               <a
@@ -414,12 +410,6 @@ export default function ContactForm() {
                 rel="noopener noreferrer"
                 className="nav-btn nav-btn-waze"
               >
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="white">
-                  <path d="M20.5 9.5C20.5 14.19 16.63 18 11.88 18c-.9 0-1.77-.13-2.59-.37L6 19l.88-3.07A8.44 8.44 0 0 1 3.5 9.5C3.5 4.81 7.31 1 12 1s8.5 3.81 8.5 8.5z" />
-                  <circle cx="9" cy="10" r="1" fill="#00bcd4" />
-                  <circle cx="14" cy="10" r="1" fill="#00bcd4" />
-                  <path d="M9 13s1 1.5 3 1.5 3-1.5 3-1.5" stroke="white" strokeWidth="1" fill="none" strokeLinecap="round" />
-                </svg>
                 Waze
               </a>
               <a
@@ -428,9 +418,6 @@ export default function ContactForm() {
                 rel="noopener noreferrer"
                 className="nav-btn nav-btn-moovit"
               >
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="white">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" />
-                </svg>
                 Moovit
               </a>
             </div>

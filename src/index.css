@@ -1580,7 +1580,7 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
   .footer-brand .footer-logo-img { margin: 0 auto 1rem; height: 95px; width: 320px; }
   .footer-brand-about { max-width: 100%; text-align: center; }
   .footer-col ul { align-items: center; }
-  .footer-contact-item { justify-content: center; }
+  .footer-contact-item, .footer-nav-link { justify-content: center; }
   .footer-bottom {
     flex-direction: column;
     align-items: center;
@@ -2621,5 +2621,65 @@ html.a11y-sr [tabindex] {
   }
   .legal-page-wrapper .page-nav .firm-name {
     font-size: 0.9rem;
+  }
+}
+
+/* Scroll to Top Button */
+.scroll-to-top-btn {
+  position: fixed;
+  bottom: 5.5rem;
+  right: 1.5rem;
+  z-index: 9000;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--white);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(184, 134, 11, 0.4);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px) scale(0.9);
+  transition: all 0.3s ease;
+}
+
+.scroll-to-top-btn.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.scroll-to-top-btn:hover,
+.scroll-to-top-btn:focus-visible {
+  background: var(--gold-light);
+  transform: scale(1.08);
+  box-shadow: 0 6px 22px rgba(184, 134, 11, 0.6);
+  outline: none;
+}
+
+.scroll-to-top-btn .scroll-icon {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease;
+}
+
+.scroll-to-top-btn:hover .scroll-icon {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 640px) {
+  .scroll-to-top-btn {
+    bottom: 4.5rem;
+    right: 1rem;
+    width: 46px;
+    height: 46px;
+  }
+  .scroll-to-top-btn .scroll-icon {
+    width: 20px;
+    height: 20px;
   }
 }

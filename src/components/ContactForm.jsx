@@ -136,12 +136,12 @@ export default function ContactForm() {
                   required
                 >
                   <option value="" disabled>בחרו תחום</option>
-                  <option value="נדל&quot;ן והתחדשות עירונית">נדל&quot;ן והתחדשות עירונית</option>
-                  <option value="צוואה וירושה">צוואה וירושה</option>
+                  <option value="עסקאות נדל&quot;ן">עסקאות נדל&quot;ן</option>
+                  <option value="התחדשות עירונית">התחדשות עירונית</option>
+                  <option value="רישום זכויות בטאבו">רישום זכויות בטאבו</option>
+                  <option value="רישום בתים משותפים">רישום בתים משותפים</option>
+                  <option value="צוואות, ירושות ועזבונות">צוואות, ירושות ועזבונות</option>
                   <option value="ייפוי כוח מתמשך">ייפוי כוח מתמשך</option>
-                  <option value="רישום בית משותף">רישום בית משותף</option>
-                  <option value="ייעוץ כללי">ייעוץ כללי</option>
-                  <option value="אחר">אחר</option>
                 </select>
               </div>
 

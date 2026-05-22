@@ -161,7 +161,7 @@ export default function ContactForm() {
     fphone: '',
     femail: '',
     fmessage: '',
-    fexpertise: 'נדל"ן ועסקאות מכר',
+    fexpertise: '',
     subject: 'פנייה חדשה מאתר המשרד',
     from_name: 'אתר משרד ברזילי-עזורי'
   });
@@ -282,12 +282,15 @@ export default function ContactForm() {
                   name="fexpertise"
                   value={formData.fexpertise}
                   onChange={handleChange}
+                  required
                 >
-                  <option value='נדל"ן ועסקאות מכר'>נדל"ן ועסקאות מכר (רכישה / מכירה)</option>
+                  <option value="" disabled>בחרו תחום</option>
+                  <option value="עסקאות נדל&quot;ן">עסקאות נדל&quot;ן</option>
+                  <option value="התחדשות עירונית">התחדשות עירונית</option>
+                  <option value="רישום זכויות בטאבו">רישום זכויות בטאבו</option>
+                  <option value="רישום בתים משותפים">רישום בתים משותפים</option>
                   <option value="צוואות, ירושות ועזבונות">צוואות, ירושות ועזבונות</option>
                   <option value="ייפוי כוח מתמשך">ייפוי כוח מתמשך</option>
-                  <option value="משפט אזרחי ומסחרי">משפט אזרחי ומסחרי</option>
-                  <option value="אחר">אחר</option>
                 </select>
               </div>
 

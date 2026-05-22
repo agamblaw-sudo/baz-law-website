@@ -18,9 +18,32 @@ export function scrollToElement(element, behavior = 'smooth') {
   const rect = element.getBoundingClientRect();
   const elementTop = window.scrollY + rect.top;
 
-  // Scroll so the top of the element aligns exactly with the bottom of the navbar
+  let offset = navbarHeight;
+
+  // Specific handling for lead-form to align the heading "נשמח לסייע לכם" perfectly on mobile/desktop
+  if (element.id === 'lead-form') {
+    const width = window.innerWidth;
+    if (width <= 480) {
+      // Small mobile has padding-top of 3rem (48px)
+      // We want the heading to be about 1.5rem (24px) below the navbar
+      // So we offset by: navbarHeight - (48 - 24) = navbarHeight - 24
+      offset = navbarHeight - 24;
+    } else if (width <= 768) {
+      // Mobile has padding-top of 4rem (64px)
+      // We want the heading to be about 2rem (32px) below the navbar
+      // So we offset by: navbarHeight - (64 - 32) = navbarHeight - 32
+      offset = navbarHeight - 32;
+    } else {
+      // Desktop has padding-top of 7rem (112px)
+      // We want the heading to be about 3rem (48px) below the navbar
+      // So we offset by: navbarHeight - (112 - 48) = navbarHeight - 64
+      offset = navbarHeight - 64;
+    }
+  }
+
+  // Scroll so the top of the element aligns exactly with the bottom of the navbar minus any custom offset adjustments
   window.scrollTo({
-    top: elementTop - navbarHeight,
+    top: elementTop - offset,
     behavior: behavior
   });
 }
@@ -41,9 +64,25 @@ export function scrollToHash(hash, behavior = 'smooth') {
   const findAndScroll = () => {
     const element = document.getElementById(id);
     if (element) {
+      // If the body is still scroll-locked by a Dialog transition, wait and retry
+      const isLocked = document.body.style.overflow === 'hidden';
+      if (isLocked && attempts < 25) {
+        attempts++;
+        setTimeout(findAndScroll, 40);
+        return;
+      }
+
+      // Initial scroll attempt
+      scrollToElement(element, behavior);
+      
+      // Schedule follow-up scrolls to guarantee positioning after transitions/layout settle
       setTimeout(() => {
         scrollToElement(element, behavior);
-      }, 50);
+      }, 100);
+      
+      setTimeout(() => {
+        scrollToElement(element, behavior);
+      }, 350);
     } else if (attempts < 30) {
       attempts++;
       setTimeout(findAndScroll, 50);
@@ -51,3 +90,4 @@ export function scrollToHash(hash, behavior = 'smooth') {
   };
   findAndScroll();
 }
+

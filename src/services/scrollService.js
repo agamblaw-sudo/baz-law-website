@@ -24,28 +24,34 @@ export function scrollToElement(element, behavior = 'smooth') {
   if (element.id === 'lead-form') {
     const width = window.innerWidth;
     if (width <= 480) {
-      // Small mobile has padding-top of 3rem (48px)
-      // We want the heading to be about 1.5rem (24px) below the navbar
-      // So we offset by: navbarHeight - (48 - 24) = navbarHeight - 24
       offset = navbarHeight - 24;
     } else if (width <= 768) {
-      // Mobile has padding-top of 4rem (64px)
-      // We want the heading to be about 2rem (32px) below the navbar
-      // So we offset by: navbarHeight - (64 - 32) = navbarHeight - 32
       offset = navbarHeight - 32;
     } else {
-      // Desktop has padding-top of 7rem (112px)
-      // We want the heading to be about 3rem (48px) below the navbar
-      // So we offset by: navbarHeight - (112 - 48) = navbarHeight - 64
       offset = navbarHeight - 64;
     }
+  }
+
+  // To prevent the CSS `scroll-behavior: smooth` from causing a jump/smooth-scroll during programmatic layout corrections, we force instant scrolling.
+  const isInstant = behavior === 'auto' || behavior === 'instant';
+  const originalScrollBehavior = document.documentElement.style.scrollBehavior;
+  
+  if (isInstant) {
+    document.documentElement.style.scrollBehavior = 'auto'; // overrides CSS smooth
   }
 
   // Scroll so the top of the element aligns exactly with the bottom of the navbar minus any custom offset adjustments
   window.scrollTo({
     top: elementTop - offset,
-    behavior: behavior
+    behavior: isInstant ? 'auto' : behavior
   });
+
+  if (isInstant) {
+    // Restore the inline style after the scroll event has been processed by the browser
+    setTimeout(() => {
+      document.documentElement.style.scrollBehavior = originalScrollBehavior;
+    }, 10);
+  }
 }
 
 /**

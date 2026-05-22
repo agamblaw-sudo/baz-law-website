@@ -918,6 +918,11 @@ nav.scrolled {
   gap: 2rem;
 }
 
+/* Pre-allocate height for Elfsight widget to prevent layout shifts on load */
+.elfsight-app-e1f8701f-fffa-4269-834d-28f7131068be {
+  min-height: 480px;
+}
+
 .testimonial-card {
   padding: 2.2rem;
   border: 1px solid rgba(201,168,76,0.2);

@@ -15,6 +15,7 @@ export default function ContactForm() {
   const [success, setSuccess] = useState(false);
   const [errors, setErrors] = useState({ fname: false, fphone: false });
   const [mapLinkHover, setMapLinkHover] = useState(false);
+  const [activeTab, setActiveTab] = useState('form'); // 'form' | 'whatsapp'
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -69,140 +70,236 @@ export default function ContactForm() {
       <div className="contact-form-inner">
         <h2 className="section-title" style={{ textAlign: 'center' }}>נשמח לסייע לכם</h2>
         <p className="lead-subtitle" style={{ textAlign: 'center', marginBottom: '2rem', color: 'var(--text-muted)' }}>
-          השאירו פרטים ונחזור אליכם בהקדם לתיאום פגישת ייעוץ אישית ומקצועית.
+          בחרו את הדרך הנוחה לכם ליצירת קשר עמנו.
         </p>
 
-        {success ? (
-          <div id="successMsg" className="success-msg" style={{ display: 'flex' }}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1aa055" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="10" />
-              <polyline points="9 12 11 14 15 10" />
-            </svg>
-            <div>
-              <strong>תודה! פנייתכם התקבלה בהצלחה.</strong>
-              <p>נציג מטעמנו יצור עמכם קשר בהקדם האפשרי.</p>
-            </div>
-          </div>
-        ) : (
-          <form id="contactForm" onSubmit={handleSubmit}>
-            <div className="form-grid">
-              <div className="form-group">
-                <label htmlFor="fname">שם מלא</label>
-                <input
-                  type="text"
-                  id="fname"
-                  name="fname"
-                  required
-                  placeholder=""
-                  value={formData.fname}
-                  onChange={handleChange}
-                  style={errors.fname ? { borderColor: '#e24b4a', boxShadow: '0 0 0 3px rgba(226,75,74,.15)' } : {}}
-                />
-              </div>
+        {/* ── Tab selector ── */}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginBottom: '2rem',
+          background: 'rgba(26,58,92,0.06)',
+          borderRadius: '50px',
+          padding: '5px',
+          maxWidth: '480px',
+          margin: '0 auto 2.2rem',
+          gap: '4px',
+        }}>
+          <button
+            id="tabForm"
+            type="button"
+            onClick={() => setActiveTab('form')}
+            style={{
+              flex: 1,
+              padding: '0.65rem 1.2rem',
+              borderRadius: '50px',
+              border: 'none',
+              cursor: 'pointer',
+              fontWeight: 600,
+              fontSize: '0.95rem',
+              transition: 'all 0.25s',
+              background: activeTab === 'form' ? 'white' : 'transparent',
+              color: activeTab === 'form' ? 'var(--navy-dark)' : 'var(--text-muted)',
+              boxShadow: activeTab === 'form' ? '0 2px 10px rgba(26,58,92,0.12)' : 'none',
+            }}
+          >
+            ✉️ השאירו פרטים
+          </button>
+          <button
+            id="tabWhatsapp"
+            type="button"
+            onClick={() => setActiveTab('whatsapp')}
+            style={{
+              flex: 1,
+              padding: '0.65rem 1.2rem',
+              borderRadius: '50px',
+              border: 'none',
+              cursor: 'pointer',
+              fontWeight: 600,
+              fontSize: '0.95rem',
+              transition: 'all 0.25s',
+              background: activeTab === 'whatsapp' ? 'white' : 'transparent',
+              color: activeTab === 'whatsapp' ? '#128C7E' : 'var(--text-muted)',
+              boxShadow: activeTab === 'whatsapp' ? '0 2px 10px rgba(37,211,102,0.18)' : 'none',
+            }}
+          >
+            💬 שלחו הודעה
+          </button>
+        </div>
 
-              <div className="form-group">
-                <label htmlFor="fphone">טלפון</label>
-                <input
-                  type="tel"
-                  id="fphone"
-                  name="fphone"
-                  required
-                  placeholder=""
-                  value={formData.fphone}
-                  onChange={handleChange}
-                  style={errors.fphone ? { borderColor: '#e24b4a', boxShadow: '0 0 0 3px rgba(226,75,74,.15)' } : {}}
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="femail">דוא"ל</label>
-                <input
-                  type="email"
-                  id="femail"
-                  name="femail"
-                  placeholder=""
-                  value={formData.femail}
-                  onChange={handleChange}
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="fexpertise">תחום פנייה</label>
-                <select
-                  id="fexpertise"
-                  name="fexpertise"
-                  value={formData.fexpertise}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="" disabled>בחרו תחום</option>
-                  <option value="עסקאות נדל&quot;ן">עסקאות נדל&quot;ן</option>
-                  <option value="התחדשות עירונית">התחדשות עירונית</option>
-                  <option value="רישום זכויות בטאבו">רישום זכויות בטאבו</option>
-                  <option value="רישום בתים משותפים">רישום בתים משותפים</option>
-                  <option value="צוואות, ירושות ועזבונות">צוואות, ירושות ועזבונות</option>
-                  <option value="ייפוי כוח מתמשך">ייפוי כוח מתמשך</option>
-                </select>
-              </div>
-
-              <div className="form-group full">
-                <label htmlFor="fmessage">הודעה (אופציונלי)</label>
-                <textarea
-                  id="fmessage"
-                  name="fmessage"
-                  rows="4"
-                  placeholder="ספרו לנו בקצרה במה תרצו עזרה..."
-                  value={formData.fmessage}
-                  onChange={handleChange}
-                ></textarea>
+        {/* ── Form panel ── */}
+        {activeTab === 'form' && (
+          success ? (
+            <div id="successMsg" className="success-msg" style={{ display: 'flex' }}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1aa055" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="9 12 11 14 15 10" />
+              </svg>
+              <div>
+                <strong>תודה! פנייתכם התקבלה בהצלחה.</strong>
+                <p>נציג מטעמנו יצור עמכם קשר בהקדם האפשרי.</p>
               </div>
             </div>
+          ) : (
+            <form id="contactForm" onSubmit={handleSubmit}>
+              <div className="form-grid">
+                <div className="form-group">
+                  <label htmlFor="fname">שם מלא</label>
+                  <input
+                    type="text"
+                    id="fname"
+                    name="fname"
+                    required
+                    placeholder=""
+                    value={formData.fname}
+                    onChange={handleChange}
+                    style={errors.fname ? { borderColor: '#e24b4a', boxShadow: '0 0 0 3px rgba(226,75,74,.15)' } : {}}
+                  />
+                </div>
 
-            <input type="hidden" name="subject" value={formData.subject} />
-            <input type="hidden" name="from_name" value={formData.from_name} />
+                <div className="form-group">
+                  <label htmlFor="fphone">טלפון</label>
+                  <input
+                    type="tel"
+                    id="fphone"
+                    name="fphone"
+                    required
+                    placeholder=""
+                    value={formData.fphone}
+                    onChange={handleChange}
+                    style={errors.fphone ? { borderColor: '#e24b4a', boxShadow: '0 0 0 3px rgba(226,75,74,.15)' } : {}}
+                  />
+                </div>
 
-            <div className="form-submit" style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem', alignItems: 'center' }}>
-              <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center', width: '100%' }}>
-                <button type="submit" id="submitBtn" className="btn-primary" disabled={loading} style={{ flex: '1', minWidth: '220px', maxWidth: '300px', display: 'flex', justifyContent: 'center' }}>
+                <div className="form-group">
+                  <label htmlFor="femail">דוא"ל</label>
+                  <input
+                    type="email"
+                    id="femail"
+                    name="femail"
+                    placeholder=""
+                    value={formData.femail}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="fexpertise">תחום פנייה</label>
+                  <select
+                    id="fexpertise"
+                    name="fexpertise"
+                    value={formData.fexpertise}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="" disabled>בחרו תחום</option>
+                    <option value="עסקאות נדל&quot;ן">עסקאות נדל&quot;ן</option>
+                    <option value="התחדשות עירונית">התחדשות עירונית</option>
+                    <option value="רישום זכויות בטאבו">רישום זכויות בטאבו</option>
+                    <option value="רישום בתים משותפים">רישום בתים משותפים</option>
+                    <option value="צוואות, ירושות ועזבונות">צוואות, ירושות ועזבונות</option>
+                    <option value="ייפוי כוח מתמשך">ייפוי כוח מתמשך</option>
+                  </select>
+                </div>
+
+                <div className="form-group full">
+                  <label htmlFor="fmessage">הודעה (אופציונלי)</label>
+                  <textarea
+                    id="fmessage"
+                    name="fmessage"
+                    rows="4"
+                    placeholder="ספרו לנו בקצרה במה תרצו עזרה..."
+                    value={formData.fmessage}
+                    onChange={handleChange}
+                  ></textarea>
+                </div>
+              </div>
+
+              <input type="hidden" name="subject" value={formData.subject} />
+              <input type="hidden" name="from_name" value={formData.from_name} />
+
+              <div className="form-submit" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center' }}>
+                <button type="submit" id="submitBtn" className="btn-primary" disabled={loading} style={{ minWidth: '220px', maxWidth: '300px', display: 'flex', justifyContent: 'center' }}>
                   <span id="submitBtnText" style={{ display: loading ? 'none' : 'inline' }}>שליחת הפנייה</span>
                   <span id="submitBtnSpinner" className="spinner" style={{ display: loading ? 'inline' : 'none' }}></span>
                 </button>
-                
-                <a 
-                  href="https://wa.me/972542030535?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%9C%20%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%A0%D7%95%D7%A1%D7%A4%D7%99%D7%9D%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="btn-whatsapp"
-                  style={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center', 
-                    gap: '0.6rem', 
-                    background: '#25D366', 
-                    color: 'white', 
-                    textDecoration: 'none', 
-                    padding: '0 2rem', 
-                    borderRadius: '50px', 
-                    fontWeight: '600', 
-                    fontSize: '1.05rem',
-                    flex: '1',
-                    minWidth: '220px',
-                    maxWidth: '300px',
-                    boxShadow: '0 4px 15px rgba(37, 211, 102, 0.25)',
-                    transition: 'transform 0.2s, box-shadow 0.2s'
-                  }}
-                  onMouseOver={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 6px 20px rgba(37, 211, 102, 0.35)'; }}
-                  onMouseOut={(e) => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 4px 15px rgba(37, 211, 102, 0.25)'; }}
-                >
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z" />
-                  </svg>
-                  שלחו לנו הודעה
-                </a>
+                <span className="form-note" style={{ position: 'relative', left: 'auto' }}>הפרטים שלכם נשמרים בסודיות מלאה</span>
               </div>
-              <span className="form-note" style={{ position: 'relative', left: 'auto' }}>הפרטים שלכם נשמרים בסודיות מלאה</span>
+            </form>
+          )
+        )}
+
+        {/* ── WhatsApp panel ── */}
+        {activeTab === 'whatsapp' && (
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.5rem', padding: '1rem 0 0.5rem' }}>
+            <p style={{ color: 'var(--text-muted)', textAlign: 'center', fontSize: '1rem', maxWidth: '420px', lineHeight: 1.6 }}>
+              בחרו את עורך הדין שתרצו לפנות אליו ישירות בוואטסאפ:
+            </p>
+
+            <div style={{ display: 'flex', gap: '1.2rem', flexWrap: 'wrap', justifyContent: 'center', width: '100%' }}>
+              {/* כרטיס אגם */}
+              <a
+                href="https://wa.me/972542030535?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%9C%20%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%A0%D7%95%D7%A1%D7%A4%D7%99%D7%9D%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8"
+                target="_blank"
+                rel="noopener noreferrer"
+                id="waAgam"
+                style={{
+                  display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.9rem',
+                  background: 'white', border: '2px solid rgba(37,211,102,0.25)', borderRadius: '18px',
+                  padding: '1.8rem 2rem', textDecoration: 'none', color: 'var(--navy-dark)',
+                  flex: '1', minWidth: '200px', maxWidth: '240px',
+                  boxShadow: '0 4px 18px rgba(37,211,102,0.1)',
+                  transition: 'transform 0.2s, box-shadow 0.2s, border-color 0.2s', cursor: 'pointer',
+                }}
+                onMouseOver={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 30px rgba(37,211,102,0.22)'; e.currentTarget.style.borderColor = 'rgba(37,211,102,0.55)'; }}
+                onMouseOut={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 4px 18px rgba(37,211,102,0.1)'; e.currentTarget.style.borderColor = 'rgba(37,211,102,0.25)'; }}
+              >
+                <div style={{ width: '54px', height: '54px', borderRadius: '50%', background: 'linear-gradient(135deg,#25D366,#128C7E)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(37,211,102,0.35)' }}>
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z" /></svg>
+                </div>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{ fontWeight: 700, fontSize: '1.05rem', marginBottom: '0.2rem' }}>אגם ברזילי</div>
+                  <div style={{ fontSize: '0.88rem', color: '#128C7E', fontWeight: 600 }}>054-2030535</div>
+                </div>
+                <div style={{ background: 'linear-gradient(135deg,#25D366,#128C7E)', color: 'white', borderRadius: '30px', padding: '0.45rem 1.2rem', fontSize: '0.88rem', fontWeight: 600 }}>
+                  שלחו הודעה
+                </div>
+              </a>
+
+              {/* כרטיס לירון */}
+              <a
+                href="https://wa.me/972542531925?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%9C%20%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%A0%D7%95%D7%A1%D7%A4%D7%99%D7%9D%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8"
+                target="_blank"
+                rel="noopener noreferrer"
+                id="waLiron"
+                style={{
+                  display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.9rem',
+                  background: 'white', border: '2px solid rgba(37,211,102,0.25)', borderRadius: '18px',
+                  padding: '1.8rem 2rem', textDecoration: 'none', color: 'var(--navy-dark)',
+                  flex: '1', minWidth: '200px', maxWidth: '240px',
+                  boxShadow: '0 4px 18px rgba(37,211,102,0.1)',
+                  transition: 'transform 0.2s, box-shadow 0.2s, border-color 0.2s', cursor: 'pointer',
+                }}
+                onMouseOver={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 30px rgba(37,211,102,0.22)'; e.currentTarget.style.borderColor = 'rgba(37,211,102,0.55)'; }}
+                onMouseOut={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 4px 18px rgba(37,211,102,0.1)'; e.currentTarget.style.borderColor = 'rgba(37,211,102,0.25)'; }}
+              >
+                <div style={{ width: '54px', height: '54px', borderRadius: '50%', background: 'linear-gradient(135deg,#25D366,#128C7E)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(37,211,102,0.35)' }}>
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z" /></svg>
+                </div>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{ fontWeight: 700, fontSize: '1.05rem', marginBottom: '0.2rem' }}>לירון עזורי</div>
+                  <div style={{ fontSize: '0.88rem', color: '#128C7E', fontWeight: 600 }}>054-2531925</div>
+                </div>
+                <div style={{ background: 'linear-gradient(135deg,#25D366,#128C7E)', color: 'white', borderRadius: '30px', padding: '0.45rem 1.2rem', fontSize: '0.88rem', fontWeight: 600 }}>
+                  שלחו הודעה
+                </div>
+              </a>
             </div>
-          </form>
+
+            <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginTop: '0.5rem' }}>
+              🔒 הפרטים שלכם נשמרים בסודיות מלאה
+            </p>
+          </div>
         )}
       </div>
     </section>

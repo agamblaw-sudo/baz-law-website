@@ -46,7 +46,10 @@ export default function Navbar() {
 
         {/* Logo — ימין (RTL start) */}
         <a href="/" className="nav-logo-wrap" aria-label="ברזילי, עזורי ושות׳">
-          <img src="/logo.png" className="nav-logo-img" alt="ברזילי, עזורי ושות׳ עורכי דין" />
+          <picture>
+              <source srcSet="/logo.webp" type="image/webp" />
+              <img src="/logo.png" className="nav-logo-img" alt="ברזילי, עזורי ושות׳ עורכי דין" />
+            </picture>
         </a>
 
         {/* Nav links — centre (desktop) */}

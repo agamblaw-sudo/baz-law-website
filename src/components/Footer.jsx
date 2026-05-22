@@ -13,7 +13,10 @@ export default function Footer() {
       {/* Col 1: מיתוג */}
       <div className="footer-brand">
                 <Link to="/" className="footer-logo-link" aria-label="ברזילי, עזורי ושות' עורכי דין">
-          <img src="/logo-footer.png" className="footer-logo-img" alt="ברזילי, עזורי ושות׳ עורכי דין" />
+          <picture>
+            <source srcSet="/logo-footer.webp" type="image/webp" />
+            <img src="/logo-footer.png" className="footer-logo-img" alt="ברזילי, עזורי ושות׳ עורכי דין" />
+          </picture>
         </Link>
         <p className="footer-brand-about">משרד עורכי דין המתמחה בעסקאות נדל&quot;ן, התחדשות עירונית, צוואות וירושות, רישום זכויות בטאבו, רישום בתים משותפים וייפוי כוח מתמשך. ליווי משפטי מקצועי, אישי ואמין לאורך כל הדרך.</p>
       </div>

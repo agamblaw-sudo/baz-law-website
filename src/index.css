@@ -804,6 +804,8 @@ nav.scrolled {
 .expertise-icon {
   width: 52px; height: 52px;
   margin-bottom: 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -826,6 +828,7 @@ nav.scrolled {
   font-weight: 700;
   margin-bottom: 1rem;
   color: var(--text-dark);
+  text-align: center;
 }
 
 .expertise-card p {

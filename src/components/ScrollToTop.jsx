@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-export default function ScrollToTop() {
+export default function ScrollToTop({ isLegalPage }) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export default function ScrollToTop() {
     <button
       type="button"
       onClick={scrollToTop}
-      className={`scroll-to-top-btn ${isVisible ? 'visible' : ''}`}
+      className={`scroll-to-top-btn ${isVisible ? 'visible' : ''} ${isLegalPage ? 'in-legal-page' : ''}`}
       aria-label="חזרה לראש העמוד"
       title="חזרה לראש העמוד"
     >

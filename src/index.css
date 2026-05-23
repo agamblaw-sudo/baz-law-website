@@ -2043,7 +2043,7 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
   position: fixed;
   bottom: 8rem;
   left: 1.5rem;
-  z-index: 9001;
+  z-index: 10000;
   width: 310px;
   max-height: calc(100vh - 9rem);
   overflow-y: auto;
@@ -2349,12 +2349,12 @@ html.a11y-sr [tabindex] {
 /* Mobile adjustments */
 @media (max-width: 640px) {
   #a11y-panel {
-    width: calc(100vw - 3rem);
-    left: 1.5rem;
-    bottom: 7rem;
-    max-height: calc(100vh - 8rem);
+    width: calc(100vw - 2rem);
+    left: 1rem;
+    bottom: 4.5rem;
+    max-height: calc(100vh - 6rem);
   }
-  #a11y-btn { bottom: 4.5rem; left: 1rem; }
+  #a11y-btn { bottom: 1.5rem; left: 1rem; }
 }
 
 @theme inline {
@@ -2759,10 +2759,13 @@ html.a11y-sr [tabindex] {
 
 @media (max-width: 640px) {
   .scroll-to-top-btn {
-    bottom: 4.5rem;
+    bottom: 1.5rem;
     right: 1rem;
     width: 46px;
     height: 46px;
+  }
+  .scroll-to-top-btn.in-legal-page {
+    bottom: 5rem;
   }
   .scroll-to-top-btn .scroll-icon {
     width: 20px;

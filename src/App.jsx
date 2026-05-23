@@ -6,9 +6,9 @@ import AccessibilityWidget from './components/AccessibilityWidget';
 import ScrollToTop from './components/ScrollToTop';
 import WhatsAppWidget from './components/WhatsAppWidget';
 import { scrollToHash } from './services/scrollService';
+import Home from './pages/Home';
 
 // Lazy-load heavy pages to enable code-splitting (reduces initial bundle / TBT)
-const Home = lazy(() => import('./pages/Home'));
 const Terms = lazy(() => import('./pages/Terms'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Accessibility = lazy(() => import('./pages/Accessibility'));
@@ -34,7 +34,7 @@ function AppContent() {
       <AccessibilityWidget />
       <WhatsAppWidget isLegalPage={isLegalPage} />
       <ScrollToTop />
-      <Suspense fallback={<div style={{ minHeight: '100vh', background: '#10293f' }} />}>
+      <Suspense fallback={<div style={{ minHeight: '100vh' }} />}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/terms" element={<Terms />} />

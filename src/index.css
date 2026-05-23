@@ -1169,7 +1169,7 @@ nav.scrolled {
 ══════════════════════════════ */
 .contact {
   padding: 0;
-  background: var(--pale);
+  background: var(--navy);
   position: relative;
 }
 
@@ -1196,7 +1196,7 @@ nav.scrolled {
 
 .location-info {
   padding: 2rem 3.5rem 4rem;
-  background: var(--pale);
+  background: var(--navy);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -1918,13 +1918,67 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
 /* ══════════════════════════════
    ANIMATIONS
 ══════════════════════════════ */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.hero-content { animation: none; }
-.hero-content > * { animation: none; }
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroBgFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Apply to navbar on initial load */
+#navbar {
+  will-change: transform, opacity;
+  animation: slideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Smooth staggered entrance for hero elements */
+.hero-content h1 {
+  will-change: transform, opacity;
+  animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.15s;
+}
+
+.hero-sub {
+  will-change: transform, opacity;
+  animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.3s;
+}
+
+.hero-actions {
+  will-change: transform, opacity;
+  animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.45s;
+}
+
+.hero-bg-text {
+  will-change: opacity;
+  animation: heroBgFade 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.05s;
+}
 
 /* ── Footer text logo ── */
 .footer-text-logo {

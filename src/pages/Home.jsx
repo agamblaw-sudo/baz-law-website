@@ -1,10 +1,9 @@
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
 import Hero from '../components/Hero';
 import Attorneys from '../components/Attorneys';
 import Expertise from '../components/Expertise';
-
-const Testimonials = lazy(() => import('../components/Testimonials'));
-const ContactForm  = lazy(() => import('../components/ContactForm'));
+import Testimonials from '../components/Testimonials';
+import ContactForm from '../components/ContactForm';
 
 export default function Home() {
   return (
@@ -12,10 +11,8 @@ export default function Home() {
       <Hero />
       <Attorneys />
       <Expertise />
-      <Suspense fallback={null}>
-        <Testimonials />
-        <ContactForm />
-      </Suspense>
+      <Testimonials />
+      <ContactForm />
     </main>
   );
 }

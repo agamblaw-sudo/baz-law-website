@@ -31,11 +31,21 @@
     <meta name="description" content="משרד עורכי דין המתמחה בנדל&quot;ן, התחדשות עירונית, רישום זכויות, צוואות, ירושות וייפוי כוח מתמשך. ניסיון, מקצועיות ושירות אישי." />
     <link rel="canonical" href="https://baz-law.co.il/" />
 
-    <!-- Critical CSS: reserve hero viewport height before ANY stylesheet or JS loads.
-         Prevents the hero from collapsing to 0 during initial blank render, eliminating
-         the "blank → full content" layout shift that Lighthouse catches as CLS. -->
+    <!-- Critical CSS:
+         1. Paint the hero background image on #root immediately — before any JS or
+            external CSS loads — so the first visible frame already shows the BSR
+            towers instead of a solid-color flash.  The image is preloaded (see below)
+            so it arrives in the browser cache before this rule is applied.
+         2. Reserve 100vh so there is never a blank-then-jump layout shift. -->
     <style>
-      html, body, #root { min-height: 100vh; }
+      html, body { min-height: 100vh; background: #0a1628; }
+      #root {
+        min-height: 100vh;
+        background: url('/hero.webp') center center / cover no-repeat #0a1628;
+      }
+      @media (max-width: 768px) {
+        #root { background-image: url('/hero-mobile.webp'); }
+      }
       .hero { min-height: 100vh; min-height: 100dvh; }
     </style>
 

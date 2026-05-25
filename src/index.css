@@ -671,6 +671,7 @@ nav.scrolled {
   color: var(--text-dark);
   margin-bottom: 0.25rem;
   line-height: 1.2;
+  text-align: center;
 }
 
 .attorney-title {
@@ -2257,12 +2258,17 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
 }
 .a11y-reset-btn:hover { background: #cf7d08; }
 
-/* Footer note */
-.a11y-footer-note {
-  text-align: center;
-  font-size: 11px;
-  color: #a0aab5;
-  padding: 8px 16px 14px;
+/* RTL Switch alignments */
+[dir="rtl"] [data-slot="switch"] {
+  direction: rtl;
+}
+
+[dir="rtl"] [data-slot="switch-thumb"][data-state="checked"] {
+  transform: translateX(calc(-100% + 2px)) !important;
+}
+
+[dir="rtl"] [data-slot="switch-thumb"][data-state="unchecked"] {
+  transform: translateX(0) !important;
 }
 
 /* ── Global accessibility state classes on <html> ── */

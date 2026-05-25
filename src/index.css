@@ -2258,19 +2258,6 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
 }
 .a11y-reset-btn:hover { background: #cf7d08; }
 
-/* RTL Switch alignments */
-[dir="rtl"] [data-slot="switch"] {
-  direction: rtl;
-}
-
-[dir="rtl"] [data-slot="switch-thumb"][data-state="checked"] {
-  transform: translateX(calc(-100% + 2px)) !important;
-}
-
-[dir="rtl"] [data-slot="switch-thumb"][data-state="unchecked"] {
-  transform: translateX(0) !important;
-}
-
 /* ── Global accessibility state classes on <html> ── */
 
 /* High contrast */

@@ -3152,3 +3152,135 @@ html.a11y-sr [tabindex] {
     right: -0.5rem;
   }
 }
+
+/* ==========================================
+   COOKIE CONSENT BANNER
+   ========================================== */
+
+.cookie-consent-banner {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #10293f;
+  border-top: 4px solid #E8920A;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+  width: 90%;
+  max-width: 680px;
+  padding: 1.2rem 1.8rem;
+  z-index: 100000;
+  direction: rtl;
+  opacity: 0;
+  animation: slideUpFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.cookie-consent-banner.fade-out {
+  opacity: 0;
+  transform: translate(-50%, 15px);
+}
+
+.cookie-consent-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.cookie-consent-text {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin: 0;
+  text-align: right;
+  font-family: 'Heebo', Arial, sans-serif;
+  flex: 1;
+}
+
+.cookie-consent-link {
+  color: #E8920A;
+  text-decoration: underline;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.cookie-consent-link:hover {
+  color: #cf7d08;
+}
+
+.cookie-consent-btn {
+  background: #E8920A;
+  color: #ffffff;
+  border: none;
+  padding: 0.6rem 1.8rem;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  font-family: 'Heebo', Arial, sans-serif;
+  box-shadow: 0 4px 12px rgba(232, 146, 10, 0.25);
+}
+
+.cookie-consent-btn:hover {
+  background: #cf7d08;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(232, 146, 10, 0.4);
+}
+
+@keyframes slideUpFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 30px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  .cookie-consent-banner {
+    bottom: 0;
+    left: 0;
+    transform: none;
+    width: 100%;
+    border-radius: 16px 16px 0 0;
+    padding: 1.2rem 1.2rem 1.8rem;
+  }
+  
+  .cookie-consent-banner.fade-out {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  
+  .cookie-consent-content {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  
+  .cookie-consent-text {
+    font-size: 0.88rem;
+  }
+  
+  .cookie-consent-btn {
+    width: 100%;
+    text-align: center;
+    padding: 0.7rem;
+  }
+
+  @keyframes slideUpFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

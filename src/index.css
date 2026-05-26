@@ -2516,19 +2516,39 @@ html.a11y-sr [tabindex] {
 }
 
 .legal-page-wrapper .page-nav .back-link {
-  color: rgba(240, 246, 255, 0.75);
+  color: #ffffff;
   text-decoration: none;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
+  font-weight: 600;
   display: flex;
   align-items: center;
-  gap: 0.3rem;
-  transition: color 0.2s;
+  gap: 0.4rem;
+  border: 1.5px solid #E8920A;
+  background: transparent;
+  padding: 0.4rem 1.1rem;
+  border-radius: 30px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   direction: ltr;
 }
 
 .legal-page-wrapper .page-nav .back-link:hover {
-  color: var(--gold-mid);
+  color: #ffffff;
+  background: #E8920A;
+  border-color: #E8920A;
+  box-shadow: 0 4px 12px rgba(232, 146, 10, 0.35);
+  transform: translateY(-1px);
 }
+
+.legal-page-wrapper .page-nav .back-link svg {
+  transform: scaleX(-1);
+  margin-left: 0.1rem;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.legal-page-wrapper .page-nav .back-link:hover svg {
+  transform: scaleX(-1) translateX(-3px);
+}
+
 
 /* Main content */
 .legal-page-wrapper main {

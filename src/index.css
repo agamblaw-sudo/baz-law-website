@@ -409,6 +409,7 @@ nav.scrolled {
   align-items: center;
   gap: 0.6rem;
   box-shadow: 0 4px 18px rgba(232, 146, 10, 0.45);
+  border-radius: 30px;
 }
 
 .btn-primary:hover {
@@ -573,6 +574,7 @@ nav.scrolled {
   transition: all 0.35s ease;
   display: flex;
   flex-direction: column;
+  border-radius: 12px;
 }
 
 .attorney-card:hover {
@@ -780,6 +782,7 @@ nav.scrolled {
   transition: all 0.3s;
   cursor: default;
   box-shadow: var(--shadow-sm);
+  border-radius: 12px;
 }
 
 .expertise-card::after {
@@ -812,6 +815,7 @@ nav.scrolled {
   justify-content: center;
   background: var(--gold-pale);
   border: 1px solid rgba(184,134,11,0.2);
+  border-radius: 8px;
 }
 
 .expertise-icon svg {
@@ -1093,6 +1097,7 @@ nav.scrolled {
   width: 100%;
   direction: rtl;
   box-shadow: var(--shadow-sm);
+  border-radius: 8px;
 }
 
 .form-group input::placeholder,
@@ -1782,6 +1787,7 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
   letter-spacing: 0.06em;
   transition: all 0.25s ease;
   box-shadow: 0 4px 18px rgba(232, 146, 10, 0.45);
+  border-radius: 30px;
 }
 .mobile-menu .mobile-cta:hover {
   background: #cf7d08;

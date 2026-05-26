@@ -1570,9 +1570,9 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
   text-decoration: none;
   transition: color 0.18s;
   display: inline-block;
-  padding: 10px 12px;
-  margin: 2px 0;
-  min-height: 48px;
+  padding: 1px 0;
+  margin: 0;
+  min-height: auto;
   box-sizing: border-box;
 }
 .footer-wa-link:hover { color: var(--gold-mid) !important; }
@@ -2338,9 +2338,9 @@ html.a11y-sr [tabindex] {
   text-decoration: none;
   transition: color .2s;
   display: inline-block;
-  padding: 10px 12px;
-  margin: 2px 0;
-  min-height: 48px;
+  padding: 1px 0;
+  margin: 0;
+  min-height: auto;
   box-sizing: border-box;
 }
 .footer-wa-link:hover {

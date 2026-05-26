@@ -2712,6 +2712,95 @@ html.a11y-sr [tabindex] {
   }
 }
 
+/* Legal subpages bottom buttons & actions styling */
+.legal-page-wrapper .bottom-actions-section {
+  text-align: center;
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(184, 134, 11, 0.15);
+}
+
+.legal-page-wrapper .bottom-actions-section .help-text {
+  font-size: 0.95rem;
+  color: #4a6fa5;
+  margin-bottom: 1.2rem;
+}
+
+.legal-page-wrapper .bottom-actions-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.legal-page-wrapper .btn-legal-contact,
+.legal-page-wrapper .btn-legal-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  padding: 0.8rem 2.2rem;
+  border-radius: 30px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: 'Heebo', Arial, sans-serif;
+  width: 220px;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.legal-page-wrapper .btn-legal-contact {
+  background: #E8920A;
+  color: #fff;
+  border: 2px solid #E8920A;
+}
+
+.legal-page-wrapper .btn-legal-contact:hover {
+  background: #cf7d08;
+  border-color: #cf7d08;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(232, 146, 10, 0.25);
+}
+
+.legal-page-wrapper .btn-legal-back {
+  background: transparent;
+  color: #1a3a5c;
+  border: 2px solid #E8920A;
+}
+
+.legal-page-wrapper .btn-legal-back:hover {
+  background: #E8920A;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(232, 146, 10, 0.2);
+}
+
+.legal-page-wrapper .btn-legal-contact svg,
+.legal-page-wrapper .btn-legal-back svg {
+  transition: transform 0.3s ease, stroke 0.3s ease;
+}
+
+.legal-page-wrapper .btn-legal-contact:hover svg {
+  transform: scale(1.1);
+}
+
+.legal-page-wrapper .btn-legal-back:hover svg {
+  transform: scale(1.1);
+}
+
+/* Mobile responsive styles for bottom buttons */
+@media (max-width: 640px) {
+  .legal-page-wrapper .bottom-actions-container {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+
 /* Scroll to Top Button */
 .scroll-to-top-btn {
   position: fixed;

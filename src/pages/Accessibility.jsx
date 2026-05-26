@@ -115,34 +115,19 @@ export default function Accessibility() {
           </div>
         </div>
 
-        <div style={{ textAlign: 'center', marginTop: '2.5rem', paddingTop: '2rem', borderTop: '1px solid rgba(184,134,11,0.15)' }}>
-          <p style={{ fontSize: '0.95rem', color: '#4a6fa5', marginBottom: '1.2rem' }}>יש לכם שאלות? אנחנו כאן לעזור.</p>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem' }}>
+        <div className="bottom-actions-section">
+          <p className="help-text">יש לכם שאלות? אנחנו כאן לעזור.</p>
+          <div className="bottom-actions-container">
             <Link
               to="/#lead-form"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                background: '#E8920A',
-                color: '#fff',
-                textDecoration: 'none',
-                padding: '0.75rem 2rem',
-                borderRadius: '8px',
-                fontSize: '0.95rem',
-                fontWeight: 600,
-                fontFamily: "'Heebo', Arial, sans-serif",
-                transition: 'background 0.2s',
-                width: '220px',
-                justifyContent: 'center',
-              }}
+              className="btn-legal-contact"
             >
               <svg
                 width="16"
                 height="16"
                 viewBox="0 0 24 24"
                 fill="none"
-                stroke="white"
+                stroke="currentColor"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -154,30 +139,14 @@ export default function Accessibility() {
             </Link>
             <Link
               to="/"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                background: 'transparent',
-                color: '#1a3a5c',
-                textDecoration: 'none',
-                padding: '0.75rem 2rem',
-                borderRadius: '8px',
-                fontSize: '0.95rem',
-                fontWeight: 600,
-                fontFamily: "'Heebo', Arial, sans-serif",
-                border: '2px solid #E8920A',
-                width: '220px',
-                justifyContent: 'center',
-                transition: 'background 0.2s, color 0.2s',
-              }}
+              className="btn-legal-back"
             >
               <svg
                 width="16"
                 height="16"
                 viewBox="0 0 24 24"
                 fill="none"
-                stroke="#E8920A"
+                stroke="currentColor"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"

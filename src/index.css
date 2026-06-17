@@ -375,9 +375,8 @@ nav.scrolled {
   inset: 0;
   background: url('/hero-bsr-sharpened.webp') center center / cover no-repeat;
   z-index: 1;
-  transform: none;
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
+  will-change: opacity, transform;
+  animation: heroBgReveal 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s both;
 }
 
 .hero-video-bg {
@@ -400,6 +399,7 @@ nav.scrolled {
     rgba(10, 22, 40, 0.45) 100%
   );
   z-index: 2;
+  animation: heroBgFade 1.2s ease-out 0.1s both;
 }
 
 .hero-content { position: relative; z-index: 3; }
@@ -462,6 +462,8 @@ nav.scrolled {
   line-height: 1.1;
   color: #ffffff;
   margin-bottom: 1.75rem;
+  will-change: opacity, transform;
+  animation: heroFadeUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.55s both;
 }
 
 .hero h1 span {
@@ -476,6 +478,8 @@ nav.scrolled {
   font-weight: 300;
   max-width: 800px;
   margin-bottom: 3rem;
+  will-change: opacity, transform;
+  animation: heroFadeUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.75s both;
 }
 
 .hero-actions {
@@ -483,6 +487,8 @@ nav.scrolled {
   gap: 1.5rem;
   align-items: center;
   flex-wrap: wrap;
+  will-change: opacity, transform;
+  animation: heroFadeUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.95s both;
 }
 
 .btn-primary {
@@ -2434,11 +2440,29 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
 }
 
 @keyframes heroBgFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes heroBgReveal {
   from {
     opacity: 0;
+    transform: scale(1.06);
   }
   to {
     opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -2451,20 +2475,17 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
 /* Smooth staggered entrance for hero elements */
 .hero-content h1 {
   will-change: transform, opacity;
-  animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: 0.15s;
+  animation: heroFadeUp 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s both;
 }
 
 .hero-sub {
   will-change: transform, opacity;
-  animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: 0.3s;
+  animation: heroFadeUp 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.7s both;
 }
 
 .hero-actions {
   will-change: transform, opacity;
-  animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: 0.45s;
+  animation: heroFadeUp 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.9s both;
 }
 
 .hero-bg-text {

@@ -3,22 +3,23 @@ import { Dialog, DialogTrigger, DialogPortal, DialogTitle } from '@/components/u
 import { Dialog as DialogPrimitive } from 'radix-ui';
 
 export default function AccessibilityWidget() {
-  const STORAGE_KEY = 'baz-a11y-v2';
+  const STORAGE_KEY = 'baz-a11y-v5';
 
   const defaultState = {
     largeWidget: false,
-    contrast: false,
-    links: false,
-    largeText: false,
+    textSize: 100, // 100, 110, 120, 130
     textSpacing: false,
-    anim: false,
-    hideImages: false,
-    dyslexia: false,
+    contrast: false,
+    invert: false,
+    grayscale: false,
+    links: false,
+    headers: false,
+    readableFont: false,
     largeCursor: false,
-    titles: false,
-    lineHeight: false,
-    textAlign: false,
-    saturation: false,
+    contrastCursor: false,
+    stopAnimations: false,
+    readingMask: false,
+    largeClickable: false,
     position: 'left',
     hidden: false
   };
@@ -35,25 +36,44 @@ export default function AccessibilityWidget() {
 
   const [panelOpen, setPanelOpen] = useState(false);
   const [showHideAlert, setShowHideAlert] = useState(false);
+  const [maskTop, setMaskTop] = useState(0);
 
+  // Reading mask mouse tracking
+  useEffect(() => {
+    if (!state.readingMask) return;
+    const handleMouseMove = (e) => {
+      setMaskTop(e.clientY);
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [state.readingMask]);
+
+  // Sync classes to <html> tag
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     } catch (e) {}
 
     const html = document.documentElement;
-    html.classList.toggle('a11y-high-contrast', state.contrast);
-    html.classList.toggle('a11y-links',         state.links);
-    html.classList.toggle('a11y-large-text',    state.largeText);
-    html.classList.toggle('a11y-text-spacing',   state.textSpacing);
-    html.classList.toggle('a11y-no-anim',        state.anim);
-    html.classList.toggle('a11y-hide-images',    state.hideImages);
-    html.classList.toggle('a11y-dyslexia',       state.dyslexia);
-    html.classList.toggle('a11y-large-cursor',   state.largeCursor);
-    html.classList.toggle('a11y-titles',         state.titles);
-    html.classList.toggle('a11y-line-height',    state.lineHeight);
-    html.classList.toggle('a11y-text-align',     state.textAlign);
-    html.classList.toggle('a11y-saturation',     state.saturation);
+    
+    // Text size levels
+    html.classList.toggle('a11y-size-100', state.textSize === 100);
+    html.classList.toggle('a11y-size-110', state.textSize === 110);
+    html.classList.toggle('a11y-size-120', state.textSize === 120);
+    html.classList.toggle('a11y-size-130', state.textSize === 130);
+
+    // Other toggles
+    html.classList.toggle('a11y-text-spacing',     state.textSpacing);
+    html.classList.toggle('a11y-high-contrast',    state.contrast);
+    html.classList.toggle('a11y-invert',           state.invert);
+    html.classList.toggle('a11y-grayscale',        state.grayscale);
+    html.classList.toggle('a11y-links',            state.links);
+    html.classList.toggle('a11y-headers',          state.headers);
+    html.classList.toggle('a11y-readable-font',    state.readableFont);
+    html.classList.toggle('a11y-large-cursor',     state.largeCursor);
+    html.classList.toggle('a11y-contrast-cursor',  state.contrastCursor);
+    html.classList.toggle('a11y-no-anim',          state.stopAnimations);
+    html.classList.toggle('a11y-large-clickable',  state.largeClickable);
   }, [state]);
 
   // Keyboard shortcut listener (Alt + A / Alt + ש)
@@ -72,7 +92,6 @@ export default function AccessibilityWidget() {
   useEffect(() => {
     const handleOpen = () => {
       setPanelOpen(true);
-      // If it was hidden, show it again
       setState(prev => ({ ...prev, hidden: false }));
     };
     window.addEventListener('open-a11y', handleOpen);
@@ -91,6 +110,16 @@ export default function AccessibilityWidget() {
 
   const toggleFeature = (key) => {
     setState(prev => ({ ...prev, [key]: !prev[key] }));
+  };
+
+  const cycleTextSize = () => {
+    setState(prev => {
+      let nextSize = 100;
+      if (prev.textSize === 100) nextSize = 110;
+      else if (prev.textSize === 110) nextSize = 120;
+      else if (prev.textSize === 120) nextSize = 130;
+      return { ...prev, textSize: nextSize };
+    });
   };
 
   const switchSide = () => {
@@ -132,68 +161,51 @@ export default function AccessibilityWidget() {
             className={`a11y-open ${state.largeWidget ? 'a11y-large' : ''} ${state.position === 'right' ? 'a11y-pos-right' : 'a11y-pos-left'}`} 
             aria-describedby={undefined}
             dir="rtl"
+            role="dialog"
+            aria-modal="true"
           >
             {/* Header */}
             <div className="a11y-hdr">
               <DialogTitle className="a11y-hdr-title">הגדרות נגישות</DialogTitle>
               <div className="a11y-hdr-left">
-                <span className="a11y-large-widget-label">יישומון גדול</span>
+                <span className="a11y-large-widget-label">תפריט גדול</span>
                 <button 
                   className={`a11y-switch ${state.largeWidget ? 'active' : ''}`}
                   onClick={() => toggleFeature('largeWidget')}
                   type="button"
-                  aria-label="יישומון גדול"
+                  aria-label="תפריט גדול"
+                  aria-pressed={state.largeWidget}
                 >
                   <span className="a11y-switch-knob"></span>
                 </button>
-                <button className="a11y-close-circle" id="a11y-close" aria-label="סגור" onClick={closePanel} type="button">✕</button>
+                <button className="a11y-close-circle" id="a11y-close" aria-label="סגור תפריט" onClick={closePanel} type="button">✕</button>
               </div>
             </div>
 
-            {/* 12 Features Grid */}
-            <div className="a11y-grid">
+            {/* Accessibility Features List */}
+            <div className="a11y-grid" role="group" aria-label="אפשרויות הנגשת האתר">
               
-              {/* 1. High Contrast */}
+              {/* A. Text Size Stepper */}
               <button 
-                className={`a11y-card ${state.contrast ? 'active' : ''}`} 
-                onClick={() => toggleFeature('contrast')}
+                className={`a11y-card ${state.textSize > 100 ? 'active' : ''}`} 
+                onClick={cycleTextSize}
                 type="button"
-              >
-                <div className="a11y-card-icon" aria-hidden="true">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 0 0 20V2z" fill="currentColor"/></svg>
-                </div>
-                <span className="a11y-card-title">+ ניגודיות</span>
-              </button>
-
-              {/* 2. Highlight Links */}
-              <button 
-                className={`a11y-card ${state.links ? 'active' : ''}`} 
-                onClick={() => toggleFeature('links')}
-                type="button"
-              >
-                <div className="a11y-card-icon" aria-hidden="true">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-                </div>
-                <span className="a11y-card-title">הדגשת קישורים</span>
-              </button>
-
-              {/* 3. Large Text */}
-              <button 
-                className={`a11y-card ${state.largeText ? 'active' : ''}`} 
-                onClick={() => toggleFeature('largeText')}
-                type="button"
+                aria-label="הגדלת טקסט"
+                aria-pressed={state.textSize > 100}
               >
                 <div className="a11y-card-icon" aria-hidden="true">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 7V4h16v3M9 20h6M12 4v16M7 20h4M13 20h4"/></svg>
                 </div>
-                <span className="a11y-card-title">טקסט גדול</span>
+                <span className="a11y-card-title">גודל גופן: {state.textSize}%</span>
               </button>
 
-              {/* 4. Text Spacing */}
+              {/* B. Text Spacing */}
               <button 
                 className={`a11y-card ${state.textSpacing ? 'active' : ''}`} 
                 onClick={() => toggleFeature('textSpacing')}
                 type="button"
+                aria-label="ריווח טקסט משופר"
+                aria-pressed={state.textSpacing}
               >
                 <div className="a11y-card-icon" aria-hidden="true">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8l4 4-4 4M6 8l-4 4 4 4M2 12h20"/></svg>
@@ -201,11 +213,125 @@ export default function AccessibilityWidget() {
                 <span className="a11y-card-title">ריווח טקסט</span>
               </button>
 
-              {/* 5. Stop Animations */}
+              {/* C. High Contrast */}
               <button 
-                className={`a11y-card ${state.anim ? 'active' : ''}`} 
-                onClick={() => toggleFeature('anim')}
+                className={`a11y-card ${state.contrast ? 'active' : ''}`} 
+                onClick={() => toggleFeature('contrast')}
                 type="button"
+                aria-label="ניגודיות גבוהה"
+                aria-pressed={state.contrast}
+              >
+                <div className="a11y-card-icon" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 0 0 20V2z" fill="currentColor"/></svg>
+                </div>
+                <span className="a11y-card-title">ניגודיות גבוהה</span>
+              </button>
+
+              {/* D. Invert Colors */}
+              <button 
+                className={`a11y-card ${state.invert ? 'active' : ''}`} 
+                onClick={() => toggleFeature('invert')}
+                type="button"
+                aria-label="היפוך צבעים"
+                aria-pressed={state.invert}
+              >
+                <div className="a11y-card-icon" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10"/></svg>
+                </div>
+                <span className="a11y-card-title">היפוך צבעים</span>
+              </button>
+
+              {/* E. Grayscale */}
+              <button 
+                className={`a11y-card ${state.grayscale ? 'active' : ''}`} 
+                onClick={() => toggleFeature('grayscale')}
+                type="button"
+                aria-label="תצוגת מונוכרום גווני אפור"
+                aria-pressed={state.grayscale}
+              >
+                <div className="a11y-card-icon" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-4.3-7-11-7-11S5 10.7 5 15a7 7 0 0 0 7 7z"/></svg>
+                </div>
+                <span className="a11y-card-title">גווני אפור</span>
+              </button>
+
+              {/* F. Highlight Links */}
+              <button 
+                className={`a11y-card ${state.links ? 'active' : ''}`} 
+                onClick={() => toggleFeature('links')}
+                type="button"
+                aria-label="הדגשת קישורים"
+                aria-pressed={state.links}
+              >
+                <div className="a11y-card-icon" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                </div>
+                <span className="a11y-card-title">הדגשת קישורים</span>
+              </button>
+
+              {/* G. Highlight Headers */}
+              <button 
+                className={`a11y-card ${state.headers ? 'active' : ''}`} 
+                onClick={() => toggleFeature('headers')}
+                type="button"
+                aria-label="הדגשת כותרות"
+                aria-pressed={state.headers}
+              >
+                <div className="a11y-card-icon" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg>
+                </div>
+                <span className="a11y-card-title">הדגשת כותרות</span>
+              </button>
+
+              {/* H. Readable Font */}
+              <button 
+                className={`a11y-card ${state.readableFont ? 'active' : ''}`} 
+                onClick={() => toggleFeature('readableFont')}
+                type="button"
+                aria-label="גופן קריא מובנה"
+                aria-pressed={state.readableFont}
+              >
+                <div className="a11y-card-icon" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                </div>
+                <span className="a11y-card-title">גופן קריא</span>
+              </button>
+
+              {/* I1. Large Cursor */}
+              <button 
+                className={`a11y-card ${state.largeCursor ? 'active' : ''}`} 
+                onClick={() => toggleFeature('largeCursor')}
+                type="button"
+                aria-label="סמן עכבר מוגדל"
+                aria-pressed={state.largeCursor}
+              >
+                <div className="a11y-card-icon" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/><path d="M13 13l6 6"/></svg>
+                </div>
+                <span className="a11y-card-title">סמן עכבר גדול</span>
+              </button>
+
+              {/* I2. Contrast Cursor */}
+              <button 
+                className={`a11y-card ${state.contrastCursor ? 'active' : ''}`} 
+                onClick={() => toggleFeature('contrastCursor')}
+                type="button"
+                aria-label="סמן עכבר בניגודיות גבוהה"
+                aria-pressed={state.contrastCursor}
+              >
+                <div className="a11y-card-icon" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" stroke="currentColor" fill="none"/><circle cx="12" cy="12" r="9" stroke="currentColor" strokeDasharray="3 3"/></svg>
+                </div>
+                <span className="a11y-card-title">סמן ניגודי</span>
+              </button>
+
+              {/* J. Stop Animations */}
+              <button 
+                className={`a11y-card ${state.stopAnimations ? 'active' : ''}`} 
+                onClick={() => toggleFeature('stopAnimations')}
+                type="button"
+                aria-label="עצירת הנפשות ותנועות באתר"
+                aria-pressed={state.stopAnimations}
               >
                 <div className="a11y-card-icon" aria-hidden="true">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="10" y1="15" x2="10" y2="9"/><line x1="14" y1="15" x2="14" y2="9"/></svg>
@@ -213,103 +339,61 @@ export default function AccessibilityWidget() {
                 <span className="a11y-card-title">ביטול הנפשות</span>
               </button>
 
-              {/* 6. Hide Images */}
+              {/* K. Reading Mask */}
               <button 
-                className={`a11y-card ${state.hideImages ? 'active' : ''}`} 
-                onClick={() => toggleFeature('hideImages')}
+                className={`a11y-card ${state.readingMask ? 'active' : ''}`} 
+                onClick={() => toggleFeature('readingMask')}
                 type="button"
+                aria-label="מסכת קריאה למיקוד קשב"
+                aria-pressed={state.readingMask}
               >
                 <div className="a11y-card-icon" aria-hidden="true">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/><line x1="2" y1="2" x2="22" y2="22" stroke="currentColor" strokeWidth="2"/></svg>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="2"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
                 </div>
-                <span className="a11y-card-title">הסתרת תמונות</span>
+                <span className="a11y-card-title">מסכת קריאה</span>
               </button>
 
-              {/* 7. Dyslexia Friendly */}
+              {/* L. Large Clickable Areas */}
               <button 
-                className={`a11y-card ${state.dyslexia ? 'active' : ''}`} 
-                onClick={() => toggleFeature('dyslexia')}
+                className={`a11y-card ${state.largeClickable ? 'active' : ''}`} 
+                onClick={() => toggleFeature('largeClickable')}
                 type="button"
+                aria-label="הגדלת שטחי מגע וכפתורים"
+                aria-pressed={state.largeClickable}
               >
                 <div className="a11y-card-icon" aria-hidden="true">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><text x="2" y="17" fontStyle="normal" fontWeight="900" fontSize="14" fill="currentColor">Df</text></svg>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="2" ry="2"/><path d="M12 7v10M7 12h10"/></svg>
                 </div>
-                <span className="a11y-card-title">תמיכה בדיסלקסיה</span>
-              </button>
-
-              {/* 8. Cursor */}
-              <button 
-                className={`a11y-card ${state.largeCursor ? 'active' : ''}`} 
-                onClick={() => toggleFeature('largeCursor')}
-                type="button"
-              >
-                <div className="a11y-card-icon" aria-hidden="true">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/><path d="M13 13l6 6"/></svg>
-                </div>
-                <span className="a11y-card-title">סמן</span>
-              </button>
-
-              {/* 9. Titles */}
-              <button 
-                className={`a11y-card ${state.titles ? 'active' : ''}`} 
-                onClick={() => toggleFeature('titles')}
-                type="button"
-              >
-                <div className="a11y-card-icon" aria-hidden="true">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="12" y1="11" x2="12" y2="15"/><circle cx="12" cy="7" r="0.5" fill="currentColor"/></svg>
-                </div>
-                <span className="a11y-card-title">תארים</span>
-              </button>
-
-              {/* 10. Line Height */}
-              <button 
-                className={`a11y-card ${state.lineHeight ? 'active' : ''}`} 
-                onClick={() => toggleFeature('lineHeight')}
-                type="button"
-              >
-                <div className="a11y-card-icon" aria-hidden="true">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="9" y1="6" x2="20" y2="6"/><line x1="9" y1="12" x2="20" y2="12"/><line x1="9" y1="18" x2="20" y2="18"/><path d="M5 20V4M2 7l3-3 3 3M2 17l3 3 3-3"/></svg>
-                </div>
-                <span className="a11y-card-title">גובה שורה</span>
-              </button>
-
-              {/* 11. Text Alignment */}
-              <button 
-                className={`a11y-card ${state.textAlign ? 'active' : ''}`} 
-                onClick={() => toggleFeature('textAlign')}
-                type="button"
-              >
-                <div className="a11y-card-icon" aria-hidden="true">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg>
-                </div>
-                <span className="a11y-card-title">יישור טקסט</span>
-              </button>
-
-              {/* 12. Saturation */}
-              <button 
-                className={`a11y-card ${state.saturation ? 'active' : ''}`} 
-                onClick={() => toggleFeature('saturation')}
-                type="button"
-              >
-                <div className="a11y-card-icon" aria-hidden="true">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-4.3-7-11-7-11S5 10.7 5 15a7 7 0 0 0 7 7z"/></svg>
-                </div>
-                <span className="a11y-card-title">רוויה</span>
+                <span className="a11y-card-title">הגדלת כפתורים</span>
               </button>
 
             </div>
 
+            {/* M. Accessibility Declaration Statement */}
+            <div className="a11y-declaration">
+              <h4>הצהרת נגישות</h4>
+              <p>אנו משקיעים מאמצים להנגיש את האתר בהתאם להנחיות WCAG 2.1 ברמה AA, במטרה לאפשר חוויית שימוש נוחה ושוויונית לכלל המשתמשים.</p>
+              <p>במידה ונתקלתם בקושי או בתקלה בנושא נגישות, נשמח לקבל פנייה ולטפל בה בהקדם.</p>
+              <div className="a11y-decl-contacts">
+                <div><strong>אחראי נגישות:</strong> ברזילי, עזורי ושות׳ עורכי דין</div>
+                <div><strong>טלפון:</strong> 054-2030535</div>
+                <div><strong>אימייל:</strong> office@baz-law.co.il</div>
+              </div>
+              <p className="a11y-decl-channels">פנייה זמינה גם בוואטסאפ / טופס יצירת קשר.</p>
+              <div className="a11y-decl-date">עודכן לאחרונה: 17.06.2026</div>
+            </div>
+
             {/* Widget Footer */}
             <div className="a11y-footer">
-              <button className="a11y-footer-btn" onClick={switchSide} type="button">
+              <button className="a11y-footer-btn" onClick={switchSide} type="button" aria-label="החלפת צד של כפתור הנגישות">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 3h5v5M8 21H3v-5M21 3L14 10M3 21l7-7"/></svg>
                 החלף צד
               </button>
-              <button className="a11y-footer-btn" onClick={hideWidget} type="button">
+              <button className="a11y-footer-btn" onClick={hideWidget} type="button" aria-label="הסתרת כפתור הנגישות מהמסך">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
                 הסתר כפתור
               </button>
-              <button className="a11y-footer-btn" onClick={resetAll} type="button">
+              <button className="a11y-footer-btn" onClick={resetAll} type="button" aria-label="איפוס כל הגדרות הנגישות">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M16 3h5v5M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 21H3v-5"/></svg>
                 איפוס
               </button>
@@ -318,9 +402,18 @@ export default function AccessibilityWidget() {
         </DialogPortal>
       </Dialog>
 
+      {/* Reading Mask Render element overlay */}
+      {state.readingMask && (
+        <div 
+          className="a11y-reading-mask" 
+          style={{ top: `${maskTop - 25}px` }} 
+          aria-hidden="true" 
+        />
+      )}
+
       {/* Hide Alert Toast */}
       {showHideAlert && (
-        <div className="a11y-toast-alert" role="alert">
+        <div className="a11y-toast-alert" role="alert" aria-live="polite">
           <span>כפתור הנגישות הוסתר. ניתן לפתוח את התפריט בכל עת על ידי לחיצה על <strong>Alt + A</strong> במקלדת או דרך קישור הנגישות בתחתית האתר.</span>
           <button onClick={() => setShowHideAlert(false)} aria-label="סגור הודעה" type="button">✕</button>
         </div>

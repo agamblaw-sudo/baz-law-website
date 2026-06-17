@@ -8,7 +8,9 @@
       "Bash(echo \"exit: $?\")",
       "Bash(wait)",
       "Bash(npm init *)",
-      "Bash(npm install *)"
+      "Bash(npm install *)",
+      "Bash(git -C /Users/apple/Documents/GitHub/baz-law-website log --name-status -1)",
+      "Bash(git -C /Users/apple/Documents/GitHub/baz-law-website show 6cf96ed --stat)"
     ]
   }
 }

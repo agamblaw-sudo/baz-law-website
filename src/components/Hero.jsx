@@ -4,6 +4,14 @@ export default function Hero() {
   // ═══ HERO ═══
   return (
     <section className="hero">
+      <video 
+        className="hero-video-bg" 
+        src="/hero-bg.mp4" 
+        autoPlay 
+        loop 
+        muted 
+        playsInline
+      />
       <div className="hero-bg-text">חוק</div>
       <div className="hero-content">
         <h1>

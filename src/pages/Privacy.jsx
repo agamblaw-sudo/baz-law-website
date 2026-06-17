@@ -8,26 +8,22 @@ export default function Privacy() {
 
   return (
     <div className="legal-page-wrapper">
-      <nav className="page-nav" role="navigation" aria-label="ניווט ראשי">
-        <Link to="/" className="nav-logo-link" aria-label="ברזילי, עזורי ושות׳ עורכי דין">
-          <img src="/logo.png" className="legal-nav-logo" alt="לוגו ברזילי, עזורי ושות׳ עורכי דין" />
-        </Link>
-        <Link to="/" className="back-link">
-          חזרה לדף הבית
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="19" y1="12" x2="5" y2="12"></line>
-            <polyline points="12 19 5 12 12 5"></polyline>
-          </svg>
-        </Link>
-      </nav>
+
+      <section className="pa-hero" aria-label="כותרת עמוד">
+        <div className="pa-hero-bg-text">חוק</div>
+        <div className="pa-hero-inner">
+          <span className="section-label" style={{ color: 'var(--gold-mid)' }}>מידע משפטי</span>
+          <h1 className="pa-hero-title">הצהרת פרטיות</h1>
+          <p className="pa-hero-sub">כיצד אנו אוספים ומגנים על המידע האישי שלכם</p>
+          <p style={{ fontSize: '0.78rem', color: 'rgba(240,246,255,0.4)', marginTop: '0.75rem' }}>עודכן לאחרונה: 21 במאי 2026</p>
+          <div className="pa-hero-actions">
+            <Link to="/#lead-form" className="btn-primary">לתיאום פגישת ייעוץ</Link>
+          </div>
+        </div>
+      </section>
 
       <main>
         <div className="content-card">
-
-    <header className="page-header">
-      <h1>הצהרת פרטיות</h1>
-      <p className="updated">עודכן לאחרונה: 21 במאי 2026</p>
-    </header>
 
     <div className="intro-box">
       <p>הצהרת פרטיות זו מסבירה כיצד נאסף ונעשה שימוש במידע אישי במסגרת השימוש באתר האינטרנט של משרד ברזילי, עזורי ושות' ("האתר" ו-"המשרד" בהתאמה). אנו מכבדים את פרטיות המשתמשים ופועלים בהתאם להוראות הדין החל, לרבות חוק הגנת הפרטיות, התשמ"א 1981, ותקנות הגנת הפרטיות (אבטחת מידע), התשע"ז 2017.</p>

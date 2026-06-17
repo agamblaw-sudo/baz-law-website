@@ -31,7 +31,7 @@ export default function CookieConsent() {
     <div className={`cookie-consent-banner ${isFadingOut ? 'fade-out' : ''}`} role="alert" aria-live="polite">
       <div className="cookie-consent-content">
         <p className="cookie-consent-text">
-          אתר זה משתמש ב - Cookies כדי לשפר את חווית הגלישה שלך. המשך השימוש באתר מהווה הסכמה למדיניות הפרטיות שלנו.{' '}
+          אתר זה משתמש ב-Cookies כדי לשפר את חווית הגלישה שלך. המשך השימוש באתר מהווה הסכמה למדיניות הפרטיות שלנו.{' '}
           <Link to="/privacy" className="cookie-consent-link">
             לקריאת הצהרת הפרטיות
           </Link>

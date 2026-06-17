@@ -8,25 +8,22 @@ export default function Accessibility() {
 
   return (
     <div className="legal-page-wrapper">
-      <nav className="page-nav" role="navigation" aria-label="ניווט ראשי">
-        <Link to="/" className="nav-logo-link" aria-label="ברזילי, עזורי ושות׳ עורכי דין">
-          <img src="/logo.png" className="legal-nav-logo" alt="לוגו ברזילי, עזורי ושות׳ עורכי דין" />
-        </Link>
-        <Link to="/" className="back-link">
-          חזרה לדף הבית
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="19" y1="12" x2="5" y2="12"></line>
-            <polyline points="12 19 5 12 12 5"></polyline>
-          </svg>
-        </Link>
-      </nav>
+
+      <section className="pa-hero" aria-label="כותרת עמוד">
+        <div className="pa-hero-bg-text">חוק</div>
+        <div className="pa-hero-inner">
+          <span className="section-label" style={{ color: 'var(--gold-mid)' }}>מידע משפטי</span>
+          <h1 className="pa-hero-title">הצהרת נגישות</h1>
+          <p className="pa-hero-sub">מחויבותנו לנגישות ושוויון לכלל המשתמשים</p>
+          <p style={{ fontSize: '0.78rem', color: 'rgba(240,246,255,0.4)', marginTop: '0.75rem' }}>עודכן לאחרונה: 21 במאי 2026</p>
+          <div className="pa-hero-actions">
+            <Link to="/#lead-form" className="btn-primary">לתיאום פגישת ייעוץ</Link>
+          </div>
+        </div>
+      </section>
 
       <main>
         <div className="content-card">
-          <header className="page-header">
-            <h1>הצהרת נגישות</h1>
-            <p className="updated">עודכן לאחרונה: 21 במאי 2026</p>
-          </header>
 
           <div className="intro-box">
             משרד ברזילי, עזורי ושות' מחויב לספק שירות שוויוני ונגיש לכלל האוכלוסייה, לרבות אנשים עם מוגבלות. הצהרה זו מפרטת את רמת הנגישות של אתר האינטרנט שלנו ומספקת מידע על תקנים שיושמו ודרכי יצירת קשר לשאלות ולהערות.
@@ -108,7 +105,7 @@ export default function Accessibility() {
             <p>אם פנייתכם בנושא נגישות האתר לא טופלה באופן מלאה או שלא קיבלתם מענה מספק, ניתן לפנות גם לממונה על הנגישות במשרד המשפטים:</p>
             <div className="contact-box">
               <p><strong>הממונה על הנגישות במשרד המשפטים</strong></p>
-              <p><strong>טלפון:</strong> 02 6466347</p>
+              <p><strong>טלפון:</strong> 02-6466347</p>
               <p><strong>דוא"ל:</strong> <a href="mailto:accessibility@justice.gov.il">accessibility@justice.gov.il</a></p>
               <p><strong>כתובת:</strong> רחוב שער משה 5, ירושלים</p>
             </div>

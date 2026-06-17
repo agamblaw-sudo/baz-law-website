@@ -333,7 +333,7 @@ export default function ContactForm() {
                 background: '#fff',
                 color: '#1a73e8',
                 fontSize: '13px',
-                fontFamily: 'Arial, sans-serif',
+                fontFamily: "'Heebo', Arial, sans-serif",
                 fontWeight: 500,
                 padding: '7px 12px',
                 borderRadius: '4px',

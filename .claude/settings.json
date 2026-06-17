@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(kill %1)",
+      "Read(//tmp/**)",
+      "Read(//private/tmp/**)",
+      "Bash(npx playwright *)",
+      "Bash(echo \"exit: $?\")",
+      "Bash(wait)",
+      "Bash(npm init *)",
+      "Bash(npm install *)"
+    ]
+  }
+}

@@ -8,26 +8,22 @@ export default function Terms() {
 
   return (
     <div className="legal-page-wrapper">
-      <nav className="page-nav" role="navigation" aria-label="ניווט ראשי">
-        <Link to="/" className="nav-logo-link" aria-label="ברזילי, עזורי ושות׳ עורכי דין">
-          <img src="/logo.png" className="legal-nav-logo" alt="לוגו ברזילי, עזורי ושות׳ עורכי דין" />
-        </Link>
-        <Link to="/" className="back-link">
-          חזרה לדף הבית
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="19" y1="12" x2="5" y2="12"></line>
-            <polyline points="12 19 5 12 12 5"></polyline>
-          </svg>
-        </Link>
-      </nav>
+
+      <section className="pa-hero" aria-label="כותרת עמוד">
+        <div className="pa-hero-bg-text">חוק</div>
+        <div className="pa-hero-inner">
+          <span className="section-label" style={{ color: 'var(--gold-mid)' }}>מידע משפטי</span>
+          <h1 className="pa-hero-title">תקנון ותנאי שימוש</h1>
+          <p className="pa-hero-sub">תנאי השימוש באתר משרד ברזילי, עזורי ושות׳</p>
+          <p style={{ fontSize: '0.78rem', color: 'rgba(240,246,255,0.4)', marginTop: '0.75rem' }}>עודכן לאחרונה: 21 במאי 2026</p>
+          <div className="pa-hero-actions">
+            <Link to="/#lead-form" className="btn-primary">לתיאום פגישת ייעוץ</Link>
+          </div>
+        </div>
+      </section>
 
       <main>
         <div className="content-card">
-
-    <header className="page-header">
-      <h1>תקנון ותנאי שימוש</h1>
-      <p className="updated">עודכן לאחרונה: 21 במאי 2026</p>
-    </header>
 
     <div className="intro-box">
       תקנון זה מסדיר את תנאי השימוש באתר האינטרנט של משרד עו"ד ברזילי, עזורי ושות' ("האתר" ו-"בעלי האתר" בהתאמה). שימוש באתר מכל סוג (לרבות גלישה, עיון בתכנים, הורדה, העתקה, שיתוף, יצירת קשר וכדומה) מהווה הסכמה מלאה ומחייבת לתקנון זה. אם אינך מסכים לתקנון, הימנע משימוש באתר.

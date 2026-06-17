@@ -30,6 +30,8 @@
     <!-- Canonical & description -->
     <meta name="description" content="משרד עורכי דין המתמחה בנדל&quot;ן, התחדשות עירונית, רישום זכויות, צוואות, ירושות וייפוי כוח מתמשך. ניסיון, מקצועיות ושירות אישי." />
     <link rel="canonical" href="https://baz-law.co.il/" />
+    <link rel="icon" type="image/png" href="/logo-avatar.png" />
+    <link rel="apple-touch-icon" href="/logo-avatar.png" />
 
     <!-- Critical CSS:
          1. Paint the hero background image on #root immediately — before any JS or
@@ -41,18 +43,18 @@
       html, body { min-height: 100vh; background: #0a1628; }
       #root {
         min-height: 100vh;
-        background: url('/hero.webp') center center / cover no-repeat #0a1628;
+        background: url('/hero-tel-aviv-sea-sharpened.webp') center center / cover no-repeat #0a1628;
       }
       @media (max-width: 768px) {
-        #root { background-image: url('/hero-mobile.webp'); }
+        #root { background-image: url('/hero-tel-aviv-sea-mobile.webp'); }
       }
       .hero { min-height: 100vh; min-height: 100dvh; }
     </style>
 
-    <!-- Hero LCP: serve mobile (32 KB) or desktop (125 KB) WebP, highest priority -->
+    <!-- Hero LCP: serve mobile (506 KB) or desktop (1.3 MB) WebP, highest priority -->
     <link rel="preload" as="image" fetchpriority="high" type="image/webp"
-          href="/hero.webp"
-          imagesrcset="/hero-mobile.webp 768w, /hero.webp 1920w"
+          href="/hero-tel-aviv-sea-sharpened.webp"
+          imagesrcset="/hero-tel-aviv-sea-mobile.webp 768w, /hero-tel-aviv-sea-sharpened.webp 1920w"
           imagesizes="100vw" />
 
     <!-- Google Fonts: preconnect + preload critical Hebrew woff2 files so they are
@@ -66,6 +68,43 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400&family=Heebo:wght@300;400;500;600;700&display=swap" />
 
     <!-- Elfsight script is injected lazily via IntersectionObserver in Testimonials.jsx -->
+
+    <!-- Firm-level LegalService structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LegalService",
+      "name": "ברזילי, עזורי ושות׳ עורכי דין",
+      "alternateName": "Brazili Azouri & Co. Law Firm",
+      "url": "https://baz-law.co.il",
+      "logo": "https://baz-law.co.il/logo.png",
+      "image": "https://baz-law.co.il/og-image.jpg",
+      "description": "משרד עורכי דין המתמחה בעסקאות נדל\"ן, התחדשות עירונית, רישום זכויות בטאבו, צוואות, ירושות וייפוי כוח מתמשך. ניסיון, מקצועיות ושירות אישי.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "זאב ז'בוטינסקי 61",
+        "addressLocality": "פתח תקווה",
+        "addressCountry": "IL"
+      },
+      "telephone": ["+972-54-2030535", "+972-54-2531925"],
+      "email": "office@baz-law.co.il",
+      "openingHours": ["Mo-Th 09:00-18:00"],
+      "priceRange": "$$",
+      "areaServed": { "@type": "Country", "name": "Israel" },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "שירותים משפטיים",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "עסקאות נדל\"ן", "url": "https://baz-law.co.il/practice-areas/nadlan" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "התחדשות עירונית", "url": "https://baz-law.co.il/practice-areas/hitkhadshut-ironit" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "צוואות וירושות", "url": "https://baz-law.co.il/practice-areas/tzovaot-yerushot" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "רישום זכויות בטאבו", "url": "https://baz-law.co.il/practice-areas/tabu" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "רישום בתים משותפים", "url": "https://baz-law.co.il/practice-areas/batim-meshotafim" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "ייפוי כוח מתמשך", "url": "https://baz-law.co.il/practice-areas/yipuy-koach" } }
+        ]
+      }
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -1,4 +1,5 @@
 import React, { useEffect, lazy, Suspense } from 'react';
+import ScrollProgressBar from './components/ScrollProgressBar';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -34,6 +35,7 @@ function AppContent() {
 
   return (
     <>
+      <ScrollProgressBar />
       <ScrollToHash />
       <Navbar />
       <AccessibilityWidget />

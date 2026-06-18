@@ -3667,8 +3667,13 @@ html.a11y-large-clickable [role="button"] {
     width: 46px;
     height: 46px;
   }
+  /* Legal pages: arrow sits on the SAME row as the a11y button.
+     a11y-btn is at left:1rem, bottom:1.5rem (46px wide).
+     Arrow goes right next to it: left: calc(1rem + 46px + 10px) */
   .scroll-to-top-btn.in-legal-page {
-    bottom: 5rem;
+    bottom: 1.5rem;
+    right: auto;
+    left: calc(1rem + 46px + 10px);
   }
   .scroll-to-top-btn .scroll-icon {
     width: 20px;

@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ברזילי, עזורי ושות׳ – משרד עורכי דין | Three.js Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ═══════════════════════════════════════════
+       RESET & BASE
+    ═══════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:      #0a1628;
+      --navy-mid:  #10293f;
+      --gold:      #c9a84c;
+      --gold-mid:  #b8973b;
+      --gold-dim:  rgba(201,168,76,0.18);
+      --white:     #ffffff;
+      --off-white: #f4f1ea;
+      --text-dark: #1a2332;
+      --text-muted:#6b7a8e;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-family: 'Heebo', Arial, sans-serif;
+    }
+
+    body {
+      background: var(--navy);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ═══════════════════════════════════════════
+       3D CANVAS — FIXED BACKGROUND LAYER
+    ═══════════════════════════════════════════ */
+
+    /*
+     * ANALYSIS NOTES (Step 1):
+     * ─────────────────────────────────────────
+     * Canvas status: Built fresh → set to position:fixed, inset:0, z-index:-1.
+     * Scroll driver: window.scrollY, mapped to [0..1] progress over total page height.
+     * Text location: Normal document flow, above canvas (z-index:1).
+     * Total scroll length: ~7200px (9 sections × ~800px each).
+     * ─────────────────────────────────────────
+     */
+
+    #three-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;          /* sits behind everything */
+      display: block;
+    }
+
+    /* Dark fog gradient at top/bottom edges to blend building into page */
+    #canvas-fade-top {
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: 160px;
+      background: linear-gradient(to bottom, rgba(10,22,40,0.9) 0%, transparent 100%);
+      z-index: 0;
+      pointer-events: none;
+    }
+    #canvas-fade-bottom {
+      position: fixed;
+      inset: auto 0 0 0;
+      height: 160px;
+      background: linear-gradient(to top, rgba(10,22,40,0.9) 0%, transparent 100%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ═══════════════════════════════════════════
+       SCROLLABLE TEXT LAYER
+    ═══════════════════════════════════════════ */
+
+    #scroll-content {
+      position: relative;
+      z-index: 1;           /* above canvas */
+    }
+
+    /* ── Shared section chrome ── */
+    .text-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6rem 2rem;
+    }
+
+    /* Sections with light card background (legibility over bright building parts) */
+    .section-card {
+      max-width: 720px;
+      width: 100%;
+      background: rgba(10, 22, 40, 0.72);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(201, 168, 76, 0.22);
+      border-radius: 18px;
+      padding: 3.5rem 3rem;
+      text-align: right;
+      /* Fade-in via IntersectionObserver — starts invisible */
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .section-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Hero is full-bleed — no card */
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 8rem 5vw 6rem;
+    }
+    .hero-text-wrap {
+      max-width: 620px;
+      text-align: right;
+    }
+
+    /* ── Typography tokens ── */
+    .section-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 1.2rem;
+    }
+    .section-title span {
+      color: var(--gold);
+    }
+
+    .section-body {
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: rgba(244, 241, 234, 0.85);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-divider {
+      width: 48px;
+      height: 3px;
+      background: var(--gold);
+      border-radius: 2px;
+      margin-bottom: 1.6rem;
+    }
+
+    /* ── Quote variant (parallax-style moments) ── */
+    .quote-section {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5rem 2rem;
+    }
+    .quote-card {
+      max-width: 760px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s;
+    }
+    .quote-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .quote-mark {
+      font-size: 5rem;
+      line-height: 0.6;
+      color: var(--gold);
+      font-family: Georgia, serif;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .quote-text {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.5;
+      margin-bottom: 0.8rem;
+    }
+    .quote-attr {
+      font-size: 0.85rem;
+      color: var(--gold);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* ── Service cards grid ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 1.6rem;
+    }
+    .service-pill {
+      background: rgba(201,168,76,0.10);
+      border: 1px solid rgba(201,168,76,0.28);
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      text-align: center;
+      color: var(--off-white);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .service-pill-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.4rem;
+    }
+
+    /* ── CTA button ── */
+    .btn-gold {
+      display: inline-block;
+      margin-top: 1.2rem;
+      padding: 0.85rem 2.2rem;
+      background: var(--gold);
+      color: var(--navy);
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 1rem;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .btn-gold:hover { background: #d4b15a; transform: translateY(-2px); }
+
+    /* ── Scroll progress bar ── */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), #e8cc7a);
+      z-index: 100;
+      transition: width 0.1s linear;
+    }
+
+    /* ── Minimal top nav ── */
+    #top-nav {
+      position: fixed;
+      top: 0; inset-inline: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(10,22,40,0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+    }
+    .nav-logo {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.78);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── Section 9: Contact form area ── */
+    .contact-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      margin-top: 1.4rem;
+    }
+    .contact-fields input,
+    .contact-fields textarea {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      color: var(--white);
+      font-family: 'Heebo', Arial, sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+      text-align: right;
+      direction: rtl;
+    }
+    .contact-fields input::placeholder,
+    .contact-fields textarea::placeholder { color: rgba(255,255,255,0.35); }
+    .contact-fields input:focus,
+    .contact-fields textarea:focus { border-color: var(--gold); }
+    .contact-fields textarea { resize: vertical; min-height: 110px; }
+
+    /* ── Scroll hint ── */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: rgba(255,255,255,0.45);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      animation: bounce 1.8s infinite;
+    }
+    .scroll-hint-arrow {
+      width: 20px; height: 20px;
+      border-left: 2px solid var(--gold);
+      border-bottom: 2px solid var(--gold);
+      transform: rotate(-45deg);
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ── Footer strip ── */
+    footer {
+      background: rgba(10,22,40,0.95);
+      border-top: 1px solid rgba(201,168,76,0.15);
+      text-align: center;
+      padding: 2.5rem 2rem;
+      color: rgba(255,255,255,0.45);
+      font-size: 0.82rem;
+      position: relative;
+      z-index: 1;
+    }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .hero-section { justify-content: center; }
+      #top-nav { padding: 1rem 1.4rem; }
+      .nav-links { display: none; }
+      .section-card { padding: 2.2rem 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── SCROLL PROGRESS BAR ── -->
+  <div id="progress-bar"></div>
+
+  <!-- ── TOP NAV ── -->
+  <nav id="top-nav" role="navigation" aria-label="ניווט ראשי">
+    <a class="nav-logo" href="#hero">ברזילי, <span>עזורי</span> ושות׳</a>
+    <ul class="nav-links">
+      <li><a href="#about">אודות</a></li>
+      <li><a href="#services">תחומים</a></li>
+      <li><a href="#team">צוות</a></li>
+      <li><a href="#contact">צור קשר</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       THREE.JS CANVAS — FIXED BACKGROUND
+  ═══════════════════════════════════════════ -->
+  <canvas id="three-canvas" aria-hidden="true"></canvas>
+  <div id="canvas-fade-top"  aria-hidden="true"></div>
+  <div id="canvas-fade-bottom" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       SCROLLABLE TEXT CONTENT
+       9 sections, matching the existing homepage
+  ═══════════════════════════════════════════ -->
+  <div id="scroll-content">
+
+    <!-- ─── SECTION 1: HERO ─── -->
+    <section id="hero" class="hero-section" style="position:relative;">
+      <div class="hero-text-wrap">
+        <span class="section-label">משרד עורכי דין</span>
+        <h1 class="section-title" style="font-size:clamp(2.4rem,6vw,4rem);">
+          ייעוץ משפטי<br /><span>מקצועי ואישי</span>
+        </h1>
+        <p class="section-body" style="font-size:1.15rem;">
+          משרדנו מעניק ליווי משפטי מקצועי, אישי ומדויק מתוך מחויבות מלאה לשירות, זמינות ותוצאה מיטיבה עבור כל לקוח, בכל שלבי העסקה.
+        </p>
+        <a href="#contact" class="btn-gold">לתיאום פגישת ייעוץ</a>
+      </div>
+      <div class="scroll-hint" aria-hidden="true">
+        <span>גלול</span>
+        <div class="scroll-hint-arrow"></div>
+      </div>
+    </section>
+
+    <!-- ─── SECTION 2: ABOUT ─── -->
+    <section id="about" class="text-section">
+      <div class="section-card" data-reveal>
+        <span class="section-label">נעים להכיר</span>
+        <div class="section-divider"></div>
+        <h2 class="section-title">ברזילי, עזורי ושות׳<br /><span>משרד עורכי דין</span></h2>
+        <p class="section-body">
+          משרדנו מעניק מעטפת משפטית מקיפה ומקצועית בתחומי עסקאות הנדל"ן, ההתחדשות העירונית ודיני הירושה. אנו דוגלים בליווי אישי, מקצועיות ללא פשרות, שקיפות וזמינות מלאה לאורך כל הדרך.
+        </p>
+        <p class="section-body">
+          הידע המשולב של שותפי המשרד מאפשר לנו לספק מענה הוליסטי לכל היבטי העסקה — משלב הייעוץ המוקדם ועד לרישום המלא.
+        </p>
+      </div>
+    </section>
+
+    <!-- ─── SECTION 3: QUOTE 1 ─── -->
+    <section class="quote-section">
+      <div class="quote-card" data-reveal>
+        <span class="quote-mark" aria-hidden="true">"</span>
+        <p class="quote-text">החוק הוא המצפן, הצדק הוא היעד.</p>
+        <p class="quote-attr">האני מאמין שלנו</p>
+      </div>
+    </section>
+
+    <!-- ─── SECTION 4: TEAM ─── -->
+    <section id="team" class="text-section">
+      <div class="section-card" data-reveal style="max-width:800px;">
+        <span class="section-label">הצוות שלנו</span>
+        <div class="section-divider"></div>
+        <h2 class="section-title">עורכי הדין <span>שלנו</span></h2>
+        <p class="section-body">
+          שותפי המשרד — עו"ד אגם ברזילי ועו"ד לירון עזורי — מביאים עימם ניסיון עשיר ומגוון בתחומי הנדל"ן, ההתחדשות העירונית וצוואות וירושות. שניהם שמים דגש על מגע אישי, נגישות מרבית ותוצאות מדידות.
+        </p>
+        <div class="services-grid" style="grid-template-columns:1fr 1fr;">
+          <div class="service-pill">
+            <div class="service-pill-icon">👩‍⚖️</div>
+            עו"ד אגם ברזילי
+          </div>
+          <div class="service-pill">
+            <div class="service-pill-icon">👨‍⚖️</div>
+            עו"ד לירון עזורי
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── SECTION 5: QUOTE 2 ─── -->
+    <section class="quote-section">
+      <div class="quote-card" data-reveal>
+        <span class="quote-mark" aria-hidden="true">"</span>
+        <p class="quote-text">ביושר, במקצועיות ובמסירות — מייצגים אתכם בכל שלב.</p>
+        <p class="quote-attr">מקצועיות ואיכות</p>
+      </div>
+    </section>
+
+    <!-- ─── SECTION 6: SERVICES ─── -->
+    <section id="services" class="text-section">
+      <div class="section-card" data-reveal style="max-width:800px;">
+        <span class="section-label">תחומי התמחות</span>
+        <div class="section-divider"></div>
+        <h2 class="section-title">השירותים <span>המשפטיים שלנו</span></h2>
+        <p class="section-body">
+          אנו מתמחים במגוון רחב של תחומי הדין, ומספקים ייצוג ומשא ומתן בכל שלב של ההליך המשפטי.
+        </p>
+        <div class="services-grid">
+          <div class="service-pill"><div class="service-pill-icon">🏢</div>נדל"ן ועסקאות</div>
+          <div class="service-pill"><div class="service-pill-icon">🏗️</div>התחדשות עירונית</div>
+          <div class="service-pill"><div class="service-pill-icon">📜</div>צוואות וירושות</div>
+          <div class="service-pill"><div class="service-pill-icon">🤝</div>ייפוי כוח מתמשך</div>
+          <div class="service-pill"><div class="service-pill-icon">📋</div>רישום בטאבו</div>
+          <div class="service-pill"><div class="service-pill-icon">⚖️</div>ייצוג משפטי</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── SECTION 7: QUOTE 3 ─── -->
+    <section class="quote-section">
+      <div class="quote-card" data-reveal>
+        <span class="quote-mark" aria-hidden="true">"</span>
+        <p class="quote-text">ההצלחה שלכם היא השקט שלנו.</p>
+        <p class="quote-attr">המחויבות שלנו</p>
+      </div>
+    </section>
+
+    <!-- ─── SECTION 8: TESTIMONIALS ─── -->
+    <section class="text-section">
+      <div class="section-card" data-reveal style="max-width:800px;">
+        <span class="section-label">לקוחות מספרים</span>
+        <div class="section-divider"></div>
+        <h2 class="section-title">מה <span>אומרים עלינו</span></h2>
+        <div style="display:flex;flex-direction:column;gap:1.4rem;margin-top:0.6rem;">
+          <blockquote style="border-right:3px solid var(--gold);padding-right:1.2rem;">
+            <p class="section-body" style="margin-bottom:0.4rem;">"שירות מעולה, מקצועי ואישי. הייתי בטוח שידאגו לי בכל שלב של העסקה."</p>
+            <footer style="font-size:0.82rem;color:var(--gold);background:none;padding:0;border:none;">— דוד כהן, רכישת דירה בפתח תקווה</footer>
+          </blockquote>
+          <blockquote style="border-right:3px solid var(--gold);padding-right:1.2rem;">
+            <p class="section-body" style="margin-bottom:0.4rem;">"טיפול מהיר ויסודי בענייני ירושה. ממליצה בחום לכל אחד."</p>
+            <footer style="font-size:0.82rem;color:var(--gold);background:none;padding:0;border:none;">— מרים לוי, הסדרת עיזבון</footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── SECTION 9: CONTACT ─── -->
+    <section id="contact" class="text-section">
+      <div class="section-card" data-reveal>
+        <span class="section-label">צור קשר</span>
+        <div class="section-divider"></div>
+        <h2 class="section-title">בואו <span>נדבר</span></h2>
+        <p class="section-body">
+          השאירו פרטים ונחזור אליכם בהקדם לתיאום פגישת ייעוץ ראשונית.
+        </p>
+        <div class="contact-fields">
+          <input type="text"  placeholder="שם מלא" aria-label="שם מלא" />
+          <input type="tel"   placeholder="מספר טלפון" aria-label="מספר טלפון" dir="ltr" style="text-align:right;" />
+          <input type="email" placeholder="כתובת מייל" aria-label="כתובת מייל" dir="ltr" style="text-align:right;" />
+          <textarea placeholder="במה נוכל לעזור?" aria-label="תוכן הפנייה"></textarea>
+        </div>
+        <a href="https://wa.me/972542030535" class="btn-gold" style="margin-top:1.4rem;display:block;text-align:center;" target="_blank" rel="noopener">
+          לשליחה בוואטסאפ ←
+        </a>
+      </div>
+    </section>
+
+  </div><!-- /scroll-content -->
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <p>© 2026 ברזילי, עזורי ושות׳ עורכי דין. כל הזכויות שמורות.</p>
+    <p style="margin-top:0.4rem;">
+      <a href="/practice-areas">תחומי התמחות</a> ·
+      <a href="/attorneys/agam-brazily">אגם ברזילי</a> ·
+      <a href="/attorneys/liron-azuri">לירון עזורי</a>
+    </p>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════
+       THREE.JS — FIXED BACKGROUND BUILDING SCENE
+       Scroll drives camera position only.
+       Text is 100% normal document flow above this.
+  ═══════════════════════════════════════════ -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js"
+    }
+  }
+  </script>
+
+  <script type="module">
+    import * as THREE from 'three';
+
+    /* ─────────────────────────────────────────
+       SCENE SETUP
+    ───────────────────────────────────────── */
+    const canvas = document.getElementById('three-canvas');
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.1;
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x0a1628); // matches --navy
+
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+    /* ─────────────────────────────────────────
+       HELPERS
+    ───────────────────────────────────────── */
+    const GOLD  = new THREE.Color(0xc9a84c);
+    const NAVY  = new THREE.Color(0x0a1628);
+    const GLASS = new THREE.Color(0x8fb4cc);
+
+    /* ─────────────────────────────────────────
+       BUILDING GEOMETRY
+       A multi-tower office complex built from
+       stacked BoxGeometry segments — no GLTF,
+       no external assets.
+    ───────────────────────────────────────── */
+    const buildingGroup = new THREE.Group();
+    scene.add(buildingGroup);
+
+    // Shared materials
+    const glassMat = new THREE.MeshPhysicalMaterial({
+      color: 0x8fb4cc,
+      metalness: 0.15,
+      roughness: 0.08,
+      transmission: 0.55,
+      thickness: 0.6,
+      transparent: true,
+      opacity: 0.82,
+    });
+
+    const frameMat = new THREE.MeshStandardMaterial({
+      color: 0x10293f,
+      metalness: 0.8,
+      roughness: 0.25,
+    });
+
+    const goldAccentMat = new THREE.MeshStandardMaterial({
+      color: 0xc9a84c,
+      metalness: 0.9,
+      roughness: 0.15,
+      emissive: new THREE.Color(0xc9a84c),
+      emissiveIntensity: 0.12,
+    });
+
+    const concreteMat = new THREE.MeshStandardMaterial({
+      color: 0x1a2332,
+      metalness: 0.2,
+      roughness: 0.7,
+    });
+
+    const windowLitMat = new THREE.MeshStandardMaterial({
+      color: 0xfff8dc,
+      emissive: new THREE.Color(0xfff5aa),
+      emissiveIntensity: 0.8,
+      roughness: 0.9,
+    });
+
+    /* ─── Helper: build a single office tower ─── */
+    function buildTower(opts) {
+      const {
+        x = 0, z = 0,
+        width = 2, depth = 2,
+        floors = 20,
+        floorH = 0.28,
+        offsetY = 0,
+        hasSpire = false,
+      } = opts;
+
+      const towerH = floors * floorH;
+      const group = new THREE.Group();
+      group.position.set(x, offsetY, z);
+
+      // Core body
+      const bodyGeo = new THREE.BoxGeometry(width, towerH, depth);
+      const body = new THREE.Mesh(bodyGeo, glassMat);
+      body.position.y = towerH / 2;
+      body.castShadow = true;
+      group.add(body);
+
+      // Horizontal floor bands (every 4 floors)
+      for (let f = 0; f <= floors; f += 4) {
+        const bandGeo = new THREE.BoxGeometry(width + 0.04, 0.05, depth + 0.04);
+        const band = new THREE.Mesh(bandGeo, frameMat);
+        band.position.y = f * floorH;
+        group.add(band);
+      }
+
+      // Gold accent stripe (mid-building)
+      const stripeGeo = new THREE.BoxGeometry(width + 0.06, 0.09, depth + 0.06);
+      const stripe = new THREE.Mesh(stripeGeo, goldAccentMat);
+      stripe.position.y = towerH * 0.6;
+      group.add(stripe);
+
+      // Rooftop slab
+      const roofGeo = new THREE.BoxGeometry(width + 0.1, 0.14, depth + 0.1);
+      const roof = new THREE.Mesh(roofGeo, concreteMat);
+      roof.position.y = towerH + 0.07;
+      roof.castShadow = true;
+      group.add(roof);
+
+      // Optional spire
+      if (hasSpire) {
+        const spireGeo = new THREE.ConeGeometry(0.1, 1.2, 8);
+        const spire = new THREE.Mesh(spireGeo, goldAccentMat);
+        spire.position.y = towerH + 0.74;
+        group.add(spire);
+      }
+
+      // Lit windows (random selection)
+      for (let f = 1; f < floors - 1; f++) {
+        for (let col = 0; col < 3; col++) {
+          if (Math.random() > 0.55) continue; // sparse windows
+          const wx = (col - 1) * (width * 0.28);
+          const winGeo = new THREE.PlaneGeometry(width * 0.14, floorH * 0.55);
+          const win = new THREE.Mesh(winGeo, windowLitMat);
+          win.position.set(wx, f * floorH + floorH * 0.5, depth / 2 + 0.01);
+          group.add(win);
+          // Back face too
+          const winB = win.clone();
+          winB.position.z = -(depth / 2 + 0.01);
+          winB.rotation.y = Math.PI;
+          group.add(winB);
+        }
+      }
+
+      buildingGroup.add(group);
+      return group;
+    }
+
+    /* ─── Build the complex: 3 towers + lower podium ─── */
+    // Main central tower (tallest)
+    buildTower({ x: 0,    z: 0,    width: 2.4, depth: 2.2, floors: 28, hasSpire: true });
+    // Left tower
+    buildTower({ x: -3.6, z: 0.4,  width: 2.0, depth: 1.9, floors: 22 });
+    // Right tower
+    buildTower({ x:  3.6, z: 0.4,  width: 2.0, depth: 1.9, floors: 22 });
+    // Far-right shorter tower
+    buildTower({ x:  6.8, z: 1.2,  width: 1.6, depth: 1.6, floors: 16 });
+    // Far-left shorter tower
+    buildTower({ x: -6.8, z: 1.2,  width: 1.6, depth: 1.6, floors: 16 });
+
+    // Ground podium (shared base)
+    const podiumGeo = new THREE.BoxGeometry(17, 0.6, 6);
+    const podium = new THREE.Mesh(podiumGeo, concreteMat);
+    podium.position.set(0, 0.3, 0.8);
+    podium.receiveShadow = true;
+    buildingGroup.add(podium);
+
+    // Ground plane
+    const groundGeo = new THREE.PlaneGeometry(80, 80);
+    const groundMat = new THREE.MeshStandardMaterial({ color: 0x080f1a, roughness: 0.95 });
+    const ground = new THREE.Mesh(groundGeo, groundMat);
+    ground.rotation.x = -Math.PI / 2;
+    ground.receiveShadow = true;
+    scene.add(ground);
+
+    /* ─── Atmospheric particles ─── */
+    const particleCount = 400;
+    const pPositions = new Float32Array(particleCount * 3);
+    for (let i = 0; i < particleCount; i++) {
+      pPositions[i * 3]     = (Math.random() - 0.5) * 30;
+      pPositions[i * 3 + 1] = Math.random() * 20;
+      pPositions[i * 3 + 2] = (Math.random() - 0.5) * 12;
+    }
+    const pGeo = new THREE.BufferGeometry();
+    pGeo.setAttribute('position', new THREE.BufferAttribute(pPositions, 3));
+    const pMat = new THREE.PointsMaterial({
+      color: 0xc9a84c,
+      size: 0.06,
+      transparent: true,
+      opacity: 0.35,
+    });
+    scene.add(new THREE.Points(pGeo, pMat));
+
+    /* ─────────────────────────────────────────
+       LIGHTING
+    ───────────────────────────────────────── */
+    // Ambient — cool blue sky
+    scene.add(Object.assign(new THREE.AmbientLight(0x1a3a5c, 1.2)));
+
+    // Key light — warm golden (sunset)
+    const keyLight = new THREE.DirectionalLight(0xffe4b5, 2.8);
+    keyLight.position.set(8, 18, 8);
+    keyLight.castShadow = true;
+    keyLight.shadow.mapSize.set(2048, 2048);
+    keyLight.shadow.camera.far = 80;
+    scene.add(keyLight);
+
+    // Fill light — soft blue from opposite side
+    const fillLight = new THREE.DirectionalLight(0x7ec8e3, 0.8);
+    fillLight.position.set(-10, 10, -6);
+    scene.add(fillLight);
+
+    // Rim light — gold from below
+    const rimLight = new THREE.PointLight(0xc9a84c, 2.5, 25);
+    rimLight.position.set(0, 1, 4);
+    scene.add(rimLight);
+
+    // Window glow (warm interior)
+    const interiorLight = new THREE.PointLight(0xfff5aa, 1.2, 20);
+    interiorLight.position.set(0, 5, 2);
+    scene.add(interiorLight);
+
+    /* ─────────────────────────────────────────
+       CAMERA PATH
+       9 keyframes, one per section.
+       progress [0..1] = scrollY / maxScroll.
+    ───────────────────────────────────────── */
+    const cameraKeyframes = [
+      // Section 1 — Hero: wide establishing shot
+      { pos: new THREE.Vector3(0, 8, 22),  target: new THREE.Vector3(0, 5, 0) },
+      // Section 2 — About: pull in, slight right
+      { pos: new THREE.Vector3(5, 6, 16),  target: new THREE.Vector3(0, 4, 0) },
+      // Section 3 — Quote 1: look up from below
+      { pos: new THREE.Vector3(2, 2, 14),  target: new THREE.Vector3(0, 8, 0) },
+      // Section 4 — Team: left-tower close-up
+      { pos: new THREE.Vector3(-7, 5, 10), target: new THREE.Vector3(-3.6, 5, 0) },
+      // Section 5 — Quote 2: aerial, birds-eye tilt
+      { pos: new THREE.Vector3(4, 18, 14), target: new THREE.Vector3(0, 6, 0) },
+      // Section 6 — Services: right-side sweep
+      { pos: new THREE.Vector3(9, 4, 10),  target: new THREE.Vector3(3.6, 5, 0) },
+      // Section 7 — Quote 3: dramatic low angle center
+      { pos: new THREE.Vector3(0, 1, 10),  target: new THREE.Vector3(0, 9, 0) },
+      // Section 8 — Testimonials: rooftop level
+      { pos: new THREE.Vector3(-3, 8, 12), target: new THREE.Vector3(0, 7, 0) },
+      // Section 9 — Contact: back to establishing + slight zoom
+      { pos: new THREE.Vector3(0, 6, 18),  target: new THREE.Vector3(0, 5, 0) },
+    ];
+
+    /* ─── Scroll → camera ─── */
+    let scrollProgress = 0;
+    let targetScrollProgress = 0;
+
+    function getScrollProgress() {
+      const maxScroll = document.body.scrollHeight - window.innerHeight;
+      return maxScroll > 0 ? window.scrollY / maxScroll : 0;
+    }
+
+    function lerpCamera(progress) {
+      const total = cameraKeyframes.length - 1;
+      const raw   = progress * total;
+      const idx   = Math.min(Math.floor(raw), total - 1);
+      const t     = raw - idx;
+
+      const kfA = cameraKeyframes[idx];
+      const kfB = cameraKeyframes[idx + 1] || cameraKeyframes[idx];
+
+      camera.position.lerpVectors(kfA.pos, kfB.pos, t);
+
+      const target = new THREE.Vector3().lerpVectors(kfA.target, kfB.target, t);
+      camera.lookAt(target);
+    }
+
+    /* ─────────────────────────────────────────
+       SCROLL LISTENER
+       (single listener — no duplication)
+    ───────────────────────────────────────── */
+    window.addEventListener('scroll', () => {
+      targetScrollProgress = getScrollProgress();
+
+      // Update progress bar
+      document.getElementById('progress-bar').style.width =
+        (targetScrollProgress * 100) + '%';
+    }, { passive: true });
+
+    /* ─────────────────────────────────────────
+       INTERSECTION OBSERVER — text fade-in
+    ───────────────────────────────────────── */
+    const revealEls = document.querySelectorAll('[data-reveal]');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => observer.observe(el));
+
+    /* ─────────────────────────────────────────
+       RESIZE
+    ───────────────────────────────────────── */
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    /* ─────────────────────────────────────────
+       RENDER LOOP
+    ───────────────────────────────────────── */
+    const clock = new THREE.Clock();
+
+    function animate() {
+      requestAnimationFrame(animate);
+      const elapsed = clock.getElapsedTime();
+
+      // Smooth scroll interpolation (lerp toward target)
+      scrollProgress += (targetScrollProgress - scrollProgress) * 0.06;
+      lerpCamera(scrollProgress);
+
+      // Gentle building sway
+      buildingGroup.rotation.y = Math.sin(elapsed * 0.08) * 0.012;
+
+      // Particle drift
+      const positions = pGeo.attributes.position.array;
+      for (let i = 1; i < particleCount * 3; i += 3) {
+        positions[i] += 0.005;
+        if (positions[i] > 20) positions[i] = 0;
+      }
+      pGeo.attributes.position.needsUpdate = true;
+
+      // Rim light pulse
+      rimLight.intensity = 2.2 + Math.sin(elapsed * 0.6) * 0.4;
+
+      renderer.render(scene, camera);
+    }
+
+    // Init camera at first keyframe
+    camera.position.copy(cameraKeyframes[0].pos);
+    camera.lookAt(cameraKeyframes[0].target);
+    animate();
+  </script>
+</body>
+</html>

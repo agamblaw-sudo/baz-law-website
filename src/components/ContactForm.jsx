@@ -7,6 +7,7 @@ export default function ContactForm() {
     femail: '',
     fmessage: '',
     fexpertise: '',
+    fattorney: '',
     subject: 'פנייה חדשה מאתר המשרד',
     from_name: 'אתר משרד ברזילי עזורי'
   });
@@ -206,6 +207,20 @@ export default function ContactForm() {
                     <option value="רישום בתים משותפים">רישום בתים משותפים</option>
                     <option value="צוואות, ירושות ועזבונות">צוואות, ירושות ועזבונות</option>
                     <option value="ייפוי כוח מתמשך">ייפוי כוח מתמשך</option>
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="fattorney">לאיזה עורך דין לפנות?</label>
+                  <select
+                    id="fattorney"
+                    name="fattorney"
+                    value={formData.fattorney}
+                    onChange={handleChange}
+                  >
+                    <option value="">שניהם / לא משנה</option>
+                    <option value="עו&quot;ד אגם ברזילי">עו&quot;ד אגם ברזילי</option>
+                    <option value="עו&quot;ד לירון עזורי">עו&quot;ד לירון עזורי</option>
                   </select>
                 </div>
 

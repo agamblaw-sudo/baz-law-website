@@ -5,6 +5,7 @@ export default function WhatsAppWidget() {
   const [activeTab, setActiveTab] = useState('whatsapp'); // 'whatsapp' | 'form'
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [topic, setTopic] = useState('');
   const [target, setTarget] = useState('both'); // 'agam' | 'liron' | 'both'
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -34,7 +35,7 @@ export default function WhatsAppWidget() {
       data.append('fname', name);
       data.append('fphone', phone);
       data.append('fexpertise', 'השארת פרטים מווידג׳ט וואטסאפ');
-      data.append('fmessage', `פנייה מהירה לחזרה. עורך הדין המבוקש לחזרה: ${target === 'agam' ? 'עו״ד אגם ברזילי' : target === 'liron' ? 'עו״ד לירון עזורי' : 'שניהם / לא משנה'}`);
+      data.append('fmessage', `פנייה מהירה לחזרה. עורך הדין המבוקש לחזרה: ${target === 'agam' ? 'עו״ד אגם ברזילי' : target === 'liron' ? 'עו״ד לירון עזורי' : 'שניהם / לא משנה'}${topic ? `. נושא הפנייה: ${topic}` : ''}`);
       data.append('subject', 'פנייה מהירה לחזרה (ווידג׳ט וואטסאפ)');
       data.append('from_name', 'ווידג׳ט וואטסאפ באתר');
       data.append('access_key', '65842ad6-8798-47fb-9eb5-c49f3e4ee7c6');
@@ -48,6 +49,7 @@ export default function WhatsAppWidget() {
         setSuccess(true);
         setName('');
         setPhone('');
+        setTopic('');
       } else {
         throw new Error(json.message || 'error');
       }
@@ -183,6 +185,25 @@ export default function WhatsAppWidget() {
                       placeholder="הקלידו מספר טלפון"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
+                      style={{
+                        padding: '0.45rem 0.6rem',
+                        borderRadius: '6px',
+                        border: '1px solid rgba(255,255,255,0.2)',
+                        background: 'rgba(255,255,255,0.05)',
+                        color: '#fff',
+                        fontSize: '0.8rem',
+                        outline: 'none',
+                        textAlign: 'right'
+                      }}
+                    />
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+                    <label style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)', textAlign: 'right' }}>נושא הפנייה</label>
+                    <input
+                      type="text"
+                      placeholder="לדוגמה: רכישת דירה, טאבו..."
+                      value={topic}
+                      onChange={(e) => setTopic(e.target.value)}
                       style={{
                         padding: '0.45rem 0.6rem',
                         borderRadius: '6px',

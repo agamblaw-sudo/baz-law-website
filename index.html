@@ -34,27 +34,30 @@
     <link rel="apple-touch-icon" href="/logo-avatar.png" />
 
     <!-- Critical CSS:
-         1. Paint the hero background image on #root immediately — before any JS or
-            external CSS loads — so the first visible frame already shows the BSR
-            towers instead of a solid-color flash.  The image is preloaded (see below)
-            so it arrives in the browser cache before this rule is applied.
-         2. Reserve 100vh so there is never a blank-then-jump layout shift. -->
+         1. Set a dark navy background on html/body/root so there is NEVER a light
+            flash before JS hydrates — the fallback colour matches the hero overlay.
+         2. Show the hero image on #root immediately (before React mounts) using the
+            same image the .hero::before pseudo-element will use, avoiding any jump.
+         3. Reserve 100vh so layout shift never occurs. -->
     <style>
-      html, body { min-height: 100vh; background: #0a1628; }
+      html, body { min-height: 100vh; background: #06101e; }
       #root {
         min-height: 100vh;
-        background: url('/hero-tel-aviv-sea-sharpened.webp') center center / cover no-repeat #0a1628;
+        background: url('/hero-main-new.jpg') center 40% / cover no-repeat #06101e;
+        opacity: 0;
+        animation: rootFadeIn 0.5s ease 0.05s forwards;
       }
+      @keyframes rootFadeIn { to { opacity: 1; } }
       @media (max-width: 768px) {
-        #root { background-image: url('/hero-tel-aviv-sea-mobile.webp'); }
+        #root { background-image: url('/hero-main-new.jpg'); }
       }
       .hero { min-height: 100vh; min-height: 100dvh; }
     </style>
 
-    <!-- Hero LCP: serve mobile (506 KB) or desktop (1.3 MB) WebP, highest priority -->
-    <link rel="preload" as="image" fetchpriority="high" type="image/webp"
-          href="/hero-tel-aviv-sea-sharpened.webp"
-          imagesrcset="/hero-tel-aviv-sea-mobile.webp 768w, /hero-tel-aviv-sea-sharpened.webp 1920w"
+    <!-- Hero LCP: preload hero image at highest browser priority so it is in cache
+         before the first CSS paint — eliminates the blank/flash on load. -->
+    <link rel="preload" as="image" fetchpriority="high" type="image/jpeg"
+          href="/hero-main-new.jpg"
           imagesizes="100vw" />
 
     <!-- Google Fonts: preconnect + preload critical Hebrew woff2 files so they are

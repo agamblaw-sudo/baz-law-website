@@ -14,6 +14,7 @@ export default function ContactForm() {
   
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [formError, setFormError] = useState('');
   const [errors, setErrors] = useState({ fname: false, fphone: false });
   const [mapLinkHover, setMapLinkHover] = useState(false);
   const [activeTab, setActiveTab] = useState('form'); // 'form' | 'whatsapp'
@@ -38,6 +39,7 @@ export default function ContactForm() {
     }
 
     setLoading(true);
+    setFormError('');
 
     try {
       const data = new FormData();
@@ -55,10 +57,12 @@ export default function ContactForm() {
       if (json.success) {
         setSuccess(true);
       } else {
-        throw new Error(json.message || 'שגיאה');
+        console.error('[ContactForm] Web3Forms error:', json);
+        throw new Error(json.message || 'שגיאה בשרת');
       }
     } catch (err) {
-      alert('אירעה שגיאה בשליחה, אנא נסו שוב.');
+      console.error('[ContactForm] Submission failed:', err);
+      setFormError(err.message || 'אירעה שגיאה בשליחה, אנא נסו שוב.');
     } finally {
       setLoading(false);
     }
@@ -239,6 +243,36 @@ export default function ContactForm() {
 
               <input type="hidden" name="subject" value={formData.subject} />
               <input type="hidden" name="from_name" value={formData.from_name} />
+
+              {/* ── Inline error banner ── */}
+              {formError && (
+                <div role="alert" style={{
+                  background: '#fff3f3',
+                  border: '1px solid #f5c6c6',
+                  borderRadius: '10px',
+                  padding: '1rem 1.2rem',
+                  color: '#b91c1c',
+                  fontSize: '0.93rem',
+                  lineHeight: 1.6,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.6rem',
+                  marginBottom: '0.5rem',
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem' }}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: '2px' }}>
+                      <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                    </svg>
+                    <span>אירעה שגיאה בשליחה. ניתן לנסות שוב, או לפנות אלינו ישירות:</span>
+                  </div>
+                  <a
+                    href={`mailto:office@baz-law.co.il?subject=פנייה מהאתר&body=שם: ${formData.fname}%0Aטלפון: ${formData.fphone}%0Aהודעה: ${formData.fmessage}`}
+                    style={{ color: '#1d4ed8', fontWeight: 600, fontSize: '0.9rem', textDecoration: 'underline' }}
+                  >
+                    ✉️ office@baz-law.co.il
+                  </a>
+                </div>
+              )}
 
               <div className="form-submit" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center' }}>
                 <button type="submit" id="submitBtn" className="btn-primary" disabled={loading} style={{ minWidth: '220px', maxWidth: '300px', display: 'flex', justifyContent: 'center' }}>

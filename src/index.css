@@ -2941,12 +2941,10 @@ html.a11y-large-clickable [role="button"] {
 @media (max-width: 640px) {
   #a11y-panel {
     width: calc(100vw - 2rem);
-    bottom: 4.5rem;
-    max-height: calc(100vh - 6rem);
   }
-  #a11y-panel.a11y-pos-left { left: 1rem; right: auto; }
-  #a11y-panel.a11y-pos-right { right: 1rem; left: auto; }
-  #a11y-btn.a11y-pos-left { bottom: 1.5rem; left: 1rem; right: auto; }
+  #a11y-panel.a11y-pos-left { left: 1rem; right: auto; bottom: 8.5rem; max-height: calc(100vh - 9.5rem); }
+  #a11y-panel.a11y-pos-right { right: 1rem; left: auto; bottom: 4.5rem; max-height: calc(100vh - 6rem); }
+  #a11y-btn.a11y-pos-left { bottom: 5rem; left: 1rem; right: auto; }
   #a11y-btn.a11y-pos-right { bottom: 1.5rem; right: 1rem; left: auto; }
 }
 
@@ -3406,11 +3404,12 @@ html.a11y-large-clickable [role="button"] {
 /* ── ChatBot ── */
 .chatbot-trigger {
   position: fixed;
-  bottom: 11rem;
-  right: 1.5rem;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  right: auto;
   z-index: 8500;
-  width: 56px;
-  height: 56px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   background: var(--navy-dark, #0d1b2a);
   border: 2px solid var(--gold-mid, #c9a84c);
@@ -3446,8 +3445,9 @@ html.a11y-large-clickable [role="button"] {
 
 .chatbot-window {
   position: fixed;
-  bottom: 15.5rem;
-  right: 1.5rem;
+  bottom: 1.5rem;
+  left: 5.5rem;
+  right: auto;
   z-index: 8400;
   width: 340px;
   max-height: 520px;
@@ -3459,14 +3459,15 @@ html.a11y-large-clickable [role="button"] {
   overflow: hidden;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(16px) scale(0.97);
+  transform: translateX(-16px) scale(0.95);
+  transform-origin: bottom left;
   transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
   pointer-events: none;
 }
 .chatbot-window.open {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0) scale(1);
+  transform: translateX(0) scale(1);
   pointer-events: auto;
 }
 
@@ -3608,9 +3609,26 @@ html.a11y-large-clickable [role="button"] {
   color: var(--navy-dark, #0d1b2a);
 }
 
-@media (max-width: 480px) {
-  .chatbot-window { width: calc(100vw - 2rem); right: 1rem; bottom: 9.5rem; }
-  .chatbot-trigger { bottom: 5.5rem; right: 1rem; width: 50px; height: 50px; }
+@media (max-width: 640px) {
+  .chatbot-window {
+    width: calc(100vw - 2rem);
+    left: 1rem;
+    right: auto;
+    bottom: 5rem;
+    max-height: calc(100vh - 6.5rem);
+    transform: translateY(16px) scale(0.97);
+    transform-origin: bottom center;
+  }
+  .chatbot-window.open {
+    transform: translateY(0) scale(1);
+  }
+  .chatbot-trigger {
+    bottom: 1.5rem;
+    left: 1rem;
+    right: auto;
+    width: 46px;
+    height: 46px;
+  }
 }
 
 /* Scroll to Top Button */
@@ -4225,7 +4243,7 @@ html.a11y-large-clickable [role="button"] {
 
 /* ── Page Hero ── */
 .pa-hero {
-  background: url('/hero-bsr-sharpened.webp') center center / cover no-repeat;
+  background: url('/practice-areas-hero.jpg') center center / cover no-repeat;
   padding: 5.5rem 4rem 5rem;
   position: relative;
   border-bottom: 1px solid rgba(201,168,76,0.2);
@@ -4885,7 +4903,7 @@ html.a11y-large-clickable [role="button"] {
 }
 
 @media (max-width: 768px) {
-  .pa-hero { padding: 3.5rem 1.25rem 3rem; background-image: url('/hero-bsr-mobile.webp'); min-height: 34vh; image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; }
+  .pa-hero { padding: 3.5rem 1.25rem 3rem; background-image: url('/practice-areas-hero.jpg'); min-height: 34vh; image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; }
   .pa-hero.pa-hero-list-page { padding: 6.5rem 1.25rem 4.5rem; min-height: 50vh; }
   .pa-hero.pa-hero-attorney,
   .pa-hero.pa-hero-practice { padding: 5.5rem 1.25rem 4.5rem; min-height: 46vh; }

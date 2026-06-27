@@ -6016,13 +6016,13 @@ html.a11y-large-clickable [role="button"] {
   pointer-events: none;
 }
 
-/* Leaving: overlay fades, logo flies to top-right (nav position) */
+/* Leaving: overlay fades, logo flies to top-left (nav position) */
 .logo-intro--leaving {
   opacity: 0;
 }
 
 .logo-intro--leaving .logo-intro__logo {
-  transform: scale(0.2) translate(44vw, -46vh);
+  transform: translate(36vw, -44vh) scale(0.18);
   opacity: 0;
 }
 

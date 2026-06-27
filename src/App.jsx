@@ -10,6 +10,7 @@ import ChatBot from './components/ChatBot';
 import { scrollToHash } from './services/scrollService';
 import Home from './pages/Home';
 import CookieConsent from './components/CookieConsent';
+import LogoIntro from './components/LogoIntro';
 
 // Lazy-load heavy pages to enable code-splitting (reduces initial bundle / TBT)
 const Terms = lazy(() => import('./pages/Terms'));
@@ -35,6 +36,7 @@ function AppContent() {
 
   return (
     <>
+      <LogoIntro />
       <ScrollProgressBar />
       <ScrollToHash />
       <Navbar />

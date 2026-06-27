@@ -86,6 +86,26 @@ export default function AttorneyDetail() {
                 <p key={i} className="pa-intro-text" style={{ marginBottom: '1.25rem' }}>{para}</p>
               ))}
 
+              {/* השכלה ושפות — מתחת לביו */}
+              <div className="atty-facts" style={{ marginTop: '1.75rem' }}>
+                <div className="atty-facts-block">
+                  <h3 className="atty-facts-label">השכלה:</h3>
+                  <ul className="atty-facts-list">
+                    {attorney.education.map((edu, i) => (
+                      <li key={i}>{edu.degree}, {edu.institution}.</li>
+                    ))}
+                  </ul>
+                </div>
+                {attorney.languages && (
+                  <div className="atty-facts-block">
+                    <h3 className="atty-facts-label">שפות:</h3>
+                    <ul className="atty-facts-list">
+                      <li>{attorney.languages.join(' ו')}.</li>
+                    </ul>
+                  </div>
+                )}
+              </div>
+
               <div className="attorney-certification-badge">
                 <div className="attorney-certification-icon">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -97,25 +117,6 @@ export default function AttorneyDetail() {
                   מוסמך לעריכת ייפוי כוח מתמשך מטעם משרד המשפטים ולשכת עורכי הדין
                 </span>
               </div>
-            </div>
-          </div>
-        </section>
-
-
-
-        {/* Education */}
-        <section ref={eduRef} className="pa-section" aria-labelledby="edu-heading">
-          <div className="pa-section-inner">
-            <span className={`section-label reveal-fade-up ${eduVisible ? 'active' : ''}`}>השכלה</span>
-            <h2 id="edu-heading" className={`pa-section-title reveal-fade-up ${eduVisible ? 'active' : ''}`}>השכלה אקדמית</h2>
-            <div className="pa-process-grid pa-process-grid--no-line" style={{ gridTemplateColumns: 'repeat(2, 1fr)', maxWidth: '560px', margin: '0 auto' }}>
-              {attorney.education.map((edu, i) => (
-                <div key={i} className={`pa-process-step reveal-fade-up ${eduVisible ? 'active' : ''}`} style={{ transitionDelay: `${i * 100}ms`, textAlign: 'center' }}>
-                  <div className="pa-step-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</div>
-                  <h3 className="pa-step-title">{edu.degree}</h3>
-                  <p className="pa-step-desc">{edu.institution}</p>
-                </div>
-              ))}
             </div>
           </div>
         </section>

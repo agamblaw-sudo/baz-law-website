@@ -5884,3 +5884,84 @@ html.a11y-large-clickable [role="button"] {
   text-align: left;
   margin-top: 6px;
 }
+/* ══════════════════════════════
+   LOGO INTRO SPLASH
+══════════════════════════════ */
+.logo-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #0f2336;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.logo-intro__logo {
+  opacity: 1;
+  transform: scale(1) translate(0, 0);
+  transition:
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+}
+
+.logo-intro__logo img {
+  display: block;
+  max-width: 260px;
+  width: 50vw;
+  height: auto;
+  filter: brightness(1.15);
+}
+
+/* Leaving: overlay fades, logo flies to top-right (nav position) */
+.logo-intro--leaving {
+  opacity: 0;
+}
+
+.logo-intro--leaving .logo-intro__logo {
+  transform: scale(0.22) translate(42vw, -46vh);
+  opacity: 0;
+}
+
+/* ══════════════════════════════
+   ATTORNEY FACTS (השכלה / שפות)
+══════════════════════════════ */
+.atty-facts {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 560px;
+}
+
+.atty-facts-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.atty-facts-label {
+  font-family: 'Heebo', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy-dark);
+  margin: 0;
+}
+
+.atty-facts-list {
+  list-style: disc;
+  padding-right: 1.4rem;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.atty-facts-list li {
+  font-family: 'Heebo', sans-serif;
+  font-size: 0.97rem;
+  color: var(--text-body, #2c3e50);
+  line-height: 1.7;
+}

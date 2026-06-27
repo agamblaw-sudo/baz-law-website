@@ -1069,13 +1069,16 @@ nav.scrolled {
   background: var(--white);
   position: relative;
   overflow: hidden;
-  transition: all 0.3s;
+  transition:
+    transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 300ms ease,
+    border-color 200ms ease;
   cursor: default;
   box-shadow: var(--shadow-sm);
   border-radius: 12px;
   display: flex;
   flex-direction: column;
-  padding: 0; /* Let image bleed */
+  padding: 0;
 }
 
 .expertise-card::after {
@@ -1092,9 +1095,9 @@ nav.scrolled {
 }
 
 .expertise-card:hover {
-  border-color: rgba(158,122,42,0.4);
-  transform: translateY(-6px);
-  box-shadow: 0 12px 36px rgba(15,35,54,0.12);
+  border-color: rgba(158,122,42,0.45);
+  transform: translateY(-8px);
+  box-shadow: 0 16px 48px rgba(15,35,54,0.14), 0 4px 12px rgba(15,35,54,0.06);
 }
 
 .expertise-card:hover::after { opacity: 1; }
@@ -1112,7 +1115,7 @@ nav.scrolled {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .expertise-card:hover .expertise-card-image {
@@ -5753,14 +5756,23 @@ html.a11y-large-clickable [role="button"] {
 ══════════════════════════════ */
 .reveal-fade-up {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s cubic-bezier(0.215, 0.61, 0.355, 1), transform 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+  transform: translateY(40px);
+  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
 }
 
 .reveal-fade-up.active {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Expertise cards get a faster transform so hover lift feels snappy */
+.expertise-card.reveal-fade-up.active {
+  transition:
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 350ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 300ms ease,
+    border-color 200ms ease;
 }
 
 .reveal-slide-left {

@@ -10,12 +10,12 @@ export default function LogoIntro() {
     }
     document.body.style.overflow = 'hidden';
 
-    const t1 = setTimeout(() => setPhase('leaving'), 1000);
+    const t1 = setTimeout(() => setPhase('leaving'), 1600);
     const t2 = setTimeout(() => {
       setPhase('done');
       document.body.style.overflow = '';
       sessionStorage.setItem('baz-intro-shown', '1');
-    }, 1850);
+    }, 2450);
 
     return () => {
       clearTimeout(t1);
@@ -29,10 +29,8 @@ export default function LogoIntro() {
   return (
     <div className={`logo-intro${phase === 'leaving' ? ' logo-intro--leaving' : ''}`} aria-hidden="true">
       <div className="logo-intro__logo">
-        <picture>
-          <source srcSet="/logo.webp" type="image/webp" />
-          <img src="/logo.png" alt="" width="280" height="83" draggable="false" />
-        </picture>
+        <img src="/logo-transparent.png" alt="" width="280" height="83" draggable="false" />
+        <div className="logo-intro__shimmer" />
       </div>
     </div>
   );

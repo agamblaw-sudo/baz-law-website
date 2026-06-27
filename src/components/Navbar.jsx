@@ -48,14 +48,16 @@ export default function Navbar() {
   return (
     <>
       {/* ═══ NAVBAR ═══ */}
-      <nav id="navbar" className={isScrolled ? 'scrolled' : ''}>
+      <nav id="navbar" className={[isScrolled ? 'scrolled' : '', !isScrolled && !['/terms', '/privacy', '/accessibility'].includes(location.pathname) ? 'transparent' : ''].filter(Boolean).join(' ')}>
 
         {/* Logo — ימין (RTL start) */}
         <a href="/" className="nav-logo-wrap" aria-label="ברזילי, עזורי ושות׳">
-          <picture>
-            <source srcSet="/logo.webp" type="image/webp" />
-            <img src="/logo.png" className="nav-logo-img" alt="ברזילי, עזורי ושות׳ עורכי דין" width="320" height="95" />
-          </picture>
+          <img
+            src={!isScrolled && !['/terms', '/privacy', '/accessibility'].includes(location.pathname) ? '/logo-transparent.png' : '/logo.png'}
+            className="nav-logo-img"
+            alt="ברזילי, עזורי ושות׳ עורכי דין"
+            width="320" height="95"
+          />
         </a>
 
         {/* Nav links — centre (desktop) */}

@@ -184,7 +184,6 @@ nav {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
-  /* Dark elegant navy — makes gold logo lettering pop */
   background: #10293f;
   border-bottom: 1px solid rgba(201,168,76,0.18);
   padding: 0 3rem;
@@ -193,11 +192,23 @@ nav {
   align-items: center;
   justify-content: space-between;
   direction: rtl;
-  transition: box-shadow 0.3s;
+  transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.3s;
 }
 
+nav.transparent {
+  background: transparent;
+  border-bottom-color: transparent;
+}
+
+nav.transparent .nav-logo-wrap {
+  background: transparent;
+}
+
+
 nav.scrolled {
+  background: #10293f;
   box-shadow: 0 4px 32px rgba(0,0,0,0.5);
+  border-bottom-color: rgba(201,168,76,0.18);
 }
 
 /* ── Logo image ── */
@@ -210,7 +221,8 @@ nav.scrolled {
   margin: 0;
   margin-right: -3rem;
   height: 100%;
-  background: #10293f;  /* exact nav background — hides JPEG edges */
+  background: #10293f;
+  transition: background 0.4s ease;
 }
 
 .nav-logo-img {
@@ -2211,58 +2223,95 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
 
 .nav-dropdown-menu {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 4px);
   right: -20px;
-  background: #10293f; /* matches navbar background */
-  border: 1px solid rgba(201, 168, 76, 0.18);
-  border-top: none;
+  background: rgba(9, 20, 33, 0.94);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(197, 164, 74, 0.22);
+  border-top: 2px solid var(--gold-mid);
   list-style: none;
-  min-width: 250px;
-  padding: 0.8rem 0;
+  min-width: 220px;
+  padding: 0.55rem 0;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  box-shadow:
+    0 20px 48px rgba(0, 0, 0, 0.55),
+    0 4px 16px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(197, 164, 74, 0.08);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(10px);
-  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+  transform: translateY(6px) scale(0.98);
+  transform-origin: top right;
+  transition:
+    opacity 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0.22s;
   z-index: 102;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
+  border-radius: 0 0 10px 10px;
 }
 
 .nav-dropdown-wrapper:hover .nav-dropdown-menu {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
 .nav-dropdown-menu li {
   width: 100%;
 }
 
+.nav-dropdown-menu li + li {
+  border-top: 1px solid rgba(197, 164, 74, 0.07);
+}
+
 .nav-dropdown-menu a {
-  display: block;
-  padding: 0.7rem 1.8rem;
-  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding: 0.72rem 1.4rem;
+  font-family: 'Heebo', sans-serif;
+  font-size: 0.9rem;
   font-weight: 500;
-  color: rgba(240, 244, 248, 0.85) !important;
+  color: rgba(220, 230, 242, 0.82) !important;
   text-decoration: none;
-  transition: all 0.2s ease;
-  border-right: 3px solid transparent;
+  transition:
+    color 0.18s ease,
+    background 0.18s ease,
+    padding-right 0.2s cubic-bezier(0.22, 1, 0.36, 1);
   text-align: right;
   white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+
+.nav-dropdown-menu a::before {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gold-mid);
+  opacity: 0;
+  flex-shrink: 0;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  transform: scale(0);
+  order: 1;
 }
 
 .nav-dropdown-menu a::after {
-  display: none !important; /* disable underline style from main nav links */
+  display: none !important;
 }
 
 .nav-dropdown-menu a:hover {
-  color: var(--gold-mid) !important;
-  background: rgba(201, 168, 76, 0.04);
-  border-right-color: var(--gold-mid) !important;
-  padding-right: 2.1rem !important; /* smooth slide-in micro-animation */
+  color: #e8c96a !important;
+  background: rgba(197, 164, 74, 0.07);
+  padding-right: 1.7rem !important;
+}
+
+.nav-dropdown-menu a:hover::before {
+  opacity: 1;
+  transform: scale(1);
 }
 
 /* ── Mobile Dropdown Menu ── */

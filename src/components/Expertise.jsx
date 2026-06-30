@@ -87,7 +87,7 @@ export default function Expertise() {
           <article 
             key={area.slug} 
             className={`expertise-card reveal-fade-up ${isVisible ? 'active' : ''}`}
-            style={{ transitionDelay: `${index * 80}ms` }}
+            style={{ transitionDelay: `${index * 40}ms` }}
           >
             <div className="expertise-card-image-wrap">
               <img src={area.image} alt={area.title} className="expertise-card-image" loading="lazy" />

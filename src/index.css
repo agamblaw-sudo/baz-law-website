@@ -659,7 +659,7 @@ nav.scrolled {
 }
 
 .section-title {
-  font-family: 'Playfair Display', 'Heebo', Georgia, serif;
+  font-family: 'Frank Ruhl Libre', 'Playfair Display', Georgia, serif;
   font-size: clamp(2rem, 4vw, 3.2rem);
   font-weight: 700;
   line-height: 1.2;
@@ -841,7 +841,7 @@ nav.scrolled {
 }
 
 .attorney-body h3 {
-  font-family: 'Playfair Display', 'Heebo', Georgia, serif;
+  font-family: 'Frank Ruhl Libre', 'Playfair Display', Georgia, serif;
   font-size: 1.65rem;
   font-weight: 700;
   color: var(--text-dark);
@@ -1165,7 +1165,7 @@ nav.scrolled {
 }
 
 .expertise-card h3 {
-  font-family: 'Playfair Display', 'Heebo', Georgia, serif;
+  font-family: 'Frank Ruhl Libre', 'Playfair Display', Georgia, serif;
   font-size: 1.3rem;
   font-weight: 700;
   margin-bottom: 0.75rem;
@@ -2636,7 +2636,7 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
   margin-bottom: 1.3rem;
 }
 .footer-logo-he {
-  font-family: 'Playfair Display', 'Times New Roman', serif;
+  font-family: 'Frank Ruhl Libre', 'Playfair Display', Georgia, serif;
   font-size: 1.25rem;
   font-weight: 700;
   color: rgba(240,246,255,0.92);
@@ -2651,7 +2651,7 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
   background: linear-gradient(to left, transparent, var(--gold-mid), transparent);
 }
 .footer-logo-en {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: 'Frank Ruhl Libre', 'Playfair Display', Georgia, serif;
   font-size: 0.78rem;
   font-weight: 400;
   color: var(--gold-mid);
@@ -5803,7 +5803,7 @@ html.a11y-large-clickable [role="button"] {
 }
 
 .parallax-quote {
-  font-family: 'Playfair Display', 'Heebo', Georgia, serif;
+  font-family: 'Frank Ruhl Libre', 'Playfair Display', Georgia, serif;
   font-size: clamp(1.7rem, 3.2vw, 2.6rem);
   font-weight: 500;
   font-style: italic;
@@ -5840,6 +5840,7 @@ html.a11y-large-clickable [role="button"] {
     box-shadow 300ms ease,
     border-color 200ms ease;
 }
+
 
 .reveal-slide-left {
   opacity: 0;
@@ -5988,8 +5989,8 @@ html.a11y-large-clickable [role="button"] {
   overflow: hidden;
   transform: scale(1) translate(0, 0);
   transition:
-    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform, opacity;
 }
 
@@ -6064,4 +6065,31 @@ html.a11y-large-clickable [role="button"] {
   font-size: 0.97rem;
   color: var(--text-body, #2c3e50);
   line-height: 1.7;
+}
+
+/* ══════════════════════════════
+   REDUCED MOTION ACCESSIBILITY
+══════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .logo-intro {
+    display: none;
+  }
+
+  .reveal-fade-up,
+  .reveal-slide-left,
+  .reveal-slide-right {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }

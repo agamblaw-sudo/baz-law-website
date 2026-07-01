@@ -58,7 +58,7 @@ function AppContent() {
           </Routes>
         </div>
       </Suspense>
-      {!isLegalPage && <Footer />}
+      <Footer />
     </>
   );
 }

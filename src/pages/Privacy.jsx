@@ -192,13 +192,6 @@ export default function Privacy() {
     </div>
     </main>
 
-      <footer className="page-footer" role="contentinfo">
-        &copy; {new Date().getFullYear()} ברזילי, עזורי ושות' עורכי דין. כל הזכויות שמורות.
-        <br />
-        <Link to="/accessibility">הצהרת נגישות</Link> |{' '}
-        <Link to="/privacy">מדיניות פרטיות</Link> |{' '}
-        <Link to="/terms">תקנון ותנאי שימוש</Link>
-      </footer>
     </div>
   );
 }

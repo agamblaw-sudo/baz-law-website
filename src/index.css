@@ -3272,6 +3272,12 @@ html.a11y-large-clickable [role="button"] {
   padding: 3rem 1.5rem 4rem;
 }
 
+/* Legal pages use the main fixed navbar (100px desktop / 64px mobile) —
+   override pa-hero padding-top to clear the navbar like pa-hero-practice does */
+.legal-page-wrapper .pa-hero {
+  padding-top: 8.5rem;
+}
+
 .legal-page-wrapper .content-card {
   background: var(--white);
   max-width: 860px;
@@ -3415,6 +3421,10 @@ html.a11y-large-clickable [role="button"] {
 
 
 @media (max-width: 768px) {
+  .legal-page-wrapper .pa-hero {
+    padding-top: 5.5rem; /* 88px — clears 64px mobile navbar + breathing room */
+  }
+
   .legal-page-wrapper .page-nav,
   .pa-page .page-nav {
     height: 64px;

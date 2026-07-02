@@ -3237,7 +3237,7 @@ html.a11y-large-clickable [role="button"] {
 }
 
 .legal-page-wrapper .page-nav .firm-name {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Frank Ruhl Libre', 'Playfair Display', Georgia, serif;
   color: var(--gold-mid);
   font-size: 1.05rem;
   font-weight: 700;

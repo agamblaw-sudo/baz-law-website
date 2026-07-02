@@ -10,12 +10,12 @@ export default function LogoIntro() {
     }
     document.body.style.overflow = 'hidden';
 
-    const t1 = setTimeout(() => setPhase('leaving'), 1600);
+    const t1 = setTimeout(() => setPhase('leaving'), 1900);
     const t2 = setTimeout(() => {
       setPhase('done');
       document.body.style.overflow = '';
       sessionStorage.setItem('baz-intro-shown', '1');
-    }, 2450);
+    }, 2750);
 
     return () => {
       clearTimeout(t1);

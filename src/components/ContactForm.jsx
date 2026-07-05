@@ -147,7 +147,7 @@ export default function ContactForm() {
         {/* ── Form panel ── */}
         {activeTab === 'form' && (
           success ? (
-            <div id="successMsg" className="success-msg" style={{ display: 'flex' }}>
+            <div id="successMsg" className="success-msg" role="status" aria-live="polite" style={{ display: 'flex' }}>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1aa055" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="12" cy="12" r="10" />
                 <polyline points="9 12 11 14 15 10" />
@@ -161,29 +161,33 @@ export default function ContactForm() {
             <form id="contactForm" onSubmit={handleSubmit}>
               <div className="form-grid">
                 <div className="form-group">
-                  <label htmlFor="fname">שם מלא</label>
+                  <label htmlFor="fname">שם מלא <span aria-hidden="true" style={{ color: '#e24b4a' }}>*</span></label>
                   <input
                     type="text"
                     id="fname"
                     name="fname"
                     required
+                    autoComplete="name"
                     placeholder=""
                     value={formData.fname}
                     onChange={handleChange}
+                    aria-invalid={errors.fname || undefined}
                     style={errors.fname ? { borderColor: '#e24b4a', boxShadow: '0 0 0 3px rgba(226,75,74,.15)' } : {}}
                   />
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="fphone">טלפון</label>
+                  <label htmlFor="fphone">טלפון <span aria-hidden="true" style={{ color: '#e24b4a' }}>*</span></label>
                   <input
                     type="tel"
                     id="fphone"
                     name="fphone"
                     required
+                    autoComplete="tel"
                     placeholder=""
                     value={formData.fphone}
                     onChange={handleChange}
+                    aria-invalid={errors.fphone || undefined}
                     style={errors.fphone ? { borderColor: '#e24b4a', boxShadow: '0 0 0 3px rgba(226,75,74,.15)' } : {}}
                   />
                 </div>
@@ -194,6 +198,7 @@ export default function ContactForm() {
                     type="email"
                     id="femail"
                     name="femail"
+                    autoComplete="email"
                     placeholder=""
                     value={formData.femail}
                     onChange={handleChange}

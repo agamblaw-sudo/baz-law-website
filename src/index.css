@@ -906,6 +906,16 @@ nav.scrolled {
   color: var(--text-muted);
 }
 
+/* Each degree renders on its own line, with the institution directly
+   beneath it (via <br/>). Multiple degrees get a gap between them. */
+.atty-rail-edu {
+  display: block;
+}
+
+.atty-rail-edu + .atty-rail-edu {
+  margin-top: 0.6rem;
+}
+
 @media (max-width: 900px) {
   .atty-profile {
     grid-template-columns: 1fr;

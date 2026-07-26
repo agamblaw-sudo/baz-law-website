@@ -94,7 +94,13 @@ export default function AttorneyDetail() {
             <div className="atty-rail-facts">
               <h3>השכלה</h3>
               <p className="atty-rail-oneline">
-                {attorney.education.map((edu, i) => `${edu.degree}, ${edu.institution}`).join('; ')}.
+                {attorney.education.map((edu, i) => (
+                  <span className="atty-rail-edu" key={i}>
+                    {edu.degree}
+                    <br />
+                    {edu.institution}
+                  </span>
+                ))}
               </p>
             </div>
 

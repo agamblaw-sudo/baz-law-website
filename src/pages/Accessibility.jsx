@@ -12,7 +12,6 @@ export default function Accessibility() {
       <section className="pa-hero" aria-label="כותרת עמוד">
         <div className="pa-hero-bg-text">חוק</div>
         <div className="pa-hero-inner">
-          <span className="section-label" style={{ color: 'var(--gold-mid)' }}>מידע משפטי</span>
           <h1 className="pa-hero-title">הצהרת נגישות</h1>
           <p className="pa-hero-sub">מחויבותנו לנגישות ושוויון לכלל המשתמשים</p>
           <p style={{ fontSize: '0.78rem', color: 'rgba(240,246,255,0.4)', marginTop: '0.75rem' }}>עודכן לאחרונה: 21 במאי 2026</p>

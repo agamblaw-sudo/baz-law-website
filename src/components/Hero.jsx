@@ -17,11 +17,11 @@ export default function Hero() {
       <div className="hero-bg-text">חוק</div>
       <div className="hero-content">
         <h1>
-          ייעוץ משפטי
-          <span>מקצועי ואישי</span>
+          ברזילי, עזורי ושות׳
+          <span>עורכי דין</span>
         </h1>
         <p className="hero-sub">
-          משרדנו מעניק ליווי משפטי מקצועי, אישי ומדוייק מתוך מחויבות מלאה לשירות, זמינות ותוצאה מיטיבה עבור כל לקוח, בכל שלבי העסקה.
+          מקצועיות חסרת פשרות, ירידה לפרטים וליווי אישי צמוד — בעסקאות נדל"ן, התחדשות עירונית, ירושות וצוואות.
         </p>
         <div className="hero-actions">
           <a href="/#lead-form" className="btn-primary">לתיאום פגישת ייעוץ</a>

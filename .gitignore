@@ -17,6 +17,10 @@ dist-ssr
 !.vscode/extensions.json
 .idea
 .DS_Store
+
+# Local static preview build (generated — never commit)
+preview-local/
+preview-local.command
 *.suo
 *.ntvs*
 *.njsproj

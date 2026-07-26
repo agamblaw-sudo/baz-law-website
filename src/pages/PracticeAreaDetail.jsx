@@ -42,7 +42,6 @@ export default function PracticeAreaDetail() {
       <section className="pa-hero pa-hero-practice" aria-label="כותרת עמוד">
         <div className="pa-hero-bg-text">חוק</div>
         <div className="pa-hero-inner">
-          <span className="section-label" style={{ color: 'var(--gold-mid)' }}>תחום התמחות</span>
           <h1 className="pa-hero-title">{area.title}</h1>
           <p className="pa-hero-sub">{area.subtitle}</p>
           <div className="pa-hero-actions">
@@ -68,7 +67,6 @@ export default function PracticeAreaDetail() {
         {area.slug !== 'yipuy-koach' && (
           <section ref={servicesRef} className="pa-section pa-section-alt" aria-labelledby="services-heading">
             <div className="pa-section-inner">
-              <span className={`section-label reveal-fade-up ${servicesVisible ? 'active' : ''}`}>מה כולל הטיפול</span>
               <h2 id="services-heading" className={`pa-section-title reveal-fade-up ${servicesVisible ? 'active' : ''}`}>שירותים שאנו מציעים</h2>
               <div className="pa-services-grid" role="list">
                 {area.services.map((svc, i) => (
@@ -92,9 +90,8 @@ export default function PracticeAreaDetail() {
         {/* Process */}
         <section ref={processRef} className="pa-section pa-section-process" aria-labelledby="process-heading">
           <div className="pa-section-inner">
-            <span className={`section-label reveal-fade-up ${processVisible ? 'active' : ''}`}>כיצד אנחנו עובדים</span>
             <h2 id="process-heading" className={`pa-section-title reveal-fade-up ${processVisible ? 'active' : ''}`}>תהליך העבודה</h2>
-            
+
             {/* Flowchart Layout (CPOA, Snake Flowchart) */}
             {area.slug === 'yipuy-koach' && (
               <div className="cpoa-flow-snake-container animate-fade-in">
@@ -368,7 +365,6 @@ export default function PracticeAreaDetail() {
         {/* Why Us */}
         <section ref={whyRef} className="pa-section pa-section-dark" aria-labelledby="why-heading">
           <div className="pa-section-inner">
-            <span className={`section-label reveal-fade-up ${whyVisible ? 'active' : ''}`} style={{ color: 'var(--gold-mid)' }}>היתרונות שלנו</span>
             <h2 id="why-heading" className={`pa-section-title reveal-fade-up ${whyVisible ? 'active' : ''}`} style={{ color: '#fff' }}>למה לבחור בנו?</h2>
             <div className="pa-why-grid">
               {area.whyUs.map((item, i) => (
@@ -384,7 +380,6 @@ export default function PracticeAreaDetail() {
         {/* FAQ */}
         <section ref={faqRef} className="pa-section" aria-labelledby="faq-heading">
           <div className="pa-section-inner pa-faq-section">
-            <span className={`section-label reveal-fade-up ${faqVisible ? 'active' : ''}`}>שאלות נפוצות</span>
             <h2 id="faq-heading" className={`pa-section-title reveal-fade-up ${faqVisible ? 'active' : ''}`}>שאלות נפוצות</h2>
             <div className="pa-faq-list" itemScope itemType="https://schema.org/FAQPage">
               {area.faq.map((item, i) => (

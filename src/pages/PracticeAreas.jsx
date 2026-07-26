@@ -36,15 +36,6 @@ const indexSchema = {
   ],
 };
 
-const slugToImageMap = {
-  'nadlan': '/pa-nadlan.webp',
-  'hitkhadshut-ironit': '/pa-hitkhadshut.webp',
-  'tzovaot-yerushot': '/pa-tzovaot.webp',
-  'tabu': '/pa-tabu.webp',
-  'batim-meshotafim': '/pa-batim.webp',
-  'yipuy-koach': '/pa-yipuy.webp'
-};
-
 export default function PracticeAreas() {
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
@@ -67,7 +58,6 @@ export default function PracticeAreas() {
       <section className="pa-hero pa-hero-list-page" aria-label="כותרת עמוד">
         <div className="pa-hero-bg-text">חוק</div>
         <div className="pa-hero-inner">
-          <span className="section-label" style={{ color: 'var(--gold-mid)' }}>המשרד</span>
           <h1 className="pa-hero-title">תחומי ההתמחות שלנו</h1>
           <p className="pa-hero-sub">
             ייצוג משפטי מקצועי ומחויב בתחומי הנדל"ן וההתמחויות המשלימות, מהייעוץ הראשוני ועד לסגירת העסקה.
@@ -87,45 +77,36 @@ export default function PracticeAreas() {
         </div>
       </section>
 
-      {/* ── Practice Areas Grid ── */}
+      {/* ── Practice Areas — typography-led numbered list ── */}
       <section ref={gridRef} className="pa-grid-section">
-        <div className="pa-grid" role="list" aria-label="תחומי ההתמחות">
+        <ol className="exp-list" aria-label="תחומי ההתמחות">
           {practiceAreas.map((area, index) => (
-            <article 
-              key={area.slug} 
-              className={`expertise-card reveal-fade-up ${gridVisible ? 'active' : ''}`}
-              style={{ transitionDelay: `${index * 80}ms` }}
-              role="listitem"
+            <li
+              key={area.slug}
+              className={`exp-item reveal-fade-up ${gridVisible ? 'active' : ''}`}
+              style={{ transitionDelay: `${index * 60}ms` }}
             >
-              <div className="expertise-card-image-wrap">
-                <img 
-                  src={slugToImageMap[area.slug]} 
-                  alt={area.title} 
-                  className="expertise-card-image" 
-                  loading="lazy" 
-                />
-                <div className="expertise-icon" aria-hidden="true">
-                  {area.svgIcon}
+              <Link to={`/practice-areas/${area.slug}`} className="exp-link" aria-label={`${area.title} — לפרטים נוספים`}>
+                <span className="exp-num" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                <div className="exp-body">
+                  <h3 className="exp-title">{area.title}</h3>
+                  <div className="exp-reveal">
+                    <div className="exp-reveal-inner">
+                      <p className="exp-desc">{area.intro.slice(0, 180)}…</p>
+                      <span className="exp-cta">
+                        לפרטים נוספים
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                          <line x1="19" y1="12" x2="5" y2="12"/>
+                          <polyline points="12 19 5 12 12 5"/>
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="expertise-card-body">
-                <h3>{area.title}</h3>
-                <p>{area.intro.slice(0, 180)}…</p>
-                <Link
-                  to={`/practice-areas/${area.slug}`}
-                  className="expertise-read-more"
-                  aria-label={`לפרטים על ${area.title}`}
-                >
-                  לפרטים נוספים
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <line x1="19" y1="12" x2="5" y2="12"/>
-                    <polyline points="12 19 5 12 12 5"/>
-                  </svg>
-                </Link>
-              </div>
-            </article>
+              </Link>
+            </li>
           ))}
-        </div>
+        </ol>
       </section>
 
       {/* ── CTA Band ── */}

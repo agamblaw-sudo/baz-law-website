@@ -143,7 +143,7 @@ export default function ChatBot() {
         <div className="chatbot-header">
           <div className="chatbot-header-info">
             <span className="chatbot-avatar">
-              <img src="/logo-avatar.webp" alt="BA" />
+              <img src="/logo-avatar.png" alt="BA" />
             </span>
             <div>
               <div className="chatbot-name">{BOT_NAME}</div>
@@ -162,7 +162,7 @@ export default function ChatBot() {
             <div key={i} className={`chatbot-msg ${msg.from === 'bot' ? 'bot' : 'user'}`}>
               {msg.from === 'bot' && (
                 <span className="chatbot-msg-avatar">
-                  <img src="/logo-avatar.webp" alt="BA" />
+                  <img src="/logo-avatar.png" alt="BA" />
                 </span>
               )}
               <div className="chatbot-msg-content">

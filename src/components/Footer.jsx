@@ -14,7 +14,6 @@ export default function Footer() {
       <div className="footer-brand">
                 <Link to="/" className="footer-logo-link" aria-label="ברזילי, עזורי ושות' עורכי דין">
           <picture>
-            <source srcSet="/logo-footer.webp" type="image/webp" />
             <img src="/logo-footer.png" className="footer-logo-img" alt="ברזילי, עזורי ושות׳ עורכי דין" width="320" height="95" />
           </picture>
         </Link>

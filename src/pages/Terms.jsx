@@ -14,7 +14,7 @@ export default function Terms() {
         <div className="pa-hero-inner">
           <h1 className="pa-hero-title">תקנון ותנאי שימוש</h1>
           <p className="pa-hero-sub">תנאי השימוש באתר משרד ברזילי, עזורי ושות׳</p>
-          <p style={{ fontSize: '0.78rem', color: 'rgba(240,246,255,0.4)', marginTop: '0.75rem' }}>עודכן לאחרונה: 21 במאי 2026</p>
+          <p style={{ fontSize: '0.78rem', color: 'rgba(240,246,255,0.4)', marginTop: '0.75rem', textAlign: 'center' }}>עודכן לאחרונה: 21 במאי 2026</p>
           <div className="pa-hero-actions">
             <Link to="/#lead-form" className="btn-primary">לתיאום פגישת ייעוץ</Link>
           </div>

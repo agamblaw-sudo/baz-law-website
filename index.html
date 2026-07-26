@@ -7,6 +7,22 @@
          Without this inline script the browser restores a previous scroll position
          after our JS bundle loads, causing the visible "jump from bottom to top". -->
     <script>if ('scrollRestoration' in history) history.scrollRestoration = 'manual';</script>
+
+    <!-- Meta Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1653729789029217');
+      fbq('track', 'PageView');
+    </script>
+    <!-- End Meta Pixel Code -->
+
     <title>ברזילי, עזורי ושות' | משרד עורכי דין</title>
     
     <!-- Open Graph / WhatsApp / Facebook / LinkedIn -->
@@ -110,7 +126,71 @@
     </script>
   </head>
   <body>
+    <!-- Meta Pixel — noscript fallback -->
+    <noscript><img height="1" width="1" style="display:none" alt=""
+      src="https://www.facebook.com/tr?id=1653729789029217&ev=PageView&noscript=1" /></noscript>
+
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+
+    <!-- Meta Pixel — SPA tracking: PageView on route change, Lead on form success,
+         Contact on WhatsApp / phone / email clicks. Kept here (not in React source)
+         so tracking is decoupled from the app code. -->
+    <script>
+      (function () {
+        if (!window.fbq) return;
+        var leadSent = false;
+
+        /* ── 1. PageView on client-side route change ──
+           React Router navigates without a page load, so the pixel's initial
+           PageView would be the only one ever recorded. Patch the history API. */
+        var lastPath = location.pathname + location.search;
+        function trackRoute() {
+          var current = location.pathname + location.search;
+          if (current === lastPath) return;
+          lastPath = current;
+          leadSent = false;
+          fbq('track', 'PageView');
+        }
+        ['pushState', 'replaceState'].forEach(function (method) {
+          var original = history[method];
+          history[method] = function () {
+            var result = original.apply(this, arguments);
+            setTimeout(trackRoute, 0);
+            return result;
+          };
+        });
+        window.addEventListener('popstate', function () { setTimeout(trackRoute, 0); });
+
+        /* ── 2. Lead — fires only on a confirmed successful submission ──
+           ContactForm.jsx renders #successMsg only after Web3Forms returns
+           success, so watching for that node avoids counting failed sends. */
+        function sendLead() {
+          if (leadSent) return;
+          leadSent = true;
+          fbq('track', 'Lead', {
+            content_name: 'טופס יצירת קשר',
+            content_category: 'אתר המשרד'
+          });
+        }
+        new MutationObserver(function () {
+          if (!leadSent && document.getElementById('successMsg')) sendLead();
+        }).observe(document.documentElement, { childList: true, subtree: true });
+
+        /* ── 3. Contact — WhatsApp / phone / email clicks ── */
+        document.addEventListener('click', function (e) {
+          var link = e.target && e.target.closest && e.target.closest('a[href]');
+          if (!link) return;
+          var href = link.getAttribute('href') || '';
+          if (/^https?:\/\/(wa\.me|api\.whatsapp\.com)/i.test(href)) {
+            fbq('track', 'Contact', { content_name: 'WhatsApp' });
+          } else if (/^tel:/i.test(href)) {
+            fbq('track', 'Contact', { content_name: 'Phone' });
+          } else if (/^mailto:/i.test(href)) {
+            fbq('track', 'Contact', { content_name: 'Email' });
+          }
+        }, true);
+      })();
+    </script>
   </body>
 </html>

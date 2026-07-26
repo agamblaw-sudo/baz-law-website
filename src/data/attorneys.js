@@ -22,7 +22,7 @@ export const attorneys = [
     ],
     education: [
       { degree: 'תואר ראשון במשפטים, LL.B', institution: 'המסלול האקדמי המכללה למינהל' },
-      { degree: 'תואר שני במשפטים, LL.M, בהצטיינות', institution: 'אוניברסיטת בר אילן' },
+      { degree: 'תואר שני במשפטים, LL.M, בהצטיינות', institution: 'אוניברסיטת בר אילן' },
     ],
     languages: ['עברית', 'אנגלית'],
     seoTitle: 'עו"ד אגם ברזילי | ברזילי, עזורי ושות׳ עורכי דין',
@@ -51,7 +51,7 @@ export const attorneys = [
     ],
     education: [
       { degree: 'תואר ראשון במשפטים, LL.B', institution: 'המסלול האקדמי המכללה למינהל' },
-      { degree: 'תואר שני במשפטים, LL.M, בהצטיינות', institution: 'אוניברסיטת בר אילן' },
+      { degree: 'תואר שני במשפטים, LL.M, בהצטיינות', institution: 'אוניברסיטת בר אילן' },
     ],
     languages: ['עברית', 'אנגלית'],
     seoTitle: 'עו"ד לירון עזורי | ברזילי, עזורי ושות׳ עורכי דין',

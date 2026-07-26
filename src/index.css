@@ -742,13 +742,10 @@ nav.scrolled {
   line-height: 1.2;
 }
 
+/* Gold underline removed per request — kept selector as a no-op so the
+   .atty-row--flip override below doesn't need to change. */
 .atty-text h3::after {
-  content: '';
-  display: block;
-  width: 44px;
-  height: 2px;
-  background: var(--gold-mid);
-  margin-top: 0.7rem;
+  display: none;
 }
 
 .atty-text p {
@@ -3248,6 +3245,7 @@ html.a11y-large-clickable [role="button"] {
   font-size: 0.95rem;
   color: #4a6fa5;
   margin-bottom: 1.2rem;
+  text-align: center;
 }
 
 .legal-page-wrapper .bottom-actions-container {

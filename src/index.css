@@ -93,7 +93,7 @@ body {
 
 /* ── Global Text Justification ── */
 p, .legal-page-wrapper li {
-  text-align: justify;
+  text-align: right;
 }
 
 .hero-sub,
@@ -711,7 +711,7 @@ nav.scrolled {
 }
 
 .atty-row--flip .atty-photo { order: 2; }
-.atty-row--flip .atty-text  { order: 1; text-align: left; }
+.atty-row--flip .atty-text  { order: 1; text-align: right; }
 .atty-row--flip .atty-text h3::after { margin-inline-start: auto; }
 
 .atty-photo {
@@ -830,7 +830,7 @@ nav.scrolled {
   line-height: 1.75;
   color: var(--text-dark);
   font-weight: 400;
-  text-align: justify;
+  text-align: right;
   text-align-last: right;
   margin-bottom: 1.4rem;
 }
@@ -1044,7 +1044,7 @@ nav.scrolled {
   font-size: 0.92rem;
   line-height: 1.7;
   font-weight: 300;
-  text-align: justify;
+  text-align: right;
   margin-bottom: 1.5rem;
 }
 
@@ -1372,7 +1372,7 @@ nav.scrolled {
   line-height: 1.8;
   margin-bottom: 1.8rem;
   max-width: 420px;
-  text-align: justify;
+  text-align: right;
 }
 
 .location-details {
@@ -1557,7 +1557,7 @@ footer {
   color: rgba(240,246,255,0.52);
   line-height: 1.85;
   max-width: 255px;
-  text-align: justify;
+  text-align: right;
 }
 
 /* ── Column headings (shared by nav cols + contact) ── */
@@ -3100,7 +3100,7 @@ html.a11y-large-clickable [role="button"] {
   font-size: 0.97rem;
   line-height: 1.8;
   color: var(--text-dark);
-  text-align: justify;
+  text-align: right;
 }
 
 .legal-page-wrapper .section {
@@ -3132,7 +3132,7 @@ html.a11y-large-clickable [role="button"] {
   line-height: 1.85;
   color: #2c3e50;
   margin-bottom: 0.8rem;
-  text-align: justify;
+  text-align: right;
 }
 
 .legal-page-wrapper .section ul {
@@ -4321,7 +4321,7 @@ html.a11y-large-clickable [role="button"] {
   font-size: 1rem;
   line-height: 1.9;
   color: var(--text-muted);
-  text-align: justify;
+  text-align: right;
 }
 
 /* ── Practice Areas Index Grid ── */
@@ -4557,7 +4557,7 @@ html.a11y-large-clickable [role="button"] {
   font-size: 1rem;
   line-height: 1.9;
   color: var(--text-muted);
-  text-align: justify;
+  text-align: right;
 }
 
 /* ── Services Grid ── */
@@ -5694,7 +5694,7 @@ html.a11y-large-clickable [role="button"] {
 .a11y-decl-date {
   font-size: 10px;
   color: var(--text-muted);
-  text-align: left;
+  text-align: right;
   margin-top: 6px;
 }
 /* ══════════════════════════════

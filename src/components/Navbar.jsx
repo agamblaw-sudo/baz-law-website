@@ -99,6 +99,7 @@ export default function Navbar() {
             </ul>
           </li>
 
+          <li><Link to="/articles">מאמרים</Link></li>
           <li><a href="/#testimonials" onClick={(e) => handleLinkClick(e, '#testimonials')}>לקוחות ממליצים</a></li>
           <li><a href="/#lead-form" onClick={(e) => handleLinkClick(e, '#lead-form')}>צור קשר</a></li>
         </ul>
@@ -171,6 +172,7 @@ export default function Navbar() {
                 </div>
               </div>
 
+              <Link to="/articles" onClick={closeMobileMenu}>מאמרים</Link>
               <a href="/#testimonials" onClick={(e) => handleLinkClick(e, '#testimonials')}>לקוחות ממליצים</a>
               <a href="/#lead-form"    onClick={(e) => handleLinkClick(e, '#lead-form')}>צור קשר</a>
               <a href="/#lead-form" className="mobile-cta" onClick={(e) => handleLinkClick(e, '#lead-form')}>לתיאום פגישת ייעוץ</a>

@@ -18,6 +18,8 @@ const Accessibility = lazy(() => import('./pages/Accessibility'));
 const PracticeAreas = lazy(() => import('./pages/PracticeAreas'));
 const PracticeAreaDetail = lazy(() => import('./pages/PracticeAreaDetail'));
 const AttorneyDetail = lazy(() => import('./pages/AttorneyDetail'));
+const Articles = lazy(() => import('./pages/Articles'));
+const ArticleDetail = lazy(() => import('./pages/ArticleDetail'));
 
 function ScrollToHash() {
   const { pathname, hash } = useLocation();
@@ -50,6 +52,8 @@ function AppContent() {
             <Route path="/practice-areas" element={<PracticeAreas />} />
             <Route path="/practice-areas/:slug" element={<PracticeAreaDetail />} />
             <Route path="/attorneys/:slug" element={<AttorneyDetail />} />
+            <Route path="/articles" element={<Articles />} />
+            <Route path="/articles/:slug" element={<ArticleDetail />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/accessibility" element={<Accessibility />} />

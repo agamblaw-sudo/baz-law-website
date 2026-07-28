@@ -4330,7 +4330,7 @@ html.a11y-large-clickable [role="button"] {
   font-size: 1rem;
   line-height: 1.9;
   color: var(--text-muted);
-  text-align: right;
+  text-align: justify;
 }
 
 /* ── Practice Areas Index Grid ── */
@@ -4566,7 +4566,7 @@ html.a11y-large-clickable [role="button"] {
   font-size: 1rem;
   line-height: 1.9;
   color: var(--text-muted);
-  text-align: right;
+  text-align: justify;
 }
 
 /* ── Article body (long-form) ── */
@@ -4757,6 +4757,7 @@ html.a11y-large-clickable [role="button"] {
   color: rgba(255, 255, 255, 0.75);
   max-width: 760px;
   margin-bottom: 2rem;
+  text-align: justify;
 }
 
 /* ── Articles: grid + cards ── */
@@ -4848,6 +4849,7 @@ html.a11y-large-clickable [role="button"] {
   color: var(--text-muted);
   flex-grow: 1;
   margin-bottom: 1.5rem;
+  text-align: justify;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;

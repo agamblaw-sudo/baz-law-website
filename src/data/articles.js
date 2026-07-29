@@ -3,7 +3,7 @@ const BASE_URL = 'https://baz-law.co.il';
 export const articles = [
   {
     slug: 'yipuy-koach-mitmashech-madrich',
-    category: 'צוואות וירושות',
+    category: 'ייפוי כח מתמשך',
     title: 'ייפוי כוח מתמשך: מדריך כללי — מה זה ולמה צריך',
     seoTitle: 'ייפוי כוח מתמשך: מדריך מלא | ברזילי, עזורי ושות׳ עורכי דין',
     excerpt:

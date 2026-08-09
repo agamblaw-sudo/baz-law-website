@@ -34,7 +34,7 @@
     </script>
 
     <title>ברזילי, עזורי ושות' | משרד עורכי דין</title>
-    
+
     <!-- Open Graph / WhatsApp / Facebook / LinkedIn -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://baz-law.co.il/" />
@@ -46,13 +46,13 @@
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="ברזילי, עזורי ושות' משרד עורכי דין" />
     <meta property="og:locale" content="he_IL" />
-    
+
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="ברזילי, עזורי ושות' | משרד עורכי דין" />
     <meta name="twitter:description" content="משרד עורכי דין המתמחה בנדל&quot;ן, התחדשות עירונית, רישום זכויות, צוואות, ירושות וייפוי כוח מתמשך." />
     <meta name="twitter:image" content="https://baz-law.co.il/og-image.jpg" />
-    
+
     <!-- Canonical & description -->
     <meta name="description" content="משרד עורכי דין המתמחה בנדל&quot;ן, התחדשות עירונית, רישום זכויות, צוואות, ירושות וייפוי כוח מתמשך. ניסיון, מקצועיות ושירות אישי." />
     <link rel="canonical" href="https://baz-law.co.il/" />
@@ -148,19 +148,27 @@
          so tracking is decoupled from the app code. -->
     <script>
       (function () {
-        if (!window.fbq) return;
         var leadSent = false;
 
         /* ── 1. PageView on client-side route change ──
            React Router navigates without a page load, so the pixel's initial
-           PageView would be the only one ever recorded. Patch the history API. */
+           PageView would be the only one ever recorded. Patch the history API.
+           Also fires a GA4 page_view, since gtag's auto page_view only covers
+           the first hard load. */
         var lastPath = location.pathname + location.search;
         function trackRoute() {
           var current = location.pathname + location.search;
           if (current === lastPath) return;
           lastPath = current;
           leadSent = false;
-          fbq('track', 'PageView');
+          if (window.fbq) fbq('track', 'PageView');
+          if (window.gtag) {
+            gtag('event', 'page_view', {
+              page_path: current,
+              page_location: location.href,
+              page_title: document.title
+            });
+          }
         }
         ['pushState', 'replaceState'].forEach(function (method) {
           var original = history[method];
@@ -178,10 +186,15 @@
         function sendLead() {
           if (leadSent) return;
           leadSent = true;
-          fbq('track', 'Lead', {
-            content_name: 'טופס יצירת קשר',
-            content_category: 'אתר המשרד'
-          });
+          if (window.fbq) {
+            fbq('track', 'Lead', {
+              content_name: 'טופס יצירת קשר',
+              content_category: 'אתר המשרד'
+            });
+          }
+          if (window.gtag) {
+            gtag('event', 'generate_lead', { content_name: 'טופס יצירת קשר' });
+          }
         }
         new MutationObserver(function () {
           if (!leadSent && document.getElementById('successMsg')) sendLead();
@@ -192,13 +205,17 @@
           var link = e.target && e.target.closest && e.target.closest('a[href]');
           if (!link) return;
           var href = link.getAttribute('href') || '';
+          var channel = null;
           if (/^https?:\/\/(wa\.me|api\.whatsapp\.com)/i.test(href)) {
-            fbq('track', 'Contact', { content_name: 'WhatsApp' });
+            channel = 'WhatsApp';
           } else if (/^tel:/i.test(href)) {
-            fbq('track', 'Contact', { content_name: 'Phone' });
+            channel = 'Phone';
           } else if (/^mailto:/i.test(href)) {
-            fbq('track', 'Contact', { content_name: 'Email' });
+            channel = 'Email';
           }
+          if (!channel) return;
+          if (window.fbq) fbq('track', 'Contact', { content_name: channel });
+          if (window.gtag) gtag('event', 'contact', { method: channel });
         }, true);
       })();
     </script>

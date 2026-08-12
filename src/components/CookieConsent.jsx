@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function CookieConsent() {
   const [isVisible, setIsVisible] = useState(false);
-  const [isFadingOut, setIsFadingOut] = useState(false);
 
   useEffect(() => {
     const consent = localStorage.getItem('cookie-consent');
@@ -17,30 +17,38 @@ export default function CookieConsent() {
   }, []);
 
   const handleAccept = () => {
-    setIsFadingOut(true);
-    // Wait for fade-out animation to complete before removing from DOM
-    setTimeout(() => {
-      localStorage.setItem('cookie-consent', 'accepted');
-      setIsVisible(false);
-    }, 400);
+    localStorage.setItem('cookie-consent', 'accepted');
+    setIsVisible(false);
   };
 
-  if (!isVisible) return null;
-
   return (
-    <div className={`cookie-consent-banner ${isFadingOut ? 'fade-out' : ''}`} role="alert" aria-live="polite">
-      <div className="cookie-consent-content">
-        <p className="cookie-consent-text">
-          אתר זה משתמש ב-Cookies כדי לשפר את חווית הגלישה שלך. המשך השימוש באתר מהווה הסכמה למדיניות הפרטיות שלנו.{' '}
-          <Link to="/privacy" className="cookie-consent-link">
-            לקריאת הצהרת הפרטיות
-          </Link>
-          .
-        </p>
-        <button className="cookie-consent-btn" onClick={handleAccept} aria-label="אשר שימוש בקוקיז">
-          אשר
-        </button>
-      </div>
+    <div className="cookie-consent-banner-wrap">
+      <AnimatePresence>
+        {isVisible && (
+          <motion.div
+            className="cookie-consent-banner"
+            role="alert"
+            aria-live="polite"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 15 }}
+            transition={{ type: 'spring', bounce: 0, duration: 0.4 }}
+          >
+            <div className="cookie-consent-content">
+              <p className="cookie-consent-text">
+                אתר זה משתמש ב-Cookies כדי לשפר את חווית הגלישה שלך. המשך השימוש באתר מהווה הסכמה למדיניות הפרטיות שלנו.{' '}
+                <Link to="/privacy" className="cookie-consent-link">
+                  לקריאת הצהרת הפרטיות
+                </Link>
+                .
+              </p>
+              <button className="cookie-consent-btn" onClick={handleAccept} aria-label="אשר שימוש בקוקיז">
+                אשר
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

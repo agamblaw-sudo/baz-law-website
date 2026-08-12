@@ -22,6 +22,19 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Drop the mount-time `will-change` once the one-shot slide-down
+  // animation finishes — it's a hint for imminent motion, not a standing
+  // instruction to keep the nav's layer promoted for the whole session.
+  useEffect(() => {
+    const navEl = document.getElementById('navbar');
+    if (!navEl) return;
+    const handleAnimationEnd = () => {
+      navEl.style.willChange = 'auto';
+    };
+    navEl.addEventListener('animationend', handleAnimationEnd);
+    return () => navEl.removeEventListener('animationend', handleAnimationEnd);
+  }, []);
+
   const closeMobileMenu = () => {
     setIsOpen(false);
     setMobileDropdownOpen(false);

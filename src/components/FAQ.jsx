@@ -1,4 +1,5 @@
 import React from 'react';
+import FaqItem from './FaqItem';
 
 const faqCategories = [
   {
@@ -68,25 +69,7 @@ export default function FAQ() {
             
             <div className="pa-faq-list" itemScope itemType="https://schema.org/FAQPage">
               {cat.items.map((faq, index) => (
-                <details
-                  key={index}
-                  className="pa-faq-item"
-                  itemScope
-                  itemProp="mainEntity"
-                  itemType="https://schema.org/Question"
-                >
-                  <summary className="pa-faq-q" itemProp="name">
-                    {faq.q}
-                  </summary>
-                  <div
-                    className="pa-faq-a"
-                    itemScope
-                    itemProp="acceptedAnswer"
-                    itemType="https://schema.org/Answer"
-                  >
-                    <p itemProp="text">{faq.a}</p>
-                  </div>
-                </details>
+                <FaqItem key={index} q={faq.q} a={faq.a} />
               ))}
             </div>
           </div>

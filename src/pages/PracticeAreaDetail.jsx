@@ -3,6 +3,7 @@ import { Link, useParams, Navigate } from 'react-router-dom';
 import { getPracticeAreaBySlug, buildLegalServiceSchema } from '../data/practiceAreas';
 import { useSEO } from '../hooks/useSEO';
 import useReveal from '../hooks/useReveal';
+import FaqItem from '../components/FaqItem';
 
 export default function PracticeAreaDetail() {
   const { slug } = useParams();
@@ -383,26 +384,13 @@ export default function PracticeAreaDetail() {
             <h2 id="faq-heading" className={`pa-section-title reveal-fade-up ${faqVisible ? 'active' : ''}`}>שאלות נפוצות</h2>
             <div className="pa-faq-list" itemScope itemType="https://schema.org/FAQPage">
               {area.faq.map((item, i) => (
-                <details
+                <FaqItem
                   key={i}
-                  className={`pa-faq-item reveal-fade-up ${faqVisible ? 'active' : ''}`}
+                  q={item.q}
+                  a={item.a}
+                  className={`reveal-fade-up ${faqVisible ? 'active' : ''}`}
                   style={{ transitionDelay: `${i * 60}ms` }}
-                  itemScope
-                  itemProp="mainEntity"
-                  itemType="https://schema.org/Question"
-                >
-                  <summary className="pa-faq-q" itemProp="name">
-                    {item.q}
-                  </summary>
-                  <div
-                    className="pa-faq-a"
-                    itemScope
-                    itemProp="acceptedAnswer"
-                    itemType="https://schema.org/Answer"
-                  >
-                    <p itemProp="text">{item.a}</p>
-                  </div>
-                </details>
+                />
               ))}
             </div>
           </div>

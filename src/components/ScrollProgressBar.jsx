@@ -1,54 +1,60 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useRef, useEffect } from 'react';
 
 /**
  * ScrollProgressBar
  * A fixed gold bar at the very top of the viewport that fills
- * left-to-right as the user scrolls down the page.
- * Uses a single passive scroll listener — no conflict with
- * existing scroll handlers.
+ * as the user scrolls down the page.
+ *
+ * The fill is written straight to the element's transform inside a
+ * requestAnimationFrame tick rather than going through React state, and it
+ * carries no CSS transition: scroll is a direct manipulation, so the bar has to
+ * track the gesture 1:1 with no interpolation delay between them.
  */
 export default function ScrollProgressBar() {
-  const [progress, setProgress] = useState(0);
-
-  const handleScroll = useCallback(() => {
-    const scrollY   = window.scrollY;
-    const maxScroll = document.body.scrollHeight - window.innerHeight;
-    setProgress(maxScroll > 0 ? (scrollY / maxScroll) * 100 : 0);
-  }, []);
+  const fillRef = useRef(null);
+  const barRef = useRef(null);
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
+    let frame = 0;
+
+    const paint = () => {
+      frame = 0;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const ratio = maxScroll > 0 ? Math.min(1, Math.max(0, window.scrollY / maxScroll)) : 0;
+      if (fillRef.current) {
+        fillRef.current.style.transform = `scaleX(${ratio})`;
+      }
+      if (barRef.current) {
+        barRef.current.setAttribute('aria-valuenow', String(Math.round(ratio * 100)));
+      }
+    };
+
+    // Coalesce bursts of scroll events into one write per displayed frame.
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(paint);
+    };
+
+    paint();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
 
   return (
     <div
+      ref={barRef}
+      className="scroll-progress-bar"
       role="progressbar"
       aria-label="התקדמות גלילה בעמוד"
-      aria-valuenow={Math.round(progress)}
+      aria-valuenow={0}
       aria-valuemin={0}
       aria-valuemax={100}
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        height: '3px',
-        zIndex: 9999,
-        background: 'transparent',
-        pointerEvents: 'none',
-      }}
     >
-      <div
-        style={{
-          height: '100%',
-          width: `${progress}%`,
-          background: 'linear-gradient(90deg, #c9a84c 0%, #e8cc7a 60%, #c9a84c 100%)',
-          boxShadow: '0 0 8px rgba(201,168,76,0.6)',
-          transition: 'width 0.08s linear',
-          borderRadius: '0 2px 2px 0',
-        }}
-      />
+      <div ref={fillRef} className="scroll-progress-bar-fill" />
     </div>
   );
 }

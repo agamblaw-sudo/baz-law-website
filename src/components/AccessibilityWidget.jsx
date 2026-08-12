@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Dialog, DialogTrigger, DialogPortal, DialogTitle } from '@/components/ui/dialog';
 import { Dialog as DialogPrimitive } from 'radix-ui';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function AccessibilityWidget() {
   const STORAGE_KEY = 'baz-a11y-v5';
@@ -159,14 +160,24 @@ export default function AccessibilityWidget() {
           </DialogTrigger>
         )}
 
-        <DialogPortal>
-          <DialogPrimitive.Content 
-            id="a11y-panel" 
-            className={`a11y-open ${state.largeWidget ? 'a11y-large' : ''} ${state.position === 'right' ? 'a11y-pos-right' : 'a11y-pos-left'}`} 
+        <DialogPortal forceMount>
+          <AnimatePresence>
+            {panelOpen && (
+          <DialogPrimitive.Content
+            asChild
+            forceMount
             aria-describedby={undefined}
             dir="rtl"
             role="dialog"
             aria-modal="true"
+          >
+          <motion.div
+            id="a11y-panel"
+            className={`${state.largeWidget ? 'a11y-large' : ''} ${state.position === 'right' ? 'a11y-pos-right' : 'a11y-pos-left'}`}
+            initial={{ opacity: 0, y: 16, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 16, scale: 0.97 }}
+            transition={{ type: 'spring', bounce: 0.15, duration: 0.3 }}
           >
             {/* Header */}
             <div className="a11y-hdr">
@@ -402,7 +413,10 @@ export default function AccessibilityWidget() {
                 איפוס
               </button>
             </div>
+          </motion.div>
           </DialogPrimitive.Content>
+            )}
+          </AnimatePresence>
         </DialogPortal>
       </Dialog>
 

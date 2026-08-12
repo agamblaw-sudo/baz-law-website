@@ -80,12 +80,33 @@ export function scrollToHash(hash, behavior = 'smooth') {
 
       // Initial scroll attempt
       scrollToElement(element, behavior);
-      
-      // Watch for layout shifts (e.g., Elfsight widget loading) and lock the scroll position.
-      // External widgets can take 1-2 seconds to load, pushing the layout down.
+
+      // Watch for layout shifts (e.g., Elfsight widget loading) and correct the
+      // scroll position to compensate. External widgets can take 1-2 seconds to
+      // load, pushing the layout down.
       let lastHeight = document.documentElement.scrollHeight;
-      
+      let cancelled = false;
+
+      const cleanup = () => {
+        cancelled = true;
+        observer.disconnect();
+        clearTimeout(stopTimeoutId);
+        ['wheel', 'touchstart', 'keydown'].forEach((type) =>
+          window.removeEventListener(type, cancelOnUserInput)
+        );
+      };
+
+      // The moment the user takes the wheel/touch/keyboard themselves, back off
+      // immediately — a programmatic correction must never fight live user input.
+      function cancelOnUserInput() {
+        cleanup();
+      }
+      ['wheel', 'touchstart', 'keydown'].forEach((type) =>
+        window.addEventListener(type, cancelOnUserInput, { passive: true })
+      );
+
       const observer = new ResizeObserver(() => {
+        if (cancelled) return;
         const newHeight = document.documentElement.scrollHeight;
         if (Math.abs(newHeight - lastHeight) > 15) {
           lastHeight = newHeight;
@@ -94,21 +115,10 @@ export function scrollToHash(hash, behavior = 'smooth') {
         }
       });
       observer.observe(document.body);
-      
-      // Fallback interval: forcefully ensure the position is correct during the critical load window
-      const intervalId = setInterval(() => {
-        const newHeight = document.documentElement.scrollHeight;
-        if (Math.abs(newHeight - lastHeight) > 15) {
-          lastHeight = newHeight;
-          scrollToElement(element, 'auto');
-        }
-      }, 150);
-      
-      // Stop observing and clear interval after 2.5 seconds to allow normal user scrolling
-      setTimeout(() => {
-        observer.disconnect();
-        clearInterval(intervalId);
-      }, 2500);
+
+      // Stop correcting after 2.5 seconds regardless — covers the window where
+      // slow-loading widgets (Elfsight etc.) typically finish shifting layout.
+      const stopTimeoutId = setTimeout(cleanup, 2500);
 
     } else if (attempts < 30) {
       attempts++;

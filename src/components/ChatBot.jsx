@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const BOT_NAME = 'בוט המשרד';
 
@@ -139,7 +140,18 @@ export default function ChatBot() {
 
   return (
     <>
-      <div className={`chatbot-window ${open ? 'open' : ''}`} dir="rtl" role="dialog" aria-label="צ'אטבוט">
+      <AnimatePresence>
+        {open && (
+      <motion.div
+        className="chatbot-window"
+        dir="rtl"
+        role="dialog"
+        aria-label="צ'אטבוט"
+        initial={{ opacity: 0, y: 12, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: 12, scale: 0.95 }}
+        transition={{ type: 'spring', bounce: 0.15, duration: 0.3 }}
+      >
         <div className="chatbot-header">
           <div className="chatbot-header-info">
             <span className="chatbot-avatar">
@@ -185,7 +197,9 @@ export default function ChatBot() {
           ))}
           <div ref={bottomRef} />
         </div>
-      </div>
+      </motion.div>
+        )}
+      </AnimatePresence>
 
       <button
         className={`chatbot-trigger ${open ? 'active' : ''}`}

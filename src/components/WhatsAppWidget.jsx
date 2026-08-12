@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function WhatsAppWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -63,7 +64,15 @@ export default function WhatsAppWidget() {
   return (
     <div className="whatsapp-widget-container" ref={widgetRef} dir="rtl">
       {/* Popup Options Card */}
-      <div className={`whatsapp-popup-card ${isOpen ? 'open' : ''}`}>
+      <AnimatePresence>
+        {isOpen && (
+      <motion.div
+        className="whatsapp-popup-card"
+        initial={{ opacity: 0, y: -12, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: -12, scale: 0.95 }}
+        transition={{ type: 'spring', bounce: 0.2, duration: 0.3 }}
+      >
         <div className="whatsapp-popup-header">
           <div className="whatsapp-popup-title">יצירת קשר מהירה</div>
           <button
@@ -260,7 +269,9 @@ export default function WhatsAppWidget() {
             </div>
           )}
         </div>
-      </div>
+      </motion.div>
+        )}
+      </AnimatePresence>
 
       <div className="whatsapp-widget-row">
         <a

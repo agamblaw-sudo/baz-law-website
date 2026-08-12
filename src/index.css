@@ -36,6 +36,40 @@ img, video, iframe, embed, object {
   --shadow-sm:  0 2px 16px rgba(15,35,54,0.06);
   --shadow-md:  0 6px 28px rgba(15,35,54,0.10);
   --shadow-lg:  0 12px 48px rgba(15,35,54,0.14);
+  --shadow-gold-glow:  0 4px 18px rgba(201, 168, 76, 0.45);
+  --shadow-gold-glow-hover: 0 6px 22px rgba(201, 168, 76, 0.6);
+  --shadow-green-glow: 0 4px 20px rgba(37,211,102,0.35);
+
+  /* Press feedback. A press must read as instant, so it gets its own short
+     duration rather than inheriting the 200–300ms hover-lift timing that most
+     base rules declare for `transform`. */
+  --press-duration: 100ms;
+  --press-ease: ease-out;
+
+  /* Radius scale — snap ad-hoc corner values to these tiers */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+
+  /* z-index scale — every fixed/sticky global overlay in one ladder so
+     stacking order is readable instead of guessable magic numbers. */
+  --z-content: 1;
+  --z-nav: 100;
+  --z-topbar: 101;
+  --z-nav-ui: 102;         /* hamburger, nav dropdown menu (local to nav's own stacking context) */
+  --z-mobile-menu: 99;
+  --z-page-widgets: 9100;  /* pa-top-nav, whatsapp-widget-container */
+  --z-chatbot-window: 8400;
+  --z-chatbot-trigger: 8500;
+  --z-fab: 9000;           /* a11y trigger, scroll-to-top */
+  --z-scroll-progress: 9999;
+  --z-fab-panel: 10000;    /* a11y settings panel */
+  --z-toast: 11000;
+  --z-cookie: 100000;
+  --z-reading-mask: 999999;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -107,12 +141,41 @@ p, .legal-page-wrapper li {
 }
 
 /* ══════════════════════════════
+   SCROLL PROGRESS BAR
+══════════════════════════════ */
+.scroll-progress-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  z-index: var(--z-scroll-progress);
+  background: transparent;
+  pointer-events: none;
+}
+
+.scroll-progress-bar-fill {
+  height: 100%;
+  width: 100%;
+  /* Driven 1:1 by scroll, so deliberately no transition — an interpolation
+     here would make the bar lag the gesture. transform, not width, keeps it
+     on the compositor.
+     Origin is the right edge: the document is dir="rtl", so the old
+     `width: N%` fill was anchored right and grew leftward. Written as an
+     explicit percentage because the `right` keyword gets normalised away. */
+  transform: scaleX(0);
+  transform-origin: 100% 50%;
+  will-change: transform;
+  background: linear-gradient(90deg, var(--gold-mid) 0%, #e8cc7a 60%, var(--gold-mid) 100%);
+  box-shadow: 0 0 8px rgba(201,168,76,0.6);
+  border-radius: 0 2px 2px 0;
+}
+
+/* ══════════════════════════════
    TOP BAR
 ══════════════════════════════ */
 .top-bar {
   position: fixed;
   top: 0; left: 0; right: 0;
-  z-index: 101;
+  z-index: var(--z-topbar);
   background: #10293f;   /* matches attorneys section background */
   border-bottom: 1px solid rgba(201,168,76,0.15);
   padding: 0.45rem 4rem;
@@ -183,7 +246,7 @@ p, .legal-page-wrapper li {
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
-  z-index: 100;
+  z-index: var(--z-nav);
   background: #10293f;
   border-bottom: 1px solid rgba(201,168,76,0.18);
   padding: 0 3rem;
@@ -221,7 +284,7 @@ nav.scrolled {
   margin: 0;
   margin-right: -3rem;
   height: 100%;
-  background: #10293f;
+  background: rgba(16, 41, 63, 0.86);
   transition: background 0.4s ease;
 }
 
@@ -318,7 +381,7 @@ nav.scrolled {
   font-weight: 700;
   color: var(--gold-mid);
   white-space: nowrap;
-  letter-spacing: 0.02em;
+  letter-spacing: -0.01em;
 }
 
 /* CTA button on dark background */
@@ -332,7 +395,7 @@ nav.scrolled {
   color: var(--text-dark);
   font-size: 1.15rem;
   font-weight: 500;
-  letter-spacing: 0.03em;
+  letter-spacing: 0;
   transition: color 0.2s;
   position: relative;
 }
@@ -358,7 +421,7 @@ nav.scrolled {
   font-size: 0.85rem;
   font-weight: 600;
   text-decoration: none;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.02em;
   transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s, background-color 0.25s, color 0.25s;
 }
 
@@ -463,7 +526,8 @@ nav.scrolled {
   align-items: center;
   gap: 0.6rem;
   font-size: 0.72rem;
-  letter-spacing: 0.22em;
+  line-height: 1.4;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--gold-mid);
   margin-bottom: 1.5rem;
@@ -482,7 +546,7 @@ nav.scrolled {
   font-size: clamp(2.1rem, 4.2vw, 3.6rem);
   font-weight: 900;
   line-height: 1.1;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
   color: #ffffff;
   margin-bottom: 1.75rem;
   will-change: opacity, transform;
@@ -497,7 +561,7 @@ nav.scrolled {
 .hero-sub {
   font-size: 1.15rem;
   color: #ffffff;
-  line-height: 1.8;
+  line-height: 1.65;
   font-weight: 500;
   max-width: 800px;
   margin-bottom: 3rem;
@@ -520,7 +584,7 @@ nav.scrolled {
   font-family: 'Heebo', Arial, sans-serif;
   font-size: 0.82rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   text-decoration: none;
   border: 1px solid transparent;
@@ -572,7 +636,7 @@ nav.scrolled {
   font-size: 0.88rem;
   font-weight: 500;
   text-decoration: none;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.03em;
   padding: 1rem 0;
   display: inline-flex;
   align-items: center;
@@ -620,7 +684,7 @@ nav.scrolled {
 .stat-label {
   font-size: 0.75rem;
   color: rgba(15,42,69,0.65);
-  letter-spacing: 0.12em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   margin-top: 0.25rem;
 }
@@ -642,7 +706,7 @@ nav.scrolled {
   color: var(--text-dark);
   margin-bottom: 3.5rem;
   text-align: center;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.025em;
   position: relative;
 }
 
@@ -749,7 +813,7 @@ nav.scrolled {
 .atty-text p {
   color: var(--text-muted);
   font-size: 0.97rem;
-  line-height: 1.85;
+  line-height: 1.75;
   max-width: 58ch;
 }
 
@@ -794,7 +858,7 @@ nav.scrolled {
   margin: 0 auto;
   padding: 0 4rem 6rem;
   display: grid;
-  grid-template-columns: minmax(240px, 30%) 1fr minmax(210px, 21%);
+  grid-template-columns: minmax(240px, 30%) 1fr minmax(250px, 24%);
   gap: clamp(2rem, 4vw, 3.5rem);
   align-items: start;
 }
@@ -822,7 +886,7 @@ nav.scrolled {
 
 .atty-profile-lede {
   font-size: 1.2rem;
-  line-height: 1.75;
+  line-height: 1.65;
   color: var(--text-dark);
   font-weight: 400;
   text-align: right;
@@ -843,7 +907,7 @@ nav.scrolled {
 
 .atty-profile-cert span {
   font-size: 0.82rem;
-  line-height: 1.55;
+  line-height: 1.7;
   color: var(--text-muted);
 }
 
@@ -856,7 +920,7 @@ nav.scrolled {
 .atty-rail-heading {
   font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--text-dark);
   margin-bottom: 1rem;
@@ -891,7 +955,7 @@ nav.scrolled {
 .atty-rail-facts h3 {
   font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--gold);
   margin-bottom: 0.6rem;
@@ -900,7 +964,7 @@ nav.scrolled {
 .atty-rail-oneline {
   margin: 0;
   font-size: 0.85rem;
-  line-height: 1.65;
+  line-height: 1.7;
   color: var(--text-muted);
 }
 
@@ -1044,7 +1108,7 @@ nav.scrolled {
   margin-bottom: 0.75rem;
   color: var(--text-dark);
   text-align: right;
-  letter-spacing: 0.01em;
+  letter-spacing: -0.015em;
   line-height: 1.3;
 }
 
@@ -1110,6 +1174,7 @@ nav.scrolled {
 .step h4 {
   font-family: 'Heebo', Arial, sans-serif;
   font-size: 1.1rem;
+  line-height: 1.35;
   font-weight: 700;
   color: var(--text-dark);
   margin-bottom: 0.75rem;
@@ -1118,7 +1183,7 @@ nav.scrolled {
 .step p {
   font-size: 0.87rem;
   color: var(--text-muted);
-  line-height: 1.75;
+  line-height: 1.7;
   font-weight: 400;
 }
 
@@ -1168,8 +1233,9 @@ nav.scrolled {
 .cta-band h2 {
   font-family: 'Heebo', Arial, sans-serif;
   font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.15;
   font-weight: 700;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.02em;
   color: var(--white);
   margin-bottom: 1rem;
   position: relative;
@@ -1211,7 +1277,7 @@ nav.scrolled {
 
 .form-group label {
   font-size: 0.75rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.04em;
   color: var(--navy-dark);
   text-transform: uppercase;
   font-weight: 600;
@@ -1272,10 +1338,6 @@ nav.scrolled {
   font-weight: 400;
   position: absolute;
   left: 0;
-}
-
-.form-note::before {
-  content: '🔒 ';
 }
 
 .success-msg {
@@ -1358,6 +1420,7 @@ nav.scrolled {
 .location-title h2 {
   font-family: 'Heebo', Arial, sans-serif;
   font-size: 1.6rem;
+  line-height: 1.25;
   font-weight: 700;
   color: #10293f !important;
   margin: 0;
@@ -1379,7 +1442,7 @@ nav.scrolled {
 .location-desc {
   font-size: 0.95rem;
   color: #444 !important;
-  line-height: 1.8;
+  line-height: 1.75;
   margin-bottom: 1.8rem;
   max-width: 420px;
   text-align: right;
@@ -1444,6 +1507,7 @@ nav.scrolled {
 .contact-info h3 {
   font-family: 'Heebo', Arial, sans-serif;
   font-size: 1.7rem;
+  line-height: 1.25;
   font-weight: 700;
   margin-bottom: 2rem;
   color: var(--text-dark);
@@ -1478,7 +1542,7 @@ nav.scrolled {
 
 .contact-label {
   font-size: 0.72rem;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--gold);
   margin-bottom: 0.25rem;
@@ -1488,7 +1552,7 @@ nav.scrolled {
 .contact-value {
   font-size: 0.95rem;
   color: var(--text-dark);
-  line-height: 1.6;
+  line-height: 1.75;
 }
 
 .map-container {
@@ -1514,7 +1578,7 @@ nav.scrolled {
   text-align: center;
   padding: 0.75rem;
   font-size: 0.82rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.03em;
   backdrop-filter: blur(4px);
 }
 
@@ -1569,7 +1633,7 @@ footer {
 .footer-brand-about {
   font-size: 0.87rem;
   color: rgba(240,246,255,0.52);
-  line-height: 1.85;
+  line-height: 1.7;
   max-width: 255px;
   text-align: right;
 }
@@ -1582,7 +1646,7 @@ footer {
   font-size: 0.82rem;
   font-weight: 700;
   color: var(--gold-mid);
-  letter-spacing: 0.12em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   margin-bottom: 1.25rem;
   padding-bottom: 0.55rem;
@@ -1837,64 +1901,6 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
 .footer-text  { display: none; }
 
 /* ══════════════════════════════
-   WHATSAPP FLOAT
-══════════════════════════════ */
-.whatsapp-float {
-  position: fixed;
-  bottom: 2rem;
-  left: 2rem;
-  z-index: 200;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  align-items: flex-start;
-}
-
-.whatsapp-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  background: #25D366;
-  color: #fff;
-  text-decoration: none;
-  padding: 0.7rem 1.25rem 0.7rem 0.9rem;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  font-family: 'Heebo', Arial, sans-serif;
-  box-shadow: 0 4px 20px rgba(37,211,102,0.35);
-  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s, background-color 0.25s, color 0.25s;
-  white-space: nowrap;
-  min-height: 44px;
-  box-sizing: border-box;
-}
-
-.whatsapp-btn:hover {
-  background: #1ebe5d;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(37,211,102,0.5);
-}
-
-.whatsapp-btn svg {
-  width: 22px; height: 22px;
-  fill: #fff;
-  flex-shrink: 0;
-}
-
-.whatsapp-label {
-  font-size: 0.68rem;
-  opacity: 0.82;
-  display: block;
-  font-weight: 400;
-  line-height: 1;
-  margin-bottom: 0.15rem;
-}
-
-/* ══════════════════════════════
-   DIVIDER
-══════════════════════════════ */
-
-/* ══════════════════════════════
    HAMBURGER MENU
 ══════════════════════════════ */
 .hamburger {
@@ -1909,14 +1915,20 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
   border: none;
   cursor: pointer;
   padding: 6px;
-  z-index: 102;
+  z-index: var(--z-nav-ui);
   flex-shrink: 0;
   border-radius: 4px;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, transform var(--press-duration) var(--press-ease);
 }
 .hamburger:focus-visible {
   outline: 2px solid var(--gold-mid);
   outline-offset: 2px;
+}
+/* Primary mobile nav control — the press itself needs to register, not just the
+   resulting icon morph. */
+.hamburger:active {
+  transform: scale(0.92);
+  background: rgba(201, 168, 76, 0.12);
 }
 .hamburger span {
   display: block;
@@ -1924,7 +1936,7 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
   height: 2px;
   background: rgba(240,244,248,0.85);
   border-radius: 2px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
   transform-origin: center;
 }
 .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
@@ -1943,7 +1955,7 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
   border: 1px solid rgba(197, 164, 74, 0.2);
   border-top: 2px solid var(--gold-mid);
   border-radius: 0 0 16px 16px;
-  z-index: 99;
+  z-index: var(--z-mobile-menu);
   padding: 1.2rem 1.5rem 2rem;
   flex-direction: column;
   gap: 0;
@@ -1952,14 +1964,34 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
     0 4px 16px rgba(0, 0, 0, 0.3);
   transform: translateY(-8px);
   opacity: 0;
-  transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1), transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: none;
+  /* `display` flips none <-> flex in the same frame as opacity/transform, so
+     without allow-discrete the browser has no starting frame and the enter
+     transition never ran at all — the menu just appeared. allow-discrete holds
+     `display: flex` until the exit finishes, and @starting-style below supplies
+     the missing first frame on enter.
+     Exit uses the inverse curve of the enter easing so the drawer retraces the
+     path it arrived on instead of easing the wrong way out. */
+  transition:
+    opacity 0.2s cubic-bezier(0.64, 0, 0.78, 0),
+    transform 0.2s cubic-bezier(0.64, 0, 0.78, 0),
+    display 0.2s allow-discrete;
 }
 .mobile-menu.open {
   display: flex;
   opacity: 1;
   transform: translateY(0);
   pointer-events: all;
+  transition:
+    opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    display 0.25s allow-discrete;
+}
+@starting-style {
+  .mobile-menu.open {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
 }
 .mobile-menu a {
   display: block;
@@ -1970,7 +2002,7 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
   padding: 0.9rem 0.5rem;
   border-bottom: 1px solid rgba(201,168,76,0.12);
   transition: color 0.25s ease, padding-right 0.25s ease, background-color 0.2s ease;
-  letter-spacing: 0.03em;
+  letter-spacing: 0;
   border-radius: 4px;
 }
 .mobile-menu a:last-child { border-bottom: none; }
@@ -1990,10 +2022,10 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
   color: var(--white) !important;
   text-align: center;
   padding: 0.85rem 1.5rem;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 0.95rem;
   border-bottom: none !important;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.02em;
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background-color 0.25s ease, color 0.25s ease;
   box-shadow: 0 4px 18px rgba(201, 168, 76, 0.45);
   border-radius: 6px;
@@ -2052,11 +2084,15 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
   visibility: hidden;
   transform: translateY(6px) scale(0.98);
   transform-origin: top right;
+  /* allow-discrete on visibility: without it the UA flips visibility at an
+     arbitrary point in the transition instead of at its end on close (and
+     immediately on open) — this keeps it out of the tab order exactly while
+     it's actually invisible, no earlier and no later. */
   transition:
     opacity 0.22s cubic-bezier(0.22, 1, 0.36, 1),
     transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
-    visibility 0.22s;
-  z-index: 102;
+    visibility 0.22s allow-discrete;
+  z-index: var(--z-nav-ui);
   border-radius: 0 0 10px 10px;
 }
 
@@ -2144,7 +2180,7 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
   padding: 0.9rem 0.5rem;
   text-align: right;
   cursor: pointer;
-  letter-spacing: 0.03em;
+  letter-spacing: 0;
   font-family: inherit;
   border-radius: 4px;
   transition: color 0.25s ease, padding-right 0.25s ease, background-color 0.2s ease;
@@ -2176,9 +2212,9 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
   transition: max-height 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   display: flex;
   flex-direction: column;
-  background: rgba(9, 20, 33, 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  /* No own backdrop-filter — already nested inside .mobile-menu's blurred
+     layer; stacking a second blur on top of that one crushes legibility. */
+  background: rgba(4, 10, 17, 0.35);
   border-radius: 0 0 8px 8px;
   border-right: 2px solid var(--gold-mid);
   margin-bottom: 0.5rem;
@@ -2216,7 +2252,7 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
   color: var(--gold-mid) !important;
   border-bottom: 1px solid rgba(201, 168, 76, 0.15) !important;
   margin-bottom: 0.1rem;
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
 }
 
 /* ══════════════════════════════
@@ -2328,10 +2364,6 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
   .nav-btns { justify-content: center; }
 
   /* Ornament */
-
-  /* WhatsApp */
-  .whatsapp-float { bottom: 1rem; left: 1rem; }
-  .whatsapp-btn { font-size: 0.78rem; padding: 0.55rem 1rem 0.55rem 0.75rem; }
 }
 
 /* ══════════════════════════════
@@ -2444,7 +2476,7 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
   font-size: 1.25rem;
   font-weight: 700;
   color: rgba(240,246,255,0.92);
-  letter-spacing: 0.01em;
+  letter-spacing: -0.01em;
   line-height: 1.2;
   white-space: nowrap;
 }
@@ -2468,7 +2500,7 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
 #a11y-btn {
   position: fixed;
   bottom: 5.5rem;
-  z-index: 9000;
+  z-index: var(--z-fab);
   width: 52px;
   height: 52px;
   border-radius: 50%;
@@ -2506,14 +2538,13 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
 
   position: fixed;
   bottom: 8rem;
-  z-index: 10000;
+  z-index: var(--z-fab-panel);
   width: var(--a11y-width);
   max-height: calc(100vh - 9.5rem);
   overflow-y: auto;
   background: #f8fafc;
   border-radius: 16px;
   box-shadow: 0 10px 45px rgba(0,0,0,0.18);
-  display: none;
   font-family: 'Heebo', Arial, sans-serif;
   direction: rtl;
   border: 1px solid rgba(0,0,0,0.06);
@@ -2529,11 +2560,6 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
   --a11y-font-title: 14px;
   --a11y-icon-size: 32px;
   --a11y-header-font: 16px;
-}
-
-#a11y-panel.a11y-open {
-  display: block;
-  animation: a11ySlideIn .22s cubic-bezier(.34,1.26,.64,1) both;
 }
 
 #a11y-panel::-webkit-scrollbar { width: 4px; }
@@ -2552,7 +2578,7 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
 }
 .a11y-hdr-title {
   font-size: var(--a11y-header-font);
-  font-weight: 800;
+  font-weight: 700;
   color: #10293f;
   margin: 0;
 }
@@ -2683,7 +2709,7 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
   border-radius: 12px;
   border: 1px solid var(--gold-mid);
   box-shadow: 0 8px 30px rgba(0,0,0,0.25);
-  z-index: 11000;
+  z-index: var(--z-toast);
   display: flex;
   align-items: center;
   gap: 16px;
@@ -2740,10 +2766,6 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
   color: #10293f;
 }
 
-@keyframes a11ySlideIn {
-  from { opacity: 0; transform: translateY(16px) scale(.97); }
-  to   { opacity: 1; transform: translateY(0)   scale(1); }
-}
 @keyframes a11yFadeInUp {
   from { opacity: 0; transform: translate(-50%, 20px); }
   to { opacity: 1; transform: translate(-50%, 0); }
@@ -2850,7 +2872,7 @@ html.a11y-no-anim *::after {
   border-top: 2px solid var(--gold);
   border-bottom: 2px solid var(--gold);
   pointer-events: none;
-  z-index: 999999;
+  z-index: var(--z-reading-mask);
 }
 
 /* Large clickable areas */
@@ -3019,64 +3041,10 @@ html.a11y-large-clickable [role="button"] {
   font-family: 'Heebo', Arial, sans-serif;
 }
 
-/* Sticky nav */
-.legal-page-wrapper .page-nav,
-.pa-page .page-nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: var(--navy-dark);
-  border-bottom: 2px solid rgba(201, 168, 76, 0.3);
-  padding: 0.2rem 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
 .legal-page-wrapper .nav-logo-wrap,
 .pa-page .nav-logo-wrap {
   margin-right: 0;
 }
-
-.page-nav-right {
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-}
-
-.page-nav-right .whatsapp-nav-back-link {
-  display: inline-flex !important;
-}
-
-.legal-page-wrapper .page-nav .firm-name {
-  font-family: 'Heebo', Arial, sans-serif;
-  color: var(--gold-mid);
-  font-size: 1.05rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  text-decoration: none;
-}
-
-.legal-page-wrapper .page-nav .back-link {
-  color: rgba(240, 246, 255, 0.75);
-  text-decoration: none;
-  font-size: 0.88rem;
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  transition: color 0.2s;
-  direction: ltr;
-}
-
-.legal-page-wrapper .page-nav .back-link:hover {
-  color: var(--gold-mid);
-}
-
-.legal-page-wrapper .page-nav .back-link svg {
-  transform: scaleX(-1);
-  margin-left: 0.1rem;
-}
-
 
 /* Main content */
 .legal-page-wrapper main {
@@ -3113,7 +3081,7 @@ html.a11y-large-clickable [role="button"] {
   font-weight: 700;
   color: var(--text-dark);
   margin-bottom: 0.5rem;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   line-height: 1.2;
 }
 
@@ -3129,7 +3097,7 @@ html.a11y-large-clickable [role="button"] {
   padding: 1.2rem 1.5rem;
   margin-bottom: 2.5rem;
   font-size: 0.97rem;
-  line-height: 1.8;
+  line-height: 1.75;
   color: var(--text-dark);
   text-align: right;
 }
@@ -3146,7 +3114,7 @@ html.a11y-large-clickable [role="button"] {
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid rgba(184, 134, 11, 0.18);
-  letter-spacing: 0.01em;
+  letter-spacing: -0.005em;
 }
 
 .legal-page-wrapper .section h3 {
@@ -3155,12 +3123,12 @@ html.a11y-large-clickable [role="button"] {
   font-weight: 700;
   color: var(--text-dark);
   margin: 1.2rem 0 0.5rem;
-  letter-spacing: 0.005em;
+  letter-spacing: 0;
 }
 
 .legal-page-wrapper .section p {
   font-size: 0.96rem;
-  line-height: 1.85;
+  line-height: 1.75;
   color: #2c3e50;
   margin-bottom: 0.8rem;
   text-align: right;
@@ -3205,7 +3173,7 @@ html.a11y-large-clickable [role="button"] {
   padding: 1.2rem 1.5rem;
   margin-top: 2rem;
   font-size: 0.95rem;
-  line-height: 1.8;
+  line-height: 1.75;
   color: var(--text-dark);
   text-align: center;
 }
@@ -3236,17 +3204,6 @@ html.a11y-large-clickable [role="button"] {
   .legal-page-wrapper .pa-hero {
     padding-top: 5.5rem; /* 88px — clears 64px mobile navbar + breathing room */
   }
-
-  .legal-page-wrapper .page-nav,
-  .pa-page .page-nav {
-    height: 64px;
-    padding: 0 1.25rem;
-  }
-  .page-nav-right .whatsapp-nav-back-link {
-    height: 30px;
-    padding: 0 0.8rem;
-    font-size: 0.75rem;
-  }
 }
 
 @media (max-width: 640px) {
@@ -3255,14 +3212,6 @@ html.a11y-large-clickable [role="button"] {
   }
   .legal-page-wrapper .page-header h1 {
     font-size: 1.7rem;
-  }
-  .legal-page-wrapper .page-nav,
-  .pa-page .page-nav {
-    height: 64px;
-    padding: 0 1rem;
-  }
-  .legal-page-wrapper .page-nav .firm-name {
-    font-size: 0.9rem;
   }
 }
 
@@ -3367,7 +3316,7 @@ html.a11y-large-clickable [role="button"] {
   bottom: 1.5rem;
   left: 1.5rem;
   right: auto;
-  z-index: 8500;
+  z-index: var(--z-chatbot-trigger);
   width: 52px;
   height: 52px;
   border-radius: 50%;
@@ -3403,12 +3352,16 @@ html.a11y-large-clickable [role="button"] {
   border: 2px solid #fff;
 }
 
+/* Enter/exit is a framer-motion element in ChatBot.jsx now — this is a toggle
+   on the same trigger button, so a fixed-duration transition risked a stale
+   in-flight animation if it's clicked again before finishing. Only the static
+   box styling stays here; transform-origin stays since motion doesn't set it. */
 .chatbot-window {
   position: fixed;
   bottom: 1.5rem;
   left: 5.5rem;
   right: auto;
-  z-index: 8400;
+  z-index: var(--z-chatbot-window);
   width: 340px;
   max-height: 520px;
   background: #fff;
@@ -3417,18 +3370,7 @@ html.a11y-large-clickable [role="button"] {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateX(-16px) scale(0.95);
   transform-origin: bottom left;
-  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
-  pointer-events: none;
-}
-.chatbot-window.open {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(0) scale(1);
-  pointer-events: auto;
 }
 
 .chatbot-header {
@@ -3576,11 +3518,7 @@ html.a11y-large-clickable [role="button"] {
     right: auto;
     bottom: 5rem;
     max-height: calc(100vh - 6.5rem);
-    transform: translateY(16px) scale(0.97);
     transform-origin: bottom center;
-  }
-  .chatbot-window.open {
-    transform: translateY(0) scale(1);
   }
   .chatbot-trigger {
     bottom: 1.5rem;
@@ -3592,11 +3530,16 @@ html.a11y-large-clickable [role="button"] {
 }
 
 /* Scroll to Top Button */
+/* Enter/exit and hover/tap scale now live on the framer-motion element in
+   ScrollToTop.jsx — this is a scroll-driven show/hide, so the show state can
+   flip mid-transition when the user scrolls back through the threshold, and
+   a spring (unlike the old fixed-duration transition) can be retargeted
+   without a jump. Only the static box/hover-color styling stays here. */
 .scroll-to-top-btn {
   position: fixed;
   bottom: 5.5rem;
   right: 1.5rem;
-  z-index: 9000;
+  z-index: var(--z-fab);
   width: 52px;
   height: 52px;
   border-radius: 50%;
@@ -3608,16 +3551,7 @@ html.a11y-large-clickable [role="button"] {
   justify-content: center;
   cursor: pointer;
   box-shadow: 0 4px 18px rgba(201, 168, 76, 0.45);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(20px) scale(0.9);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-}
-
-.scroll-to-top-btn.visible {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0) scale(1);
+  transition: box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
 /* a11y trigger toggled to the right sits at the same bottom-right spot —
@@ -3629,13 +3563,8 @@ html.a11y-btn-right .scroll-to-top-btn {
 .scroll-to-top-btn:hover,
 .scroll-to-top-btn:focus-visible {
   background: var(--gold);
-  transform: scale(1.08);
   box-shadow: 0 6px 22px rgba(201, 168, 76, 0.6);
   outline: none;
-}
-
-.scroll-to-top-btn:active {
-  transform: scale(0.95);
 }
 
 .scroll-to-top-btn .scroll-icon {
@@ -3679,7 +3608,7 @@ html.a11y-btn-right .scroll-to-top-btn {
   position: fixed;
   top: 2.1rem;
   right: 3rem;
-  z-index: 9100;
+  z-index: var(--z-page-widgets);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -3725,7 +3654,7 @@ html.a11y-btn-right .scroll-to-top-btn {
   position: fixed;
   top: 2.1rem;
   left: 3rem;
-  z-index: 9100;
+  z-index: var(--z-page-widgets);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -3896,6 +3825,11 @@ html.a11y-btn-right .scroll-to-top-btn {
 }
 
 /* Popup Option Card */
+/* Enter/exit is a framer-motion element in WhatsAppWidget.jsx now — the old
+   cubic-bezier(0.34, 1.56, ...) was faking a spring's overshoot with a fixed
+   duration, which can't be grabbed and re-targeted if the trigger is clicked
+   again mid-close. transform-origin anchors the scale to the trigger row
+   above it, since that's what opened it. */
 .whatsapp-popup-card {
   position: absolute;
   top: 125%;
@@ -3906,17 +3840,8 @@ html.a11y-btn-right .scroll-to-top-btn {
   border: 1px solid rgba(201, 168, 76, 0.35);
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.28);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-12px) scale(0.95);
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: top left;
   overflow: hidden;
-}
-
-.whatsapp-popup-card.open {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0) scale(1);
 }
 
 .whatsapp-popup-header {
@@ -4083,11 +4008,26 @@ html.a11y-btn-right .scroll-to-top-btn {
    COOKIE CONSENT BANNER
    ========================================== */
 
-.cookie-consent-banner {
+/* Split into a static positioning strip and the actual card so the card's
+   `transform`/`opacity` belong entirely to the framer-motion element in
+   CookieConsent.jsx — a spring drives enter/exit instead of a keyframe
+   `animation` racing a `transition` on the same two properties, which is what
+   the old rule did (the animation always won, so the `.fade-out` transition
+   never had a chance to run). The centering here is layout (flex), not a
+   transform, so it never competes with motion's transform for ownership. */
+.cookie-consent-banner-wrap {
   position: fixed;
+  left: 0;
+  right: 0;
   bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
+  z-index: var(--z-cookie);
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.cookie-consent-banner {
+  pointer-events: auto;
   background: #10293f;
   border-top: 4px solid var(--gold-mid);
   border-radius: 16px;
@@ -4095,16 +4035,7 @@ html.a11y-btn-right .scroll-to-top-btn {
   width: 90%;
   max-width: 680px;
   padding: 1.2rem 1.8rem;
-  z-index: 100000;
   direction: rtl;
-  opacity: 0;
-  animation: slideUpFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  transition: opacity 0.4s ease, transform 0.4s ease;
-}
-
-.cookie-consent-banner.fade-out {
-  opacity: 0;
-  transform: translate(-50%, 15px);
 }
 
 .cookie-consent-content {
@@ -4117,7 +4048,7 @@ html.a11y-btn-right .scroll-to-top-btn {
 .cookie-consent-text {
   color: rgba(255, 255, 255, 0.9);
   font-size: 0.92rem;
-  line-height: 1.6;
+  line-height: 1.7;
   margin: 0;
   text-align: right;
   font-family: 'Heebo', Arial, sans-serif;
@@ -4160,58 +4091,32 @@ html.a11y-btn-right .scroll-to-top-btn {
   transform: scale(0.97);
 }
 
-@keyframes slideUpFadeIn {
-  from {
-    opacity: 0;
-    transform: translate(-50%, 30px);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-}
-
 /* Mobile adjustments */
 @media (max-width: 640px) {
-  .cookie-consent-banner {
+  .cookie-consent-banner-wrap {
     bottom: 0;
-    left: 0;
-    transform: none;
+  }
+
+  .cookie-consent-banner {
     width: 100%;
     border-radius: 16px 16px 0 0;
     padding: 1.2rem 1.2rem 1.8rem;
   }
-  
-  .cookie-consent-banner.fade-out {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  
+
   .cookie-consent-content {
     flex-direction: column;
     align-items: stretch;
     gap: 1rem;
   }
-  
+
   .cookie-consent-text {
     font-size: 0.88rem;
   }
-  
+
   .cookie-consent-btn {
     width: 100%;
     text-align: center;
     padding: 0.7rem;
-  }
-
-  @keyframes slideUpFadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(40px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
   }
 }
 
@@ -4313,14 +4218,14 @@ html.a11y-btn-right .scroll-to-top-btn {
   font-weight: 900;
   color: #fff;
   line-height: 1.1;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
   margin: 0.75rem 0 1.25rem;
 }
 
 .pa-hero-sub {
   font-size: 1.2rem;
   color: rgba(240,246,255,0.85);
-  line-height: 1.8;
+  line-height: 1.65;
   font-weight: 400;
   max-width: 900px;
   margin-left: auto;
@@ -4382,7 +4287,7 @@ html.a11y-btn-right .scroll-to-top-btn {
 
 .pa-intro-inner p {
   font-size: 1rem;
-  line-height: 1.9;
+  line-height: 1.75;
   color: var(--text-muted);
   text-align: right;
 }
@@ -4461,6 +4366,7 @@ html.a11y-btn-right .scroll-to-top-btn {
 .pa-index-card-title {
   font-family: 'Heebo', Arial, sans-serif;
   font-size: 1.25rem;
+  line-height: 1.3;
   font-weight: 700;
   color: var(--text-dark);
   margin-bottom: 0.85rem;
@@ -4469,7 +4375,7 @@ html.a11y-btn-right .scroll-to-top-btn {
 .pa-index-card-desc {
   font-size: 0.88rem;
   color: var(--text-muted);
-  line-height: 1.8;
+  line-height: 1.7;
   font-weight: 400;
   flex: 1;
   margin-bottom: 1.5rem;
@@ -4529,8 +4435,9 @@ html.a11y-btn-right .scroll-to-top-btn {
 .pa-cta-inner h2 {
   font-family: 'Heebo', Arial, sans-serif;
   font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  line-height: 1.15;
   font-weight: 700;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.02em;
   color: #fff;
   margin-bottom: 1rem;
   text-align: center;
@@ -4614,6 +4521,7 @@ html.a11y-btn-right .scroll-to-top-btn {
 .pa-section-title {
   font-family: 'Heebo', Arial, sans-serif;
   font-size: clamp(1.6rem, 3vw, 2.4rem);
+  line-height: 1.2;
   font-weight: 700;
   color: var(--text-dark);
   margin-bottom: 2.5rem;
@@ -4623,7 +4531,7 @@ html.a11y-btn-right .scroll-to-top-btn {
 
 .pa-intro-text {
   font-size: 1rem;
-  line-height: 1.9;
+  line-height: 1.75;
   color: var(--text-muted);
   text-align: right;
 }
@@ -4795,7 +4703,7 @@ html.a11y-btn-right .scroll-to-top-btn {
   font-family: 'Heebo', Arial, sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--navy-dark);
   background: var(--gold-mid);
@@ -4811,12 +4719,12 @@ html.a11y-btn-right .scroll-to-top-btn {
   font-weight: 700;
   color: var(--white);
   margin: 1rem 0 1rem;
-  line-height: 1.35;
+  line-height: 1.2;
 }
 
 .articles-featured-excerpt {
   font-size: 1rem;
-  line-height: 1.85;
+  line-height: 1.75;
   color: rgba(255, 255, 255, 0.75);
   max-width: 760px;
   margin-bottom: 2rem;
@@ -4888,7 +4796,7 @@ html.a11y-btn-right .scroll-to-top-btn {
   font-family: 'Heebo', Arial, sans-serif;
   font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
   color: var(--gold);
   background: var(--gold-pale);
   border-radius: 999px;
@@ -4906,13 +4814,13 @@ html.a11y-btn-right .scroll-to-top-btn {
   font-size: 1.15rem;
   font-weight: 700;
   color: var(--text-dark);
-  line-height: 1.45;
+  line-height: 1.3;
   margin-bottom: 0.75rem;
 }
 
 .article-card-excerpt {
   font-size: 0.92rem;
-  line-height: 1.75;
+  line-height: 1.7;
   color: var(--text-muted);
   flex-grow: 1;
   margin-bottom: 1.5rem;
@@ -5054,6 +4962,7 @@ html.a11y-btn-right .scroll-to-top-btn {
 .pa-service-title {
   font-family: 'Heebo', Arial, sans-serif;
   font-size: 1rem;
+  line-height: 1.35;
   font-weight: 700;
   color: var(--text-dark);
   margin-bottom: 0.4rem;
@@ -5062,7 +4971,7 @@ html.a11y-btn-right .scroll-to-top-btn {
 .pa-service-desc {
   font-size: 0.88rem;
   color: var(--text-muted);
-  line-height: 1.75;
+  line-height: 1.7;
   font-weight: 400;
 }
 
@@ -5109,6 +5018,7 @@ html.a11y-btn-right .scroll-to-top-btn {
 .pa-step-title {
   font-family: 'Heebo', Arial, sans-serif;
   font-size: 1rem;
+  line-height: 1.35;
   font-weight: 700;
   color: var(--text-dark);
   margin-bottom: 0.6rem;
@@ -5118,7 +5028,7 @@ html.a11y-btn-right .scroll-to-top-btn {
 .pa-step-desc {
   font-size: 0.87rem;
   color: var(--text-muted);
-  line-height: 1.75;
+  line-height: 1.7;
   font-weight: 400;
   text-align: center;
 }
@@ -5143,6 +5053,7 @@ html.a11y-btn-right .scroll-to-top-btn {
 .pa-why-title {
   font-family: 'Heebo', Arial, sans-serif;
   font-size: 1rem;
+  line-height: 1.35;
   font-weight: 700;
   color: var(--gold-mid);
   margin-bottom: 0.6rem;
@@ -5152,7 +5063,7 @@ html.a11y-btn-right .scroll-to-top-btn {
 .pa-why-desc {
   font-size: 0.9rem;
   color: rgba(240,246,255,0.75);
-  line-height: 1.8;
+  line-height: 1.7;
   font-weight: 400;
 }
 
@@ -5169,22 +5080,29 @@ html.a11y-btn-right .scroll-to-top-btn {
   transition: border-color 0.2s;
 }
 
-.pa-faq-item[open] { border-color: rgba(184,134,11,0.4); }
+.pa-faq-item.is-open { border-color: rgba(184,134,11,0.4); }
 
-.pa-faq-item > summary {
+/* FaqItem.jsx renders this as a <button>, not a native <summary> — a
+   controlled element is what lets the answer's open/close be a measured
+   height animation instead of the show/hide-only toggle <details> gives you. */
+.pa-faq-item > .pa-faq-q {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  font-family: inherit;
+  text-align: right;
   padding: 1.2rem 1.5rem 1.2rem 3rem;
   font-size: 0.97rem;
+  line-height: 1.5;
   font-weight: 600;
   color: var(--text-dark);
   cursor: pointer;
-  list-style: none;
   position: relative;
   transition: background 0.15s;
 }
 
-.pa-faq-item > summary::-webkit-details-marker { display: none; }
-
-.pa-faq-item > summary::before {
+.pa-faq-item > .pa-faq-q::before {
   content: '+';
   position: absolute;
   left: 1.25rem;
@@ -5198,9 +5116,9 @@ html.a11y-btn-right .scroll-to-top-btn {
   text-align: center;
 }
 
-.pa-faq-item[open] > summary::before { content: '−'; }
+.pa-faq-item.is-open > .pa-faq-q::before { content: '−'; }
 
-.pa-faq-item > summary:hover { background: var(--gold-pale); }
+.pa-faq-item > .pa-faq-q:hover { background: var(--gold-pale); }
 
 .pa-faq-a {
   padding: 0 1.5rem 1.25rem 3rem;
@@ -5209,7 +5127,7 @@ html.a11y-btn-right .scroll-to-top-btn {
 .pa-faq-a p {
   font-size: 0.94rem;
   color: var(--text-muted);
-  line-height: 1.85;
+  line-height: 1.75;
 }
 
 /* ══════════════════════════════
@@ -5233,6 +5151,7 @@ html.a11y-btn-right .scroll-to-top-btn {
 
 .faq-category-title {
   font-size: 1.35rem;
+  line-height: 1.3;
   font-weight: 700;
   color: var(--text-dark);
   margin-top: 1rem;
@@ -5309,8 +5228,8 @@ html.a11y-btn-right .scroll-to-top-btn {
 
 @media (max-width: 480px) {
   .pa-process-grid { grid-template-columns: 1fr; }
-  .pa-faq-item > summary { padding: 1rem 1rem 1rem 2.5rem; font-size: 0.92rem; }
-  .pa-faq-item > summary::before { left: 0.85rem; }
+  .pa-faq-item > .pa-faq-q { padding: 1rem 1rem 1rem 2.5rem; font-size: 0.92rem; }
+  .pa-faq-item > .pa-faq-q::before { left: 0.85rem; }
   .pa-faq-a { padding: 0 1rem 1rem 2.5rem; }
 }
 
@@ -5388,7 +5307,7 @@ html.a11y-btn-right .scroll-to-top-btn {
 .cpoa-flow-desc {
   font-size: 0.88rem;
   color: var(--text-muted);
-  line-height: 1.6;
+  line-height: 1.7;
   font-weight: 400;
 }
 
@@ -5535,6 +5454,7 @@ html.a11y-btn-right .scroll-to-top-btn {
 
 .timeline-title {
   font-size: 1.05rem;
+  line-height: 1.35;
   font-weight: 700;
   color: var(--text-dark);
   margin-bottom: 0.6rem;
@@ -5543,7 +5463,7 @@ html.a11y-btn-right .scroll-to-top-btn {
 .timeline-desc {
   font-size: 0.88rem;
   color: var(--text-muted);
-  line-height: 1.6;
+  line-height: 1.7;
   font-weight: 400;
 }
 
@@ -5612,6 +5532,7 @@ html.a11y-btn-right .scroll-to-top-btn {
 
 .track-flow-title {
   font-size: 1.05rem;
+  line-height: 1.35;
   font-weight: 700;
   color: var(--text-dark);
   margin-bottom: 0.6rem;
@@ -5620,7 +5541,7 @@ html.a11y-btn-right .scroll-to-top-btn {
 .track-flow-desc {
   font-size: 0.88rem;
   color: var(--text-muted);
-  line-height: 1.6;
+  line-height: 1.7;
   font-weight: 400;
 }
 
@@ -5692,6 +5613,7 @@ html.a11y-btn-right .scroll-to-top-btn {
 
 .list-flow-title {
   font-size: 1.1rem;
+  line-height: 1.35;
   font-weight: 700;
   color: var(--text-dark);
   margin-bottom: 0.5rem;
@@ -5799,8 +5721,8 @@ html.a11y-btn-right .scroll-to-top-btn {
 .attorney-certification-text {
   font-size: 0.92rem;
   color: var(--navy-dark);
-  font-weight: 600;
-  line-height: 1.45;
+  font-weight: 400;
+  line-height: 1.7;
 }
 
 /* ── Process Tabs ── */
@@ -5821,7 +5743,7 @@ html.a11y-btn-right .scroll-to-top-btn {
   padding: 0.65rem 1.6rem;
   border-radius: 6px;
   font-size: 0.95rem;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
   font-family: 'Heebo', Arial, sans-serif;
@@ -6012,8 +5934,8 @@ html.a11y-btn-right .scroll-to-top-btn {
   font-size: clamp(1.7rem, 3.2vw, 2.6rem);
   font-weight: 500;
   font-style: italic;
-  line-height: 1.55;
-  letter-spacing: 0.01em;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
   color: rgba(255,255,255,0.95);
   text-shadow: 0 2px 18px rgba(0,0,0,0.45);
   margin: 0;
@@ -6124,7 +6046,7 @@ html.a11y-btn-right .scroll-to-top-btn {
 
 .a11y-declaration h4 {
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 700;
   color: #10293f;
   margin: 0 0 6px 0;
 }
@@ -6174,6 +6096,7 @@ html.a11y-btn-right .scroll-to-top-btn {
 .atty-facts-label {
   font-family: 'Heebo', sans-serif;
   font-size: 1rem;
+  line-height: 1.4;
   font-weight: 700;
   color: var(--navy-dark);
   margin: 0;
@@ -6192,7 +6115,7 @@ html.a11y-btn-right .scroll-to-top-btn {
   font-family: 'Heebo', sans-serif;
   font-size: 0.97rem;
   color: var(--text-body, #2c3e50);
-  line-height: 1.7;
+  line-height: 1.75;
 }
 
 /* ══════════════════════════════
@@ -6216,5 +6139,85 @@ html.a11y-btn-right .scroll-to-top-btn {
     transform: none;
     transition: none;
   }
+}
+
+/* ══════════════════════════════
+   PRESS FEEDBACK TIMING
+══════════════════════════════ */
+/* Every rule below declares `transform` in a shared transition list sized for
+   its hover lift (200–300ms). That same duration was also governing the press,
+   so a tap took up to 300ms to visibly register. A press has to read as
+   immediate, so `:active` re-declares `transform` at --press-duration while
+   leaving the hover timing on the base rule untouched.
+   Placed last in the file so it wins on source order without !important. */
+.nav-cta:active,
+.btn-primary:active,
+.btn-ghost:active,
+.expertise-card:active,
+.nav-btn:active,
+.a11y-card:active,
+.cookie-consent-btn:active,
+.pa-index-card:active,
+.articles-pill:active,
+.article-card:active,
+.process-tab-btn:active,
+.whatsapp-trigger-btn:active,
+.header-facebook-trigger-btn:active,
+.footer-facebook-btn:active,
+.footer-whatsapp-btn:active,
+.legal-page-wrapper .btn-legal-contact:active,
+.legal-page-wrapper .btn-legal-back:active {
+  transition-property: transform;
+  transition-duration: var(--press-duration);
+  transition-timing-function: var(--press-ease);
+}
+
+/* Controls that had no pressed state at all — pointer-down had no visible
+   result, so on touch (where there is no hover) they read as dead. */
+.chatbot-trigger,
+.chatbot-option-btn,
+.chatbot-close,
+.whatsapp-popup-close,
+.whatsapp-popup-option-btn,
+.a11y-close-circle,
+.a11y-footer-btn,
+.nav-back-pill,
+.articles-featured-card,
+.pa-faq-item > .pa-faq-q,
+.nav-links a,
+.nav-dropdown-menu a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.chatbot-trigger:active,
+.chatbot-close:active,
+.whatsapp-popup-close:active,
+.a11y-close-circle:active {
+  transform: scale(0.92);
+  transition: transform var(--press-duration) var(--press-ease);
+}
+
+.chatbot-option-btn:active,
+.whatsapp-popup-option-btn:active,
+.a11y-footer-btn:active,
+.nav-back-pill:active,
+.articles-featured-card:active {
+  transform: scale(0.97);
+  transition: transform var(--press-duration) var(--press-ease);
+}
+
+/* Accordion header and nav links: no transform (they sit in text flow, and
+   scaling type looks wrong) — a background tint carries the press instead. */
+.pa-faq-item > .pa-faq-q:active {
+  background: var(--gold-pale);
+  filter: brightness(0.97);
+  transition: filter var(--press-duration) var(--press-ease);
+}
+
+.nav-links a:active,
+.nav-dropdown-menu a:active {
+  color: var(--gold) !important;
+  opacity: 0.7;
+  transition: opacity var(--press-duration) var(--press-ease);
 }
 

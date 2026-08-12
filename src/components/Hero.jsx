@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 export default function Hero() {
   const [mounted, setMounted] = useState(false);
+  const sectionRef = useRef(null);
 
   // Trigger fade-in only after the component has mounted on the client.
   // This prevents the hero content from "jumping" in during hydration and
@@ -12,8 +13,21 @@ export default function Hero() {
     return () => cancelAnimationFrame(frame);
   }, []);
 
+  // Drop `will-change` once the one-shot entrance animation finishes — it's
+  // a hint for imminent motion, not a standing instruction to keep these
+  // layers promoted for the rest of the session.
+  useEffect(() => {
+    if (!mounted || !sectionRef.current) return;
+    const section = sectionRef.current;
+    const handleAnimationEnd = (e) => {
+      e.target.style.willChange = 'auto';
+    };
+    section.addEventListener('animationend', handleAnimationEnd);
+    return () => section.removeEventListener('animationend', handleAnimationEnd);
+  }, [mounted]);
+
   return (
-    <section className={`hero${mounted ? ' hero-mounted' : ''}`}>
+    <section ref={sectionRef} className={`hero${mounted ? ' hero-mounted' : ''}`}>
       <div className="hero-bg-text">חוק</div>
       <div className="hero-content">
         <h1>

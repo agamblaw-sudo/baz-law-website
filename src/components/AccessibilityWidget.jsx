@@ -74,6 +74,10 @@ export default function AccessibilityWidget() {
     html.classList.toggle('a11y-contrast-cursor',  state.contrastCursor);
     html.classList.toggle('a11y-no-anim',          state.stopAnimations);
     html.classList.toggle('a11y-large-clickable',  state.largeClickable);
+
+    // Flag when the a11y trigger sits bottom-right (and is visible) so other
+    // fixed bottom-right widgets (e.g. scroll-to-top) can move out of its way.
+    html.classList.toggle('a11y-btn-right', state.position === 'right' && !state.hidden);
   }, [state]);
 
   // Keyboard shortcut listener (Alt + A / Alt + ש)

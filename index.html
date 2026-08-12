@@ -87,14 +87,16 @@
           imagesizes="100vw" />
 
     <!-- Google Fonts: preconnect + preload critical Hebrew woff2 files so they are
-         available before first paint → font-display:optional prevents any swap/CLS -->
+         available before first paint → font-display:optional prevents any swap/CLS.
+         Weights include 800/900 — used by hero/practice-area headings; without them
+         the browser faux-bolds 700 synthetically, distorting Hebrew letterforms. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preload" as="font" type="font/woff2" crossorigin
           href="https://fonts.gstatic.com/s/heebo/v28/NGSpv5_NC0k9P_v6ZUCbLRAHxK1EiSysd0mm7U6CXDZW.woff2" />
     <link rel="preload" as="font" type="font/woff2" crossorigin
           href="https://fonts.gstatic.com/s/heebo/v28/NGSpv5_NC0k9P_v6ZUCbLRAHxK1Ebiusd0mm7U6CXDZW.woff2" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=optional" />
 
     <!-- Elfsight script is injected lazily via IntersectionObserver in Testimonials.jsx -->
 

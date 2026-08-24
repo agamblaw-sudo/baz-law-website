@@ -143,16 +143,32 @@ export default function Articles() {
       {showFeatured && featured && (
         <section ref={featuredRef} className={`articles-featured-section reveal-fade-up ${featuredVisible ? 'active' : ''}`} aria-label="מאמר מומלץ">
           <Link to={`/articles/${featured.slug}`} className="articles-featured-card">
-            <span className="articles-featured-tag">מאמר מומלץ</span>
-            {featured.category && <span className="article-category">{featured.category}</span>}
-            <h2 className="articles-featured-title">{featured.title}</h2>
-            <p className="articles-featured-excerpt">{featured.excerpt}</p>
-            <div className="articles-card-footer">
-              <time className="article-card-date" dateTime={featured.publishedAt}>{formatDate(featured.publishedAt)}</time>
-              <span className="exp-cta">
-                לקריאת המאמר
-                <ArrowIcon />
-              </span>
+            {featured.image && (
+              <div className="articles-featured-media">
+                <img
+                  src={featured.image}
+                  alt={featured.imageAlt || featured.title}
+                  width="640"
+                  height="400"
+                  loading="eager"
+                  fetchPriority="high"
+                />
+                <div className="articles-featured-badges">
+                  <span className="articles-featured-tag">מאמר מומלץ</span>
+                  {featured.category && <span className="article-category">{featured.category}</span>}
+                </div>
+              </div>
+            )}
+            <div className="articles-featured-body">
+              <h2 className="articles-featured-title">{featured.title}</h2>
+              <p className="articles-featured-excerpt">{featured.excerpt}</p>
+              <div className="articles-card-footer">
+                <time className="article-card-date" dateTime={featured.publishedAt}>{formatDate(featured.publishedAt)}</time>
+                <span className="exp-cta">
+                  לקריאת המאמר
+                  <ArrowIcon />
+                </span>
+              </div>
             </div>
           </Link>
         </section>

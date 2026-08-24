@@ -30,6 +30,7 @@ export default function Hero() {
     <section ref={sectionRef} className={`hero${mounted ? ' hero-mounted' : ''}`}>
       <div className="hero-bg-text">חוק</div>
       <div className="hero-content">
+        <span className="hero-badge">משרד עורכי דין · נדל״ן והתחדשות עירונית</span>
         <h1>
           ברזילי, עזורי ושות׳
           <span>עורכי דין</span>

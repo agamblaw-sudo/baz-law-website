@@ -24,6 +24,7 @@ export default function Attorneys() {
 
   return (
     <section ref={sectionRef} className="attorneys" id="attorneys">
+      <span className="section-eyebrow">הצוות שלנו</span>
       <h2 className={`section-title reveal-fade-up ${isVisible ? 'active' : ''}`} style={{ textAlign: 'center', fontSize: 'clamp(1.8rem, 5vw, 3.2rem)' }}>אודות</h2>
       <div className="atty-rows">
         {attorneys.map((a, i) => (

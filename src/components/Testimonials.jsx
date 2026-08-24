@@ -11,6 +11,7 @@ export default function Testimonials() {
 
   return (
     <section className="testimonials" id="testimonials">
+      <span className="section-eyebrow">מה אומרים עלינו</span>
       <h2 className="section-title" style={{ textAlign: 'center' }}>לקוחות ממליצים</h2>
       <div className="elfsight-app-e1f8701f-fffa-4269-834d-28f7131068be"></div>
     </section>

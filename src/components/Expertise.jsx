@@ -79,6 +79,7 @@ export default function Expertise() {
 
   return (
     <section ref={sectionRef} className="expertise" id="expertise" aria-labelledby="expertise-heading">
+      <span className="section-eyebrow">במה אנחנו מתמחים</span>
       <h2 id="expertise-heading" className={`section-title reveal-fade-up ${isVisible ? 'active' : ''}`} style={{ textAlign: 'center', fontSize: 'clamp(1.8rem, 5vw, 3.2rem)' }}>
         תחומי ההתמחות
       </h2>

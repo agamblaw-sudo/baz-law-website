@@ -622,6 +622,11 @@ nav.scrolled {
   box-shadow: 0 2px 10px rgba(158,122,42,0.35);
 }
 
+.btn-primary:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.9), 0 0 0 6px var(--gold-mid);
+}
+
 .hero .btn-ghost {
   color: rgba(255,255,255,0.85);
   border-bottom-color: rgba(255,255,255,0.3);
@@ -719,6 +724,42 @@ nav.scrolled {
   margin: 0.9rem auto 0;
 }
 
+/* Small identifying label above a section title — same rhythm as .hero-badge,
+   tuned for light backgrounds (darker --gold instead of --gold-mid). */
+.section-eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.9rem;
+}
+
+.section-eyebrow::before,
+.section-eyebrow::after {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--gold-mid);
+}
+
+/* WhatsApp contact cards — same lift distance/easing as every other
+   hover-lift on the site (card hovers, buttons), instead of the steeper
+   linear 4px jump they used to get from inline handlers. */
+.wa-contact-card {
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+.wa-contact-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(37,211,102,0.22);
+  border-color: rgba(37,211,102,0.55);
+}
+
 .gold-line {
   position: absolute;
   top: 0; left: 4rem; right: 4rem;
@@ -781,6 +822,7 @@ nav.scrolled {
   border-radius: 6px;
   aspect-ratio: 4 / 5;
   box-shadow: var(--shadow-md);
+  position: relative;
 }
 
 .atty-photo img {
@@ -793,6 +835,27 @@ nav.scrolled {
 
 .atty-row:hover .atty-photo img {
   transform: scale(1.04);
+}
+
+/* Same corner-fold signature used on .expertise-card, so both card types
+   share one hover language instead of two. */
+.atty-photo::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 30px 30px;
+  border-color: transparent transparent var(--gold-pale) transparent;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 2;
+}
+
+.atty-row:hover .atty-photo::after {
+  opacity: 1;
 }
 
 .atty-text h3 {
@@ -1306,8 +1369,8 @@ nav.scrolled {
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  border-color: rgba(201,168,76,0.6);
-  box-shadow: 0 0 0 3px rgba(201,168,76,0.08);
+  border-color: rgba(201,168,76,0.75);
+  box-shadow: 0 0 0 3px rgba(201,168,76,0.22);
 }
 
 .form-group select {
@@ -1787,8 +1850,8 @@ a.footer-bottom-links:hover { color: var(--gold-mid); }
   justify-content: center;
   background: var(--gold-mid);
   color: #0b1f30 !important;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   text-decoration: none;
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background-color 0.25s ease, color 0.25s ease;
@@ -3710,8 +3773,8 @@ html.a11y-btn-right .scroll-to-top-btn {
   background: var(--gold-mid);
   color: #fff;
   border: none;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   cursor: pointer;
   box-shadow: 0 4px 18px rgba(201, 168, 76, 0.45);
@@ -3787,8 +3850,8 @@ html.a11y-btn-right .scroll-to-top-btn {
   background: var(--gold-mid);
   color: #fff !important;
   border: none;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   cursor: pointer;
   box-shadow: 0 4px 18px rgba(201, 168, 76, 0.45);
@@ -3819,8 +3882,8 @@ html.a11y-btn-right .scroll-to-top-btn {
 
 @media (max-width: 768px) {
   .header-facebook-trigger-btn {
-    width: 34px;
-    height: 34px;
+    width: 44px;
+    height: 44px;
   }
 }
 
@@ -5898,6 +5961,30 @@ html.a11y-btn-right .scroll-to-top-btn {
   justify-content: center;
   overflow: hidden;
   contain: layout;
+}
+
+/* Frame the quote with the same thin gold hairline already used to open
+   .cta-band, instead of letting it float over a bare stock photo. */
+.parallax-section::before,
+.parallax-section::after {
+  content: '';
+  position: absolute;
+  left: 4rem;
+  right: 4rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-mid), transparent);
+  z-index: 2;
+}
+
+.parallax-section::before { top: 0; }
+.parallax-section::after { bottom: 0; }
+
+@media (max-width: 768px) {
+  .parallax-section::before,
+  .parallax-section::after {
+    left: 1.5rem;
+    right: 1.5rem;
+  }
 }
 
 /* Mobile smooth scroll fallback */

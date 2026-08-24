@@ -4629,6 +4629,7 @@ html.a11y-btn-right .scroll-to-top-btn {
 
 .article-block .pa-intro-text {
   margin-bottom: 1.2rem;
+  text-align: justify;
 }
 
 .article-block .pa-intro-text:last-child {

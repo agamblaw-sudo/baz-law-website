@@ -39,7 +39,17 @@ export default function ArticleDetail() {
       <section className="pa-hero pa-hero-practice" aria-label="כותרת עמוד">
         <div className="pa-hero-bg-text">חוק</div>
         <div className="pa-hero-inner">
-          <h1 className="pa-hero-title">{article.title}</h1>
+          <h1 className="pa-hero-title">
+            {article.title.includes(': ')
+              ? article.title.split(': ').map((part, i, arr) => (
+                  <React.Fragment key={i}>
+                    {part}
+                    {i === 0 && ':'}
+                    {i < arr.length - 1 && <br />}
+                  </React.Fragment>
+                ))
+              : article.title}
+          </h1>
           <p className="pa-hero-sub">{article.excerpt}</p>
           <div className="pa-hero-actions">
             <Link to="/#lead-form" className="btn-primary">לתיאום פגישת ייעוץ</Link>

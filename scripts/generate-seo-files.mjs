@@ -24,6 +24,8 @@ const pages = [
   { path: '/', lastmod: today, title: 'ברזילי, עזורי ושות׳ | משרד עורכי דין', body: 'משרד עורכי דין המתמחה בעסקאות נדל"ן, התחדשות עירונית, רישום זכויות, צוואות, ירושות וייפוי כוח מתמשך.' },
   { path: '/practice-areas', lastmod: today, title: 'תחומי עיסוק', body: 'סקירת תחומי העיסוק של המשרד: ' + practiceAreas.map((a) => a.title).join(', ') + '.' },
   { path: '/articles', lastmod: today, title: 'מאמרים', body: 'מאמרים משפטיים מאת ' + 'ברזילי, עזורי ושות׳.' },
+  { path: '/about', lastmod: today, title: 'אודות המשרד', body: 'משרד ברזילי, עזורי ושות׳ עורכי דין בפתח תקווה — שני שותפים, התמחות בנדל"ן, התחדשות עירונית, צוואות, ירושות וייפוי כוח מתמשך.' },
+  { path: '/contact', lastmod: today, title: 'צור קשר', body: 'כתובת: זאב ז׳בוטינסקי 61, פתח תקווה. דוא"ל: office@baz-law.co.il. טלפונים: 054-2030535, 054-2531925.' },
   { path: '/terms', lastmod: today, title: 'תנאי שימוש', body: 'תנאי השימוש באתר ברזילי, עזורי ושות׳ עורכי דין.' },
   { path: '/privacy', lastmod: today, title: 'מדיניות פרטיות', body: 'מדיניות הפרטיות של אתר ברזילי, עזורי ושות׳ עורכי דין.' },
   { path: '/accessibility', lastmod: today, title: 'הצהרת נגישות', body: 'הצהרת הנגישות של אתר ברזילי, עזורי ושות׳ עורכי דין.' },

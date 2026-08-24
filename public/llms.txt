@@ -22,6 +22,8 @@ To book a consultation, use the contact form on the homepage ([/](https://www.ba
 ## Pages
 
 - [Homepage](https://www.baz-law.co.il/): firm overview, attorneys, practice areas, testimonials, contact form.
+- [About](https://www.baz-law.co.il/about): firm background and the two partners' bios.
+- [Contact](https://www.baz-law.co.il/contact): address, phone, email, contact form.
 - [Practice areas index](https://www.baz-law.co.il/practice-areas)
 - [Attorneys: Agam Brazili](https://www.baz-law.co.il/attorneys/agam-brazili)
 - [Attorneys: Liron Azouri](https://www.baz-law.co.il/attorneys/liron-azouri)

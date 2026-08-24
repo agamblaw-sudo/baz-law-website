@@ -125,6 +125,10 @@ export default function Footer() {
         <span aria-hidden="true" className="footer-sep">|</span>
         <Link to="/accessibility" className="footer-bottom-links">הצהרת נגישות</Link>
         <span aria-hidden="true" className="footer-sep">|</span>
+        <Link to="/about" className="footer-bottom-links">אודות המשרד</Link>
+        <span aria-hidden="true" className="footer-sep">|</span>
+        <Link to="/contact" className="footer-bottom-links">צור קשר</Link>
+        <span aria-hidden="true" className="footer-sep">|</span>
         <Link to="/privacy" className="footer-bottom-links">מדיניות פרטיות</Link>
         <span aria-hidden="true" className="footer-sep">|</span>
         <Link to="/terms" className="footer-bottom-links">תקנון ותנאי שימוש</Link>

@@ -12,6 +12,8 @@ import Home from './pages/Home';
 import CookieConsent from './components/CookieConsent';
 
 // Lazy-load heavy pages to enable code-splitting (reduces initial bundle / TBT)
+const About = lazy(() => import('./pages/About'));
+const Contact = lazy(() => import('./pages/Contact'));
 const Terms = lazy(() => import('./pages/Terms'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Accessibility = lazy(() => import('./pages/Accessibility'));
@@ -33,7 +35,7 @@ function ScrollToHash() {
 
 function AppContent() {
   const location = useLocation();
-  const isLegalPage = ['/terms', '/privacy', '/accessibility'].includes(location.pathname);
+  const isLegalPage = ['/terms', '/privacy', '/accessibility', '/about', '/contact'].includes(location.pathname);
 
   return (
     <>
@@ -54,6 +56,8 @@ function AppContent() {
             <Route path="/attorneys/:slug" element={<AttorneyDetail />} />
             <Route path="/articles" element={<Articles />} />
             <Route path="/articles/:slug" element={<ArticleDetail />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/accessibility" element={<Accessibility />} />

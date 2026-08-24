@@ -44,7 +44,6 @@ export default function ArticleDetail() {
               ? article.title.split(': ').map((part, i, arr) => (
                   <React.Fragment key={i}>
                     {part}
-                    {i === 0 && ':'}
                     {i < arr.length - 1 && <br />}
                   </React.Fragment>
                 ))

@@ -11,8 +11,8 @@ export const articles = [
     metaDescription:
       'מה זה ייפוי כוח מתמשך, למי הוא מתאים ואיך עושים אותו נכון. מדריך של ברזילי, עזורי ושות׳ עורכי דין: הגדרה, יתרונות לעומת אפוטרופסות, תוכן המסמך והליך הרישום.',
     keywords: 'ייפוי כוח מתמשך, אפוטרופוס כללי, מיופה כוח, עורך דין ייפוי כוח מתמשך, פתח תקווה',
-    image: '/pa-yipuy.webp',
-    imageAlt: 'ייפוי כוח מתמשך: חתימה ואישור מסמך משפטי אצל עורך דין',
+    image: '/pa-yipuy-signing.webp',
+    imageAlt: 'ייפוי כוח מתמשך: חתימה על מסמך משפטי בעט זהב אצל עורך דין',
     canonicalPath: '/articles/yipuy-koach-mitmashech-madrich',
     publishedAt: '2026-07-28',
     updatedAt: '2026-07-28',

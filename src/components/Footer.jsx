@@ -58,7 +58,7 @@ export default function Footer() {
         </div>
 
         {/* Google Preferred Sources button (renders only if the site is eligible) */}
-        <div google-add-preferred-source-btn="" style={{ marginTop: '1rem' }}></div>
+        <div google-add-preferred-source-btn="" style={{ marginTop: '1rem', minHeight: '60px' }}></div>
       </div>
 
       {/* Col 2: ניווט מהיר */}

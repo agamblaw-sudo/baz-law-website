@@ -513,32 +513,8 @@ nav.scrolled {
   text-align: center;
 }
 
-.hero-badge {
-  justify-content: center;
-}
-
 .hero-actions {
   justify-content: center;
-}
-
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-size: 0.72rem;
-  line-height: 1.4;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--gold-mid);
-  margin-bottom: 1.5rem;
-}
-
-.hero-badge::before {
-  content: '';
-  display: block;
-  width: 36px;
-  height: 1px;
-  background: var(--gold-mid);
 }
 
 .hero h1 {

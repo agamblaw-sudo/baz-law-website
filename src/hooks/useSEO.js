@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const BASE_URL = 'https://baz-law.co.il';
+const BASE_URL = 'https://www.baz-law.co.il';
 const DEFAULT_TITLE = "ברזילי, עזורי ושות' | משרד עורכי דין";
 const DEFAULT_DESC = 'משרד עורכי דין המתמחה בנדל"ן, התחדשות עירונית, רישום זכויות, צוואות, ירושות וייפוי כוח מתמשך.';
 const DEFAULT_CANONICAL = `${BASE_URL}/`;

@@ -4,7 +4,7 @@ import { articles, getArticleCategories } from '../data/articles';
 import { useSEO } from '../hooks/useSEO';
 import useReveal from '../hooks/useReveal';
 
-const BASE_URL = 'https://baz-law.co.il';
+const BASE_URL = 'https://www.baz-law.co.il';
 
 const indexSchema = {
   '@context': 'https://schema.org',

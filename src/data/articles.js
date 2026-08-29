@@ -1,4 +1,4 @@
-const BASE_URL = 'https://baz-law.co.il';
+const BASE_URL = 'https://www.baz-law.co.il';
 
 export const articles = [
   {

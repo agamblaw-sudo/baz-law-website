@@ -9,14 +9,14 @@ const indexSchema = {
   '@graph': [
     {
       '@type': 'LegalService',
-      '@id': 'https://baz-law.co.il/practice-areas',
+      '@id': 'https://www.baz-law.co.il/practice-areas',
       name: "ברזילי, עזורי ושות׳: תחומי התמחות",
       description: 'משרד עורכי דין המתמחה בנדל"ן, התחדשות עירונית, רישום זכויות, צוואות, ירושות וייפוי כוח מתמשך.',
-      url: 'https://baz-law.co.il/practice-areas',
+      url: 'https://www.baz-law.co.il/practice-areas',
       provider: {
         '@type': 'LegalService',
         name: "ברזילי, עזורי ושות׳ עורכי דין",
-        url: 'https://baz-law.co.il',
+        url: 'https://www.baz-law.co.il',
         address: {
           '@type': 'PostalAddress',
           streetAddress: "זאב ז'בוטינסקי 61",
@@ -29,8 +29,8 @@ const indexSchema = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'דף הבית', item: 'https://baz-law.co.il' },
-        { '@type': 'ListItem', position: 2, name: 'תחומי התמחות', item: 'https://baz-law.co.il/practice-areas' },
+        { '@type': 'ListItem', position: 1, name: 'דף הבית', item: 'https://www.baz-law.co.il' },
+        { '@type': 'ListItem', position: 2, name: 'תחומי התמחות', item: 'https://www.baz-law.co.il/practice-areas' },
       ],
     },
   ],

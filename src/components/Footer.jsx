@@ -1,18 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const SWG_SRC = 'https://news.google.com/swg/js/v1/publisher.js';
-
 export default function Footer() {
-  // Load Google Preferred Sources lib after the target div exists in the DOM.
-  React.useEffect(() => {
-    if (document.querySelector(`script[src="${SWG_SRC}"]`)) return;
-    const el = document.createElement('script');
-    el.async = true;
-    el.src = SWG_SRC;
-    document.head.appendChild(el);
-  }, []);
-
   return (
     <footer dir="rtl">
       {/* ═══ FOOTER ═══ */}
@@ -56,9 +45,6 @@ export default function Footer() {
             </svg>
           </a>
         </div>
-
-        {/* Google Preferred Sources button (renders only if the site is eligible) */}
-        <div google-add-preferred-source-btn="" style={{ marginTop: '1rem', minHeight: '60px' }}></div>
       </div>
 
       {/* Col 2: ניווט מהיר */}

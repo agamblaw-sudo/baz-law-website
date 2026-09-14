@@ -8,29 +8,50 @@
          after our JS bundle loads, causing the visible "jump from bottom to top". -->
     <script>if ('scrollRestoration' in history) history.scrollRestoration = 'manual';</script>
 
-    <!-- Meta Pixel Code -->
+    <!-- Meta Pixel + Google tag (gtag.js) — consent-gated.
+         Neither script loads (and no request leaves the browser) until the
+         user accepts the cookie banner (CookieConsent.jsx). This keeps
+         tracking off by default per the Privacy Protection Law's consent
+         requirement for non-essential cookies. -->
     <script>
-      !function(f,b,e,v,n,t,s)
-      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)}(window, document,'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '1653729789029217');
-      fbq('track', 'PageView');
-    </script>
-    <!-- End Meta Pixel Code -->
+      (function () {
+        function loadMetaPixel() {
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window, document,'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init', '1653729789029217');
+          fbq('track', 'PageView');
+        }
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8HD768XCK3"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+        function loadGtag() {
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = function () { dataLayer.push(arguments); };
+          gtag('js', new Date());
+          gtag('config', 'G-8HD768XCK3');
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=G-8HD768XCK3';
+          document.head.appendChild(s);
+        }
 
-      gtag('config', 'G-8HD768XCK3');
+        window.__loadConsentedScripts = function () {
+          if (window.__consentScriptsLoaded) return;
+          window.__consentScriptsLoaded = true;
+          loadMetaPixel();
+          loadGtag();
+        };
+
+        try {
+          if (localStorage.getItem('cookie-consent') === 'accepted') {
+            window.__loadConsentedScripts();
+          }
+        } catch (e) {}
+      })();
     </script>
 
     <title>ברזילי, עזורי ושות' | משרד עורכי דין</title>
@@ -149,10 +170,6 @@
     </script>
   </head>
   <body>
-    <!-- Meta Pixel — noscript fallback -->
-    <noscript><img height="1" width="1" style="display:none" alt=""
-      src="https://www.facebook.com/tr?id=1653729789029217&ev=PageView&noscript=1" /></noscript>
-
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
 

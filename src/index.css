@@ -4130,6 +4130,25 @@ html.a11y-btn-right .scroll-to-top-btn {
   transform: scale(0.97);
 }
 
+.cookie-consent-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+
+.cookie-consent-btn-secondary {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: none;
+}
+
+.cookie-consent-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  box-shadow: none;
+}
+
 /* Mobile adjustments */
 @media (max-width: 640px) {
   .cookie-consent-banner-wrap {

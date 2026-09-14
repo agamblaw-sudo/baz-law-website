@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -15,7 +16,8 @@ export default function ContactForm() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [formError, setFormError] = useState('');
-  const [errors, setErrors] = useState({ fname: false, fphone: false });
+  const [errors, setErrors] = useState({ fname: false, fphone: false, consent: false });
+  const [consent, setConsent] = useState(false);
   const [mapLinkHover, setMapLinkHover] = useState(false);
   const [activeTab, setActiveTab] = useState('form'); // 'form' | 'whatsapp'
 
@@ -32,9 +34,10 @@ export default function ContactForm() {
     
     const fnameError = !formData.fname.trim();
     const fphoneError = !formData.fphone.trim();
-    
-    if (fnameError || fphoneError) {
-      setErrors({ fname: fnameError, fphone: fphoneError });
+    const consentError = !consent;
+
+    if (fnameError || fphoneError || consentError) {
+      setErrors({ fname: fnameError, fphone: fphoneError, consent: consentError });
       return;
     }
 
@@ -284,6 +287,36 @@ export default function ContactForm() {
                   </a>
                 </div>
               )}
+
+              <label
+                htmlFor="fconsent"
+                className="form-consent"
+                style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '0.5rem',
+                  fontSize: '0.85rem',
+                  color: errors.consent ? '#e24b4a' : 'var(--text-muted)',
+                  cursor: 'pointer',
+                  marginTop: '0.25rem',
+                }}
+              >
+                <input
+                  type="checkbox"
+                  id="fconsent"
+                  name="fconsent"
+                  checked={consent}
+                  onChange={(e) => {
+                    setConsent(e.target.checked);
+                    setErrors(prev => ({ ...prev, consent: false }));
+                  }}
+                  aria-invalid={errors.consent || undefined}
+                  style={{ marginTop: '0.2rem', flexShrink: 0 }}
+                />
+                <span>
+                  קראתי ואני מסכים/ה ל<Link to="/privacy" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>מדיניות הפרטיות</Link> של המשרד <span aria-hidden="true" style={{ color: '#e24b4a' }}>*</span>
+                </span>
+              </label>
 
               <div className="form-submit" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center' }}>
                 <button type="submit" id="submitBtn" className="btn-primary" disabled={loading} style={{ minWidth: '220px', maxWidth: '300px', display: 'flex', justifyContent: 'center' }}>

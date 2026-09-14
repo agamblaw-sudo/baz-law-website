@@ -6,8 +6,10 @@ export default function CookieConsent() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    // Only unset (never asked) shows the banner — a prior "rejected" choice
+    // is respected and not re-prompted on every visit.
     const consent = localStorage.getItem('cookie-consent');
-    if (consent !== 'accepted') {
+    if (!consent) {
       // Small delay to make the entry animation feel organic
       const timer = setTimeout(() => {
         setIsVisible(true);
@@ -18,6 +20,12 @@ export default function CookieConsent() {
 
   const handleAccept = () => {
     localStorage.setItem('cookie-consent', 'accepted');
+    if (window.__loadConsentedScripts) window.__loadConsentedScripts();
+    setIsVisible(false);
+  };
+
+  const handleReject = () => {
+    localStorage.setItem('cookie-consent', 'rejected');
     setIsVisible(false);
   };
 
@@ -42,9 +50,14 @@ export default function CookieConsent() {
                 </Link>
                 .
               </p>
-              <button className="cookie-consent-btn" onClick={handleAccept} aria-label="אשר שימוש בקוקיז">
-                אשר
-              </button>
+              <div className="cookie-consent-actions">
+                <button className="cookie-consent-btn cookie-consent-btn-secondary" onClick={handleReject} aria-label="דחה קוקיז לא חיוניים">
+                  דחה
+                </button>
+                <button className="cookie-consent-btn" onClick={handleAccept} aria-label="אשר שימוש בקוקיז">
+                  אשר
+                </button>
+              </div>
             </div>
           </motion.div>
         )}

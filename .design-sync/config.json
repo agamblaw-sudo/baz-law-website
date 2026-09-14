@@ -1,0 +1,46 @@
+{
+  "projectId": "df4718cc-e457-4f71-ad7a-91afcd1870c7",
+  "shape": "package",
+  "pkg": "baz-law-website",
+  "globalName": "BazLawDS",
+  "srcDir": "src/components",
+  "tsconfig": "jsconfig.json",
+  "cssEntry": "dist/assets/index-DCQ6B-_G.css",
+  "runtimeFontPrefixes": ["Heebo"],
+  "extraFonts": [
+    "dist/assets/geist-cyrillic-wght-normal-BEAKL7Jp.woff2",
+    "dist/assets/geist-cyrillic-ext-wght-normal-DjL33-gN.woff2",
+    "dist/assets/geist-latin-ext-wght-normal-DC-KSUi6.woff2",
+    "dist/assets/geist-latin-wght-normal-BgDaEnEv.woff2",
+    "dist/assets/geist-vietnamese-wght-normal-6IgcOCM7.woff2"
+  ],
+  "buildCmd": "npx vite build",
+  "readmeHeader": ".design-sync/conventions.md",
+  "libOverrides": {
+    "source-kit.mjs": "synth-entry `export *` never re-exports default exports; alias default-exported page-section components to their componentSrcMap name"
+  },
+  "componentSrcMap": {
+    "Button": "src/components/ui/button.jsx",
+    "Dialog": "src/components/ui/dialog.jsx",
+    "Input": "src/components/ui/input.jsx",
+    "Label": "src/components/ui/label.jsx",
+    "Select": "src/components/ui/select.jsx",
+    "Switch": "src/components/ui/switch.jsx",
+    "Textarea": "src/components/ui/textarea.jsx",
+    "AccessibilityWidget": "src/components/AccessibilityWidget.jsx",
+    "Attorneys": "src/components/Attorneys.jsx",
+    "ChatBot": "src/components/ChatBot.jsx",
+    "ContactForm": "src/components/ContactForm.jsx",
+    "CookieConsent": "src/components/CookieConsent.jsx",
+    "Expertise": "src/components/Expertise.jsx",
+    "FAQ": "src/components/FAQ.jsx",
+    "FaqItem": "src/components/FaqItem.jsx",
+    "Footer": "src/components/Footer.jsx",
+    "Hero": "src/components/Hero.jsx",
+    "Navbar": "src/components/Navbar.jsx",
+    "ScrollProgressBar": "src/components/ScrollProgressBar.jsx",
+    "ScrollToTop": "src/components/ScrollToTop.jsx",
+    "Testimonials": "src/components/Testimonials.jsx",
+    "WhatsAppWidget": "src/components/WhatsAppWidget.jsx"
+  }
+}

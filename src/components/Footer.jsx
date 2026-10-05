@@ -17,7 +17,7 @@ export default function Footer() {
             <img src="/logo-footer.png" className="footer-logo-img" alt="ברזילי, עזורי ושות׳ עורכי דין" width="320" height="95" />
           </picture>
         </Link>
-        <p className="footer-brand-about">משרד עורכי דין המתמחה בעסקאות נדל&quot;ן, התחדשות עירונית, צוואות וירושות, רישום זכויות בטאבו, רישום בתים משותפים וייפוי כוח מתמשך. ליווי משפטי מקצועי, אישי ואמין לאורך כל הדרך.</p>
+        <p className="footer-brand-about">משרד עורכי דין המתמחה בעסקאות נדל&quot;ן, התחדשות עירונית, צוואות וירושות, רישום זכויות בטאבו, רישום בתים משותפים וייפוי כוח מתמשך.</p>
         <div className="footer-social-wrapper" style={{ marginTop: '1.25rem', display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
           <a
             href="https://wa.me/972542030535"
@@ -84,8 +84,8 @@ export default function Footer() {
         <div className="footer-contact-item">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--gold-mid)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
           <span>
-            <a href="https://wa.me/972542030535" target="_blank" rel="noopener" className="footer-wa-link">054-2030535 (אגם)</a><br />
-            <a href="https://wa.me/972542531925" target="_blank" rel="noopener" className="footer-wa-link">054-2531925 (לירון)</a>
+            <a href="https://wa.me/972542030535" target="_blank" rel="noopener" className="footer-wa-link"><bdi>054-2030535</bdi> (אגם)</a><br />
+            <a href="https://wa.me/972542531925" target="_blank" rel="noopener" className="footer-wa-link"><bdi>054-2531925</bdi> (לירון)</a>
           </span>
         </div>
 
@@ -132,8 +132,6 @@ export default function Footer() {
         <Link to="/privacy" className="footer-bottom-links">מדיניות פרטיות</Link>
         <span aria-hidden="true" className="footer-sep">|</span>
         <Link to="/terms" className="footer-bottom-links">תקנון ותנאי שימוש</Link>
-        <span aria-hidden="true" className="footer-sep">|</span>
-        <a href="#" className="footer-admin-link">ניהול</a>
       </div>
     </div>{/* /footer-bottom */}
 

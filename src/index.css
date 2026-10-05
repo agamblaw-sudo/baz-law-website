@@ -126,8 +126,8 @@ body {
 }
 
 /* ── Global Text Justification ── */
-p, .legal-page-wrapper li {
-  text-align: right;
+p, .legal-page-wrapper li, .atty-text, .pa-intro-inner, .faq-inner {
+  text-align: justify;
 }
 
 .hero-sub,
@@ -928,7 +928,7 @@ nav.scrolled {
   line-height: 1.65;
   color: var(--text-dark);
   font-weight: 400;
-  text-align: right;
+  text-align: justify;
   text-align-last: right;
   margin-bottom: 1.4rem;
 }
@@ -1156,7 +1156,7 @@ nav.scrolled {
   font-size: 0.92rem;
   line-height: 1.7;
   font-weight: 400;
-  text-align: right;
+  text-align: justify;
   margin-bottom: 1.5rem;
 }
 
@@ -1484,7 +1484,7 @@ nav.scrolled {
   line-height: 1.75;
   margin-bottom: 1.8rem;
   max-width: 420px;
-  text-align: right;
+  text-align: justify;
 }
 
 .location-details {
@@ -1674,7 +1674,7 @@ footer {
   color: rgba(240,246,255,0.52);
   line-height: 1.7;
   max-width: 255px;
-  text-align: right;
+  text-align: justify;
 }
 
 /* ── Column headings (shared by nav cols + contact) ── */
@@ -3138,7 +3138,7 @@ html.a11y-large-clickable [role="button"] {
   font-size: 0.97rem;
   line-height: 1.75;
   color: var(--text-dark);
-  text-align: right;
+  text-align: justify;
 }
 
 .legal-page-wrapper .section {
@@ -3170,7 +3170,7 @@ html.a11y-large-clickable [role="button"] {
   line-height: 1.75;
   color: #2c3e50;
   margin-bottom: 0.8rem;
-  text-align: right;
+  text-align: justify;
 }
 
 .legal-page-wrapper .section ul {
@@ -3768,6 +3768,11 @@ html.a11y-btn-right .scroll-to-top-btn {
   box-shadow: 0 6px 22px rgba(201, 168, 76, 0.6);
 }
 
+.whatsapp-trigger-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.9), 0 0 0 6px var(--gold-mid);
+}
+
 .whatsapp-trigger-btn:active {
   transform: scale(0.95);
 }
@@ -4089,7 +4094,7 @@ html.a11y-btn-right .scroll-to-top-btn {
   font-size: 0.92rem;
   line-height: 1.7;
   margin: 0;
-  text-align: right;
+  text-align: justify;
   font-family: 'Heebo', Arial, sans-serif;
   flex: 1;
 }
@@ -4347,7 +4352,7 @@ html.a11y-btn-right .scroll-to-top-btn {
   font-size: 1rem;
   line-height: 1.75;
   color: var(--text-muted);
-  text-align: right;
+  text-align: justify;
 }
 
 /* ── Practice Areas Index Grid ── */
@@ -4591,7 +4596,7 @@ html.a11y-btn-right .scroll-to-top-btn {
   font-size: 1rem;
   line-height: 1.75;
   color: var(--text-muted);
-  text-align: right;
+  text-align: justify;
 }
 
 /* ── Article body (long-form) ── */
@@ -4826,7 +4831,7 @@ html.a11y-btn-right .scroll-to-top-btn {
   line-height: 1.75;
   color: var(--text-muted);
   margin-bottom: 1.5rem;
-  text-align: right;
+  text-align: justify;
 }
 
 .articles-featured-card .articles-card-footer {
@@ -4930,7 +4935,7 @@ html.a11y-btn-right .scroll-to-top-btn {
   color: var(--text-muted);
   flex-grow: 1;
   margin-bottom: 1.5rem;
-  text-align: right;
+  text-align: justify;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;

@@ -7,7 +7,11 @@ import path from 'path';
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const BASE_URL = 'https://www.baz-law.co.il';
-const today = new Date().toISOString().slice(0, 10);
+// Pinned to the date content was last actually edited — NOT `new Date()` at
+// build time. Stamping "today" on every build would tell crawlers every
+// static page changes daily, which is false and wastes crawl-priority signal.
+// Bump this string only when the copy on these pages actually changes.
+const today = '2026-09-14';
 
 const vite = await createServer({
   root,

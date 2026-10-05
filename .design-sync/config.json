@@ -5,7 +5,7 @@
   "globalName": "BazLawDS",
   "srcDir": "src/components",
   "tsconfig": "jsconfig.json",
-  "cssEntry": "dist/assets/index-DCQ6B-_G.css",
+  "cssEntry": "dist/assets/index-CHDsBzWQ.css",
   "runtimeFontPrefixes": ["Heebo"],
   "extraFonts": [
     "dist/assets/geist-cyrillic-wght-normal-BEAKL7Jp.woff2",
@@ -16,6 +16,10 @@
   ],
   "buildCmd": "npx vite build",
   "readmeHeader": ".design-sync/conventions.md",
+  "extraEntries": ["react-router-dom"],
+  "provider": {
+    "component": "MemoryRouter"
+  },
   "libOverrides": {
     "source-kit.mjs": "synth-entry `export *` never re-exports default exports; alias default-exported page-section components to their componentSrcMap name"
   },

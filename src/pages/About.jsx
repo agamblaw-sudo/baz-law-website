@@ -20,7 +20,7 @@ export default function About() {
         <div className="pa-hero-bg-text">חוק</div>
         <div className="pa-hero-inner">
           <h1 className="pa-hero-title">אודות המשרד</h1>
-          <p className="pa-hero-sub">ליווי משפטי אישי, מקצועי ומדויק — משרד ברזילי, עזורי ושות׳</p>
+          <p className="pa-hero-sub">משרד בוטיק בפתח תקווה — שני שותפים, כל אחד בתחומו</p>
           <div className="pa-hero-actions">
             <Link to="/contact" className="btn-primary">לתיאום פגישת ייעוץ</Link>
           </div>
@@ -37,8 +37,8 @@ export default function About() {
               ירושות וייפוי כוח מתמשך.
             </p>
             <p style={{ marginTop: '0.6rem', marginBottom: 0 }}>
-              הגישה שלנו מבוססת על ירידה לפרטים, שקיפות מלאה מול הלקוח ונגישות אישית לאורך כל התהליך — ממעמד
-              הפנייה הראשונה ועד סיום הטיפול המשפטי בפועל.
+              כל תיק מטופל ישירות על ידי אחד השותפים, בתחום התמחותו — מהפנייה הראשונה ועד סיום הטיפול המשפטי בפועל,
+              ללא העברה בין גורמים.
             </p>
           </div>
 

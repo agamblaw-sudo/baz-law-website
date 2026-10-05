@@ -18,7 +18,7 @@ export default function Home() {
       <div className="parallax-section" style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1740574314628-b0e031323e5a?auto=format&fit=crop&w=1920&q=80")' }}>
         <div className="parallax-overlay"></div>
         <div className="parallax-content">
-          <h2 className="parallax-quote">"החוק הוא המצפן, הצדק הוא היעד."</h2>
+          <h2 className="parallax-quote">נדל"ן ותכנון עתידי — שני תחומים, שותף אחד לכל תיק.</h2>
         </div>
       </div>
 

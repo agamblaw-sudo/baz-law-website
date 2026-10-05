@@ -47,13 +47,13 @@ export default function Contact() {
             <h2>יצירת קשר עם השותפים</h2>
             <p>
               <strong>עו"ד אגם ברזילי</strong> — טלפון ווואטסאפ:{' '}
-              <a href="tel:054-2030535">054-2030535</a> · דוא"ל:{' '}
-              <a href="mailto:agam@baz-law.co.il">agam@baz-law.co.il</a>
+              <a href="tel:054-2030535"><bdi>054-2030535</bdi></a> · דוא"ל:{' '}
+              <a href="mailto:agam@baz-law.co.il"><bdi>agam@baz-law.co.il</bdi></a>
             </p>
             <p>
               <strong>עו"ד לירון עזורי</strong> — טלפון ווואטסאפ:{' '}
-              <a href="tel:054-2531925">054-2531925</a> · דוא"ל:{' '}
-              <a href="mailto:liron@baz-law.co.il">liron@baz-law.co.il</a>
+              <a href="tel:054-2531925"><bdi>054-2531925</bdi></a> · דוא"ל:{' '}
+              <a href="mailto:liron@baz-law.co.il"><bdi>liron@baz-law.co.il</bdi></a>
             </p>
           </div>
         </div>

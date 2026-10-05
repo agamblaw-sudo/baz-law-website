@@ -18,8 +18,15 @@ export default function WhatsAppWidget() {
         setIsOpen(false);
       }
     }
+    function handleKeyDown(event) {
+      if (event.key === 'Escape') setIsOpen(false);
+    }
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
   }, []);
 
   const message = encodeURIComponent("היי! הגעתי דרך האתר, אשמח לקבל מכם שירות משפטי.");
@@ -68,6 +75,9 @@ export default function WhatsAppWidget() {
         {isOpen && (
       <motion.div
         className="whatsapp-popup-card"
+        role="dialog"
+        aria-modal="true"
+        aria-label="יצירת קשר מהירה"
         initial={{ opacity: 0, y: -12, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: -12, scale: 0.95 }}

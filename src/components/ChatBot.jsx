@@ -87,6 +87,15 @@ export default function ChatBot() {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  useEffect(() => {
+    if (!open) return;
+    function handleKeyDown(event) {
+      if (event.key === 'Escape') setOpen(false);
+    }
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [open]);
+
   const handleOption = (value) => {
     const userLabel = findLabel(value);
 
@@ -146,6 +155,7 @@ export default function ChatBot() {
         className="chatbot-window"
         dir="rtl"
         role="dialog"
+        aria-modal="true"
         aria-label="צ'אטבוט"
         initial={{ opacity: 0, y: 12, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}

@@ -52,7 +52,6 @@ export default function Articles() {
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   const [introRef, introVisible] = useReveal();
-  const [featuredRef, featuredVisible] = useReveal();
   const [gridRef, gridVisible] = useReveal();
   const [ctaRef, ctaVisible] = useReveal();
 
@@ -61,18 +60,14 @@ export default function Articles() {
 
   const categories = useMemo(() => ['הכל', ...getArticleCategories()], []);
 
-  const [featured, ...rest] = articles;
-  const showFeatured = activeCategory === 'הכל' && !query.trim();
-  const pool = showFeatured ? rest : articles;
-
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return pool.filter((article) => {
+    return articles.filter((article) => {
       const matchesCategory = activeCategory === 'הכל' || article.category === activeCategory;
       const matchesQuery = !q || `${article.title} ${article.excerpt}`.toLowerCase().includes(q);
       return matchesCategory && matchesQuery;
     });
-  }, [pool, query, activeCategory]);
+  }, [query, activeCategory]);
 
   useSEO({
     title: 'מאמרים | ברזילי, עזורי ושות׳ עורכי דין',
@@ -139,41 +134,6 @@ export default function Articles() {
         </div>
       </section>
 
-      {/* ── Featured article ── */}
-      {showFeatured && featured && (
-        <section ref={featuredRef} className={`articles-featured-section reveal-fade-up ${featuredVisible ? 'active' : ''}`} aria-label="מאמר מומלץ">
-          <Link to={`/articles/${featured.slug}`} className="articles-featured-card">
-            {featured.image && (
-              <div className="articles-featured-media">
-                <img
-                  src={featured.image}
-                  alt={featured.imageAlt || featured.title}
-                  width="640"
-                  height="400"
-                  loading="eager"
-                  fetchPriority="high"
-                />
-                <div className="articles-featured-badges">
-                  <span className="articles-featured-tag">מאמר מומלץ</span>
-                  {featured.category && <span className="article-category">{featured.category}</span>}
-                </div>
-              </div>
-            )}
-            <div className="articles-featured-body">
-              <h2 className="articles-featured-title">{featured.title}</h2>
-              <p className="articles-featured-excerpt">{featured.excerpt}</p>
-              <div className="articles-card-footer">
-                <time className="article-card-date" dateTime={featured.publishedAt}>{formatDate(featured.publishedAt)}</time>
-                <span className="exp-cta">
-                  לקריאת המאמר
-                  <ArrowIcon />
-                </span>
-              </div>
-            </div>
-          </Link>
-        </section>
-      )}
-
       {/* ── Articles grid ── */}
       <section ref={gridRef} className="articles-grid-section" aria-label="כל המאמרים">
         {filtered.length > 0 ? (
@@ -204,14 +164,12 @@ export default function Articles() {
             ))}
           </div>
         ) : (
-          !showFeatured && (
-            <div className="articles-empty-state">
-              <p>לא נמצאו מאמרים התואמים את החיפוש.</p>
-              <button type="button" className="btn-ghost" onClick={() => { setQuery(''); setActiveCategory('הכל'); }}>
-                איפוס סינון
-              </button>
-            </div>
-          )
+          <div className="articles-empty-state">
+            <p>לא נמצאו מאמרים התואמים את החיפוש.</p>
+            <button type="button" className="btn-ghost" onClick={() => { setQuery(''); setActiveCategory('הכל'); }}>
+              איפוס סינון
+            </button>
+          </div>
         )}
       </section>
 

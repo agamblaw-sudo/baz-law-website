@@ -71,12 +71,41 @@ export default function ArticleDetail() {
           <div className="pa-section-inner article-body">
             {article.content.map((block, i) => (
               <div key={i} className="article-block">
-                <h2 className="pa-section-title">{block.heading}</h2>
-                {block.paragraphs.map((p, j) => (
+                {block.heading && <h2 className="pa-section-title">{block.heading}</h2>}
+                {block.paragraphs.map((p, j) =>
+                  typeof p === 'string' ? (
+                    <p key={j} className="pa-intro-text">{p}</p>
+                  ) : (
+                    <ul key={j} className="article-list">
+                      {p.list.map((item, k) => <li key={k}>{item}</li>)}
+                    </ul>
+                  )
+                )}
+              </div>
+            ))}
+
+            {article.faq && (
+              <div className="article-block">
+                <h2 className="pa-section-title">{article.faqHeading}</h2>
+                {article.faq.map(({ q, a }) => (
+                  <React.Fragment key={q}>
+                    <h3 className="article-faq-q">{q}</h3>
+                    <p className="pa-intro-text">{a}</p>
+                  </React.Fragment>
+                ))}
+              </div>
+            )}
+
+            {article.closing && (
+              <div className="article-block">
+                <h2 className="pa-section-title">{article.closing.heading}</h2>
+                {article.closing.paragraphs.map((p, j) => (
                   <p key={j} className="pa-intro-text">{p}</p>
                 ))}
               </div>
-            ))}
+            )}
+
+            {article.disclaimer && <p className="article-disclaimer">{article.disclaimer}</p>}
           </div>
         </section>
 

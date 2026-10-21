@@ -49,8 +49,17 @@ const pages = [
     path: a.canonicalPath,
     lastmod: a.updatedAt || a.publishedAt || today,
     title: a.seoTitle || a.title,
-    body: (a.content || [])
-      .map((section) => `## ${section.heading}\n\n${(section.paragraphs || []).join('\n\n')}`)
+    body: [
+      ...(a.content || []),
+      ...(a.faq ? [{ heading: a.faqHeading, paragraphs: a.faq.map(({ q, a: ans }) => `**${q}**\n\n${ans}`) }] : []),
+      ...(a.closing ? [a.closing] : []),
+    ]
+      .map((section) => {
+        const text = (section.paragraphs || [])
+          .map((p) => (typeof p === 'string' ? p : p.list.map((li) => `- ${li}`).join('\n')))
+          .join('\n\n');
+        return section.heading ? `## ${section.heading}\n\n${text}` : text;
+      })
       .join('\n\n'),
   })),
 ];

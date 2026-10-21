@@ -185,6 +185,11 @@ export default function Articles() {
                 className={`article-card reveal-fade-up ${gridVisible ? 'active' : ''}`}
                 style={{ transitionDelay: `${index * 60}ms` }}
               >
+                {article.image && (
+                  <div className="article-card-media">
+                    <img src={article.image} alt={article.imageAlt || article.title} width="640" height="400" loading="lazy" />
+                  </div>
+                )}
                 {article.category && <span className="article-category">{article.category}</span>}
                 <h3 className="article-card-title">{article.title}</h3>
                 <p className="article-card-excerpt">{article.excerpt}</p>
